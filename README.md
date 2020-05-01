@@ -1,6 +1,6 @@
 # `basemaps`
 
-A lightweight `R` package to load spatial basemaps from open sources such as OpenStreetMap, Carto and Mapbox and return them as many different object class as needed.
+A lightweight `R` package to load spatial basemaps from open sources such as OpenStreetMap, Carto and Mapbox and return them as many different object classes as needed.
 
 ## Get started
 
