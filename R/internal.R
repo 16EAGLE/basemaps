@@ -59,7 +59,7 @@ out <- function(input, type = 1, ll = NULL, msg = FALSE, sign = "", verbose = ge
 #' @importFrom raster ncell
 #' @importFrom ggplot2 ggplot geom_tile geom_raster aes_string scale_fill_identity
 #' @noRd 
-gg.bmap <- function(r, r_type, ...){
+gg.bmap <- function(r, r_type, gglayer = F, ...){
   extras <- list(...)
   if(!is.null(extras$maxpixels)) maxpixels <- extras$maxpixels else maxpixels <- 500000
   if(!is.null(extras$alpha)) alpha <- extras$alpha else alpha <- 1
@@ -96,16 +96,17 @@ gg.bmap <- function(r, r_type, ...){
     na.sel <- is.na(df$val1)
     if(any(na.sel)) df <- df[!na.sel,]
   }
-  gg <- ggplot(df)
-  
   # if NA gaps are there, use geom_tile, otherwise make it fast using geom_raster
   if(any(na.sel)){
-    gg <- gg + geom_tile(aes_string(x = "x", y = "y", fill = "fill"), alpha = alpha)
+    gg <- geom_tile(aes_string(x = "x", y = "y", fill = "fill"), data = df, alpha = alpha)
   } else{
-    gg <- gg + geom_raster(aes_string(x = "x", y = "y", fill = "fill"), alpha = alpha)
+    gg <- geom_raster(aes_string(x = "x", y = "y", fill = "fill"), data = df, alpha = alpha)
   }
   
-  if(r_type == "RGB") gg <- gg + scale_fill_identity() 
+  if(isFALSE(gglayer)){
+    gg <- ggplot() + gg
+    if(r_type == "RGB") gg <- gg + scale_fill_identity() 
+  }
   return(gg)
 }
 
@@ -180,19 +181,20 @@ gg.bmap <- function(r, r_type, ...){
       
       # crop composite
       r <- crop(r, extent(y[1], y[3], y[2], y[4]), snap = "out")
+      
+      # decode terrain DEM
+      if(all(map_service == "mapbox", map_type == "terrain")){
+        r <-  -10000 + ((r[[1]] * 256 * 256 + r[[2]] * 256 + r[[3]]) * 0.1)
+        #r_terr <- terrain(r, opt = c("slope", "aspect"))
+        #r_hs <- hillShade(r_terr$slope, r_terr$aspect)
+      }
+      
       writeRaster(r, filename = file_comp, overwrite = T) # datatype = "INT1U",
       options(basemaps.cached = c(cached, list(list(tg = tg, file_comp = file_comp))))
     }
     return(r)
   })
 
-  # decode terrain DEM
-  if(all(map_service == "mapbox", map_type == "terrain")){
-    r[[1]] <-  -10000 + ((r[[1]][[1]] * 256 * 256 + r[[1]][[2]] * 256 + r[[1]][[3]]) * 0.1)
-    #r_terr <- terrain(r, opt = c("slope", "aspect"))
-    #r_hs <- hillShade(r_terr$slope, r_terr$aspect)
-  }
-  
   # assemble dateline crossing basemap
   if(length(r) > 1){
     
@@ -217,6 +219,7 @@ gg.bmap <- function(r, r_type, ...){
   r <- r[[1]]
   names(r) <- paste0("val", 1:nlayers(r))
   return(r)
+  
   #projectRaster produces hidden warnings:
   # no non-missing arguments to max; returning -Inf
   # no non-missing arguments to min; returning -Inf

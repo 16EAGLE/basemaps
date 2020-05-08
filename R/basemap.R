@@ -47,8 +47,9 @@ basemap <- function(ext, map_service = NA, map_type = NA, map_res = NA, map_toke
   if("raster" %in% class) return(map)
   if("stars" %in% class) return(st_as_stars(map))
   if("mapview" %in% class) quiet(if(nlayers(map) == 3) return(viewRGB(map, 1, 2, 3)) else return(mapview(map)))
-  if("plot" == class) if(nlayers(map) == 3) plotRGB(map) else plot(map)
-  if("ggplot" %in% class) if(nlayers(map) == 3) gg.bmap(r = map, r_type = "RGB", ...) else gg.bmap(r = map, r_type = "gradient")
+  if("plot" == class) if(nlayers(map) == 3) return(plotRGB(map)) else return(plot(map))
+  if("ggplot" %in% class) if(nlayers(map) == 3) return(gg.bmap(r = map, r_type = "RGB", ...)) else return(gg.bmap(r = map, r_type = "gradient", ...))
+  if("gglayer" %in% class) if(nlayers(map) == 3) return(gg.bmap(r = map, r_type = "RGB", gglayer = T, ...)) else return(gg.bmap(r = map, r_type = "gradient", gglayer = T, ...))
 }
 
 #' @inheritParams basemap
@@ -80,4 +81,10 @@ basemap_plot <- function(ext,  map_service = NA, map_type = NA, map_res = NA, ma
 #' @export
 basemap_ggplot <- function(ext,  map_service = NA, map_type = NA, map_res = NA, map_token = NA, map_dir = NA, ..., verbose = TRUE){
   basemap(ext, map_service, map_type, map_res, map_token, map_dir, class = "ggplot", ..., verbose = verbose)
+}
+
+#' @inheritParams basemap
+#' @export
+basemap_gglayer <- function(ext,  map_service = NA, map_type = NA, map_res = NA, map_token = NA, map_dir = NA, ..., verbose = TRUE){
+  basemap(ext, map_service, map_type, map_res, map_token, map_dir, class = "gglayer", ..., verbose = verbose)
 }
