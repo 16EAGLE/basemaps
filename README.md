@@ -1,6 +1,6 @@
 # `basemaps`
 
-`basemaps` is a lightweight `R` package to download and cache spatial basemaps from open sources, including *OpenStreetMap*, *Carto* and *Mapbox*. Retrieved basemaps are translated into and returned as classes of choice, such as `raster`, `stars`, `ggplot`, `mapview` or `magick`.
+`basemaps` is a lightweight `R` package to download and cache spatial basemaps from open sources such as *OpenStreetMap*, *Carto* and *Mapbox*. Retrieved basemaps are translated into and returned as classes of choice, such as `raster`, `stars`, `ggplot`, `mapview` or `magick`.
 
 ## Get started
 
