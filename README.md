@@ -35,18 +35,19 @@ basemap_plot(ext)
 
 ``` r
 
+basemap_mapview(ext)
+#> Loading basemap 'satellite' from map service 'mapbox'...
+```
+
+<img src="https://i.imgur.com/ILLiSi6.png" width="623" />
+
+``` r
+
 basemap_magick(ext)
 #> Loading basemap 'satellite' from map service 'mapbox'...
 ```
 
 <img src="https://i.imgur.com/JPcsRRH.png" width="623" />
-
-``` r
-
-basemap_mapview(ext)
-```
-
-<img src="https://i.imgur.com/ILLiSi6.png" width="623" />
 
 ``` r
 basemap_raster(ext)
