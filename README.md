@@ -4,7 +4,7 @@
 
 ## Get started
 
-All available maps can be printed using `get_maptypes()`. The `basemap()` function and its class-specific aliases facilitate (down)loading a basemap and returning it as a class of choice. Map preferences that should be used during a session can be set as defaults using `set_defaults()`.
+All available map services and types can be printed using `get_maptypes()`. The `basemap()` function and its class-specific aliases facilitate (down)loading a basemap and returning it as a class of choice. Map preferences that should be used during a session can be set as defaults using `set_defaults()`.
 
 ``` r
 library(basemaps)
