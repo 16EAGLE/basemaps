@@ -23,7 +23,7 @@ basemap_plot(ext)
 #> Loading basemap 'satellite' from map service 'mapbox'...
 ```
 
-<p style="text-align:center;"<img src="https://i.imgur.com/Z6a4ucn.png" width="623" /></p>
+<img src="https://i.imgur.com/Z6a4ucn.png" width="623" />
 
 ``` r
 
