@@ -1,6 +1,6 @@
 #' Get all supported map types
 #'
-#' This function returns every supported map type that can be used as input to the \code{map_type} argument of \code{\link{frames_spatial}}.
+#' This function returns every supported map type that can be used as input to the \code{map_type} argument of \code{\link{set_defaults}}, \code{\link{basemap}} or associated functions.
 #'
 #' @param map_service character, optional, either \code{"osm"}, \code{"carto"} or \code{"mapbox"}. Otherwise, a list of map types for both services is returned.
 #' @return A character vector of supported map types

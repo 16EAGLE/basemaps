@@ -31,5 +31,5 @@ get_defaults()
 None
 }
 \description{
-This function sets the defaults of all map arguments passed to \code{\link{basemap}} and associated functions.
+These functions set or get the defaults of all map arguments passed to \code{\link{basemap}} and associated functions.
 }

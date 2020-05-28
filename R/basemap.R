@@ -1,6 +1,6 @@
 #' Get a spatial basemap
 #'
-#' This function (down)loads and caches a basemap from a defined extent \code{ext}, \code{map_service} and \code{map_type} and returns it as a object of a defined \code{class}.
+#' These functions (down)load and cach a basemap of a defined extent \code{ext}, \code{map_service} and \code{map_type} and return it as a object of the defined class.
 #'
 #' @param ext extent to be covered by the basemap. Any spatial class.
 #' @param map_service character, 
