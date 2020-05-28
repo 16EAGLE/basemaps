@@ -172,7 +172,7 @@ basemap_magick(ext, map_service = "mapbox", map_type = "pirates")
 
 ## Related packages
 
-If you are interested in obtaining basemaps, you also may want to have a look at [`ceramic`](https://github.com/hypertidy/ceramic), an R package developed by Micheal Sumner with a similar goal.
+If you are interested in obtaining basemaps, you also may want to have a look at [`ceramic`](https://github.com/hypertidy/ceramic), an R package developed by Michael Sumner with a similar goal.
 
 The underpinning code of `basemaps` was originally developed for [`moveVis`](http://movevis.org) and has been detached to allow its general use.
 
