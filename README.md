@@ -23,7 +23,7 @@ basemap_ggplot(ext)
 #> Loading basemap 'satellite' from map service 'mapbox'...
 ```
 
-![](https://i.imgur.com/ATyDXRQ.png)
+<img src="https://i.imgur.com/ATyDXRQ.png" width="623" />
 
 ``` r
 
@@ -31,7 +31,7 @@ basemap_plot(ext)
 #> Loading basemap 'satellite' from map service 'mapbox'...
 ```
 
-![](https://i.imgur.com/Z6a4ucn.png)
+<img src="https://i.imgur.com/Z6a4ucn.png" width="623" />
 
 ``` r
 
@@ -46,7 +46,7 @@ basemap_magick(ext)
 basemap_mapview(ext)
 ```
 
-<img src="https://i.imgur.com/ILLiSi6.png" width="684" />
+<img src="https://i.imgur.com/ILLiSi6.png" width="623" />
 
 ``` r
 basemap_raster(ext)
