@@ -1,8 +1,10 @@
 # `basemaps`
 
-`basemaps` is a lightweight `R` package to download and cache spatial basemaps from open sources, including `OpenStreetMap`, `Carto` and `Mapbox`. Retrieved basemaps are translated into and returned as classes of choice, such as `ggplot`, `raster`, `stars`, `magick` or `leaflet`/`mapview`. 
+`basemaps` is a lightweight `R` package to download and cache spatial basemaps from open sources, including *OpenStreetMap*, *Carto* and *Mapbox*. Retrieved basemaps are translated into and returned as classes of choice, such as `raster`, `stars`, `ggplot`, `mapview` or `magick`.
 
 ## Get started
+
+Map preferences that should be used during a session can be set as defaults. The `basemap()` function and its class-specific aliases facilitate (down)loading basemaps and returning them as classes of choice:
 
 ``` r
 library(basemaps)
@@ -14,6 +16,7 @@ get_maptypes()
 # set defaults for the basemap
 set_defaults(map_service = "mapbox", map_type = "satellite",
              map_token = "YOUR_MAPTOKEN_IF_NEEDED")
+# for mapbox maps, register for free at mapbox.com to get a token
 
 # load and return basemap map as many different classes:
 basemap_ggplot(ext)
@@ -82,8 +85,11 @@ basemap_stars(ext)
 basemap_png(ext)
 #> Loading basemap 'satellite' from map service 'mapbox'...
 #> [1] "/tmp/RtmpjCVUpd/basemaps//mapbox_satellite_2020-05-28_21-25-47.png"
+```
 
-# use many different types of maps:
+`basemaps` supports a variety of map services and types, of which you can find a selection below:
+
+``` r
 basemap_magick(ext, map_service = "osm", map_type = "topographic")
 #> Loading basemap 'topographic' from map service 'osm'...
 ```
