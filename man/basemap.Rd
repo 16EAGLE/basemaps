@@ -130,6 +130,7 @@ basemap_png(
 \item{...}{additional arguments, including
 \itemize{
    \item \code{browse}, logical, for \code{class = "png"} and interactive sessions only. Whether to open the png file in the system's default PNG viewer or not. Default is \code{TRUE}.
+   \item \code{col}, character vector of colours for transforming single-layer basemaps into RGB, if \code{class = "png"} or \code{class = "magick"}. Default is \code{topo.colors(25)}.
 }}
 
 \item{verbose}{logical, if \code{TRUE}, messages and progress information are displayed on the console (default).}
@@ -138,5 +139,5 @@ basemap_png(
 
 }
 \description{
-These functions (down)load and cach a basemap of a defined extent \code{ext}, \code{map_service} and \code{map_type} and return it as a object of the defined class. Alternatively to defining the following arguments, \code{\link{set_defaults}} can be used to define basemap preferences once for the running session.
+These functions (down)load and cach a basemap of a defined extent \code{ext}, \code{map_service} and \code{map_type} and return it as an object of the defined class. Alternatively to defining the following arguments, \code{\link{set_defaults}} can be used to define basemap preferences once for the running session.
 }
