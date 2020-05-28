@@ -43,7 +43,7 @@ basemap_magick(ext)
 
 ``` r
 
-magick::image_read("~/Downloads/tmp.png")
+basemap_mapview(ext)
 ```
 
 <img src="https://i.imgur.com/ILLiSi6.png" width="684" />
@@ -87,7 +87,9 @@ basemap_png(ext)
 #> [1] "/tmp/RtmpjCVUpd/basemaps//mapbox_satellite_2020-05-28_21-25-47.png"
 ```
 
-`basemaps` supports a variety of map services and types, of which you can find a selection below:
+## Map services and types
+
+`basemaps` supports a variety of map services and types (which can be printed using `get_maptypes()`). A selection is of available map types is shown below:
 
 ``` r
 basemap_magick(ext, map_service = "osm", map_type = "topographic")
