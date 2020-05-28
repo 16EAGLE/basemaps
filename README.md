@@ -89,7 +89,7 @@ basemap_png(ext)
 
 ## Map services and types
 
-`basemaps` supports a variety of map services and types (which can be printed using `get_maptypes()`). A selection is of available map types is shown below:
+`basemaps` supports a variety of map services and types (which can be printed using `get_maptypes()`). A selection of available map types is shown below:
 
 ``` r
 basemap_magick(ext, map_service = "osm", map_type = "topographic")
