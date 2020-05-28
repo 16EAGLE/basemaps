@@ -19,14 +19,6 @@ set_defaults(map_service = "mapbox", map_type = "satellite",
 # for mapbox maps, register for free at mapbox.com to get a token
 
 # load and return basemap map as many different classes:
-basemap_ggplot(ext)
-#> Loading basemap 'satellite' from map service 'mapbox'...
-```
-
-<img src="https://i.imgur.com/ATyDXRQ.png" width="623" />
-
-``` r
-
 basemap_plot(ext)
 #> Loading basemap 'satellite' from map service 'mapbox'...
 ```
@@ -40,6 +32,13 @@ basemap_mapview(ext)
 ```
 
 <img src="https://i.imgur.com/ILLiSi6.png" width="623" />
+
+``` r
+basemap_ggplot(ext)
+#> Loading basemap 'satellite' from map service 'mapbox'...
+```
+
+<img src="https://i.imgur.com/ATyDXRQ.png" width="623" />
 
 ``` r
 
