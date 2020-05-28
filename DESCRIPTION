@@ -11,12 +11,16 @@ Description: A lightweight package to access spatial basemaps from open sources 
 License: GPL-3
 Encoding: UTF-8
 Imports:
-  slippymath,
-  curl,
-  raster,
   sf,
+  slippymath,
+  httr,
+  curl,
   pbapply,
+  magick,
+  raster
+Suggests:
   ggplot2,
-  magick
+  stars,
+  mapview
 BugReports: http://www.github.com/16eagle/basemaps/issues
 RoxygenNote: 7.1.0

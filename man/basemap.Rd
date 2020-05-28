@@ -2,42 +2,141 @@
 % Please edit documentation in R/basemap.R
 \name{basemap}
 \alias{basemap}
+\alias{basemap_raster}
+\alias{basemap_stars}
+\alias{basemap_mapview}
+\alias{basemap_plot}
+\alias{basemap_ggplot}
+\alias{basemap_gglayer}
+\alias{basemap_magick}
+\alias{basemap_png}
 \title{Get a spatial basemap}
 \usage{
 basemap(
-  ext,
-  map_service = NA,
-  map_type = NA,
-  map_res = NA,
-  map_token = NA,
-  map_dir = NA,
+  ext = NULL,
+  map_service = NULL,
+  map_type = NULL,
+  map_res = NULL,
+  map_token = NULL,
+  map_dir = NULL,
   class = "raster",
+  ...,
+  verbose = TRUE
+)
+
+basemap_raster(
+  ext = NULL,
+  map_service = NULL,
+  map_type = NULL,
+  map_res = NULL,
+  map_token = NULL,
+  map_dir = NULL,
+  ...,
+  verbose = TRUE
+)
+
+basemap_stars(
+  ext = NULL,
+  map_service = NULL,
+  map_type = NULL,
+  map_res = NULL,
+  map_token = NULL,
+  map_dir = NULL,
+  ...,
+  verbose = TRUE
+)
+
+basemap_mapview(
+  ext = NULL,
+  map_service = NULL,
+  map_type = NULL,
+  map_res = NULL,
+  map_token = NULL,
+  map_dir = NULL,
+  ...,
+  verbose = TRUE
+)
+
+basemap_plot(
+  ext = NULL,
+  map_service = NULL,
+  map_type = NULL,
+  map_res = NULL,
+  map_token = NULL,
+  map_dir = NULL,
+  ...,
+  verbose = TRUE
+)
+
+basemap_ggplot(
+  ext = NULL,
+  map_service = NULL,
+  map_type = NULL,
+  map_res = NULL,
+  map_token = NULL,
+  map_dir = NULL,
+  ...,
+  verbose = TRUE
+)
+
+basemap_gglayer(
+  ext = NULL,
+  map_service = NULL,
+  map_type = NULL,
+  map_res = NULL,
+  map_token = NULL,
+  map_dir = NULL,
+  ...,
+  verbose = TRUE
+)
+
+basemap_magick(
+  ext = NULL,
+  map_service = NULL,
+  map_type = NULL,
+  map_res = NULL,
+  map_token = NULL,
+  map_dir = NULL,
+  ...,
+  verbose = TRUE
+)
+
+basemap_png(
+  ext = NULL,
+  map_service = NULL,
+  map_type = NULL,
+  map_res = NULL,
+  map_token = NULL,
+  map_dir = NULL,
   ...,
   verbose = TRUE
 )
 }
 \arguments{
-\item{ext}{extent to be covered by the basemap. Any spatial class.}
+\item{ext}{extent to be covered by the basemap as any spatial class supported by \code{st_bbox}.}
 
-\item{map_service}{character,}
+\item{map_service}{character, a map service, either \code{"osm"}, \code{"carto"} or \code{"mapbox"}. Default is \code{"osm"}.}
 
-\item{map_type}{character,}
+\item{map_type}{character, a map type, e.g. \code{"streets"}. For a full list of available map types, see \code{\link{get_maptypes}}.}
 
-\item{map_res}{numeric,}
+\item{map_res}{numeric, resolution of base map in range from 0 to 1.}
 
-\item{map_token}{character,}
+\item{map_token}{character, mapbox authentification token for mapbox basemaps. Register at \url{https://www.mapbox.com/} to get a mapbox token. Mapbox is free of charge after registration for up to 50.000 map requests per month. Ignored, if \code{map_service = "osm"}.}
 
-\item{map_dir}{character, cache directory}
+\item{map_dir}{character, cache directory where downloaded basemap tiles will be stored. By default, a temporary directory is used, which is destroyed when the session is terminated.}
 
-\item{class}{character, output class.}
+\item{class}{character, output class, either \code{"raster"}, \code{"stars"}, \code{"mapview"}, \code{"plot"}, \code{"ggplot"} or \code{"gglayer"}.}
 
-\item{...}{additional arguments.}
+\item{...}{additional arguments, including
+\itemize{
+   \item \code{browse}, logical, for \code{class = "png"} and interactive sessions only. Whether to open the png file in the system's default PNG viewer or not. Default is \code{TRUE}.
+}}
 
-\item{verbose}{}
+\item{verbose}{logical, if \code{TRUE}, messages and progress information are displayed on the console (default).}
 }
 \value{
 
 }
 \description{
-These functions (down)load and cach a basemap of a defined extent \code{ext}, \code{map_service} and \code{map_type} and return it as a object of the defined class.
+These functions (down)load and cach a basemap of a defined extent \code{ext}, \code{map_service} and \code{map_type} and return it as a object of the defined class. Alternatively to defining the following arguments, \code{\link{set_defaults}} can be used to define basemap preferences once for the running session.
 }

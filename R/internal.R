@@ -57,7 +57,6 @@ out <- function(input, type = 1, ll = NULL, msg = FALSE, sign = "", verbose = ge
 
 #' plot raster as ggplot
 #' @importFrom raster ncell
-#' @importFrom ggplot2 ggplot geom_tile geom_raster aes_string scale_fill_identity
 #' @noRd 
 gg.bmap <- function(r, r_type, gglayer = F, ...){
   extras <- list(...)
@@ -98,14 +97,14 @@ gg.bmap <- function(r, r_type, gglayer = F, ...){
   }
   # if NA gaps are there, use geom_tile, otherwise make it fast using geom_raster
   if(any(na.sel)){
-    gg <- geom_tile(aes_string(x = "x", y = "y", fill = "fill"), data = df, alpha = alpha)
+    gg <- ggplot2::geom_tile(ggplot2::aes_string(x = "x", y = "y", fill = "fill"), data = df, alpha = alpha)
   } else{
-    gg <- geom_raster(aes_string(x = "x", y = "y", fill = "fill"), data = df, alpha = alpha)
+    gg <- ggplot2::geom_raster(ggplot2::aes_string(x = "x", y = "y", fill = "fill"), data = df, alpha = alpha)
   }
   
   if(isFALSE(gglayer)){
-    gg <- ggplot() + gg
-    if(r_type == "RGB") gg <- gg + scale_fill_identity() 
+    gg <- ggplot2::ggplot() + gg + ggplot2::coord_sf()
+    if(r_type == "RGB") gg <- gg + ggplot2::scale_fill_identity() 
   }
   return(gg)
 }
@@ -116,9 +115,14 @@ gg.bmap <- function(r, r_type, gglayer = F, ...){
 #' @importFrom raster projectRaster extent extent<- resample extend merge crs crop writeRaster nlayers brick
 #' @importFrom magick image_read image_write image_convert
 #' @importFrom curl curl_download
+#' @importFrom httr http_error GET
 #' @importFrom sf st_transform st_bbox st_as_sfc st_crs
 #' @noRd 
-.get_map <- function(ext, map_service, map_type, map_token, map_dir, map_res){
+.get_map <- function(ext, map_service, map_type, map_token, map_dir, map_res, ...){
+  
+  extras <- list(...)
+  if(!is.null(extras$no_transform)) no_transform <- extras$no_transform else no_transform <- FALSE
+  if(!is.null(extras$no_crop)) no_crop <- extras$no_crop else no_crop <- FALSE
   
   if(inherits(ext, "bbox")) ext <- list(ext)
   r <- lapply(ext, function(y){
@@ -129,6 +133,7 @@ gg.bmap <- function(r, r_type, gglayer = F, ...){
     tg$crs <- st_crs(y)
     tg$map_service <- map_service
     tg$map_type <- map_type
+    tg$map_res <- map_res
     
     # manage cache
     cached <- getOption("basemaps.cached")
@@ -155,7 +160,14 @@ gg.bmap <- function(r, r_type, gglayer = F, ...){
           url <- paste0(getOption("basemaps.map_api")[[map_service]][[map_type]], tg$zoom, "/", 
                         if(map_service == "esri") paste0(x[2], "/", x[1]) else paste0(x[1], "/", x[2]), ".png", 
                         if(map_service == "mapbox") paste0("?access_token=", map_token) else NULL)
-          if(!file.exists(file)) curl_download(url = url, destfile = file) #utils::download.file(url = url, destfile = file, quiet = T) 
+          if(isTRUE(http_error(url))){
+            resp <- GET(url)
+            status <- resp$status_code
+            if(status == 401 & map_service == "mapbox") out("Authentification failed. Is your map_token correct?", type = 3)
+          }
+          if(!file.exists(file)){
+            tryCatch(curl_download(url = url, destfile = file), error = function(e) out(paste0("Tile download failed: ", e$message), type = 3))
+          }#utils::download.file(url = url, destfile = file, quiet = T) 
           
           # test if file can be loaded
           catch <- try(image_read(file), silent = T)
@@ -175,12 +187,16 @@ gg.bmap <- function(r, r_type, gglayer = F, ...){
       
       # create composite
       r <- quiet(compose_tile_grid(tg, images))
-      if(as.numeric(tg$crs$epsg) != 3857){
-        r <- projectRaster(r, crs = crs(paste0("+init=epsg:", tg$crs$epsg)), method = "ngb")
+      if(isFALSE(no_transform)){
+        if(as.numeric(tg$crs$epsg) != 3857){
+          r <- projectRaster(r, crs = crs(paste0("+init=epsg:", tg$crs$epsg)), method = "ngb")
+        }
       }
       
       # crop composite
-      r <- crop(r, extent(y[1], y[3], y[2], y[4]), snap = "out")
+      if(isFALSE(no_crop)){
+        r <- crop(r, extent(y[1], y[3], y[2], y[4]), snap = "out")
+      }
       
       # decode terrain DEM
       if(all(map_service == "mapbox", map_type == "terrain")){

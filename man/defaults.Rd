@@ -7,6 +7,7 @@
 \title{Set \code{basemaps} defaults}
 \usage{
 set_defaults(
+  ext = NULL,
   map_service = NULL,
   map_type = NULL,
   map_res = NULL,
@@ -17,15 +18,17 @@ set_defaults(
 get_defaults()
 }
 \arguments{
-\item{map_service}{character,}
+\item{ext}{extent to be covered by the basemap as any spatial class supported by \code{st_bbox}.}
 
-\item{map_type}{character,}
+\item{map_service}{character, a map service, either \code{"osm"}, \code{"carto"} or \code{"mapbox"}. Default is \code{"osm"}.}
 
-\item{map_res}{numeric,}
+\item{map_type}{character, a map type, e.g. \code{"streets"}. For a full list of available map types, see \code{\link{get_maptypes}}.}
 
-\item{map_token}{character,}
+\item{map_res}{numeric, resolution of base map in range from 0 to 1.}
 
-\item{map_dir}{character, cache directory}
+\item{map_token}{character, mapbox authentification token for mapbox basemaps. Register at \url{https://www.mapbox.com/} to get a mapbox token. Mapbox is free of charge after registration for up to 50.000 map requests per month. Ignored, if \code{map_service = "osm"}.}
+
+\item{map_dir}{character, cache directory where downloaded basemap tiles will be stored. By default, a temporary directory is used, which is destroyed when the session is terminated.}
 }
 \value{
 None
