@@ -7,7 +7,7 @@ Depends:
 Date: 2020-05-01
 Authors@R: person("Jakob", "Schwalb-Willmann", email = "movevis@schwalb-willmann.de",
   role = c("aut", "cre"), comment = c(ORCID = "0000-0003-2665-1509"))
-Description: A lightweight package to access spatial basemaps from open sources such as OpenStreetMap, Carto and Mapbox in R
+Description: A lightweight package to access spatial basemaps from open sources such as OpenStreetMap, Carto and Mapbox in R.
 License: GPL-3
 Encoding: UTF-8
 Imports:
@@ -17,10 +17,13 @@ Imports:
   curl,
   pbapply,
   magick,
-  raster
+  raster,
+  utils,
+  grDevices
 Suggests:
   ggplot2,
   stars,
-  mapview
+  mapview,
+  testthat
 BugReports: http://www.github.com/16eagle/basemaps/issues
 RoxygenNote: 7.1.0

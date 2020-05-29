@@ -56,7 +56,7 @@ out <- function(input, type = 1, ll = NULL, msg = FALSE, sign = "", verbose = ge
 }
 
 #' plot raster as ggplot
-#' @importFrom raster ncell
+#' @importFrom raster ncell aggregate
 #' @noRd 
 gg.bmap <- function(r, r_type, gglayer = F, ...){
   extras <- list(...)

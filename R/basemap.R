@@ -8,7 +8,7 @@
 #' @param map_token character, mapbox authentification token for mapbox basemaps. Register at \url{https://www.mapbox.com/} to get a mapbox token. Mapbox is free of charge after registration for up to 50.000 map requests per month. Ignored, if \code{map_service = "osm"}.
 #' @param map_res numeric, resolution of base map in range from 0 to 1.
 #' @param map_dir character, cache directory where downloaded basemap tiles will be stored. By default, a temporary directory is used, which is destroyed when the session is terminated.
-#' @param class character, output class, either \code{"raster"}, \code{"stars"}, \code{"mapview"}, \code{"plot"}, \code{"ggplot"} or \code{"gglayer"}.
+#' @param class character, output class, either \code{"raster"}, \code{"stars"}, \code{"mapview"}, \code{"plot"}, \code{"ggplot"}, \code{"gglayer"}, \code{"magick"} or \code{"png"}.
 #' @param ... additional arguments, including
 #' \itemize{
 #'    \item \code{browse}, logical, for \code{class = "png"} and interactive sessions only. Whether to open the png file in the system's default PNG viewer or not. Default is \code{TRUE}.
@@ -17,11 +17,36 @@
 #' @param verbose logical, if \code{TRUE}, messages and progress information are displayed on the console (default).
 #' 
 #' @return
+#' A basemap of the defined class
 #' 
+#' 
+#' @examples
+#' library(basemaps)
+#' 
+#' # example extent
+#' data(ext)
+#' 
+#' # view all available maps
+#' get_maptypes()
+#' 
+#' # set defaults for the basemap
+#' set_defaults(map_service = "osm", map_type = "terrain_bg")
+#' # for mapbox maps, you need a map_token. Register for free at mapbox.com to get a token
+#' 
+#' \dontrun{
+#' # load and return basemap map as raster (default)
+#' map <- basemap(ext)
+#' 
+#' # or as many different classes such as:
+#' basemap_magick(ext)
+#' basemap_plot(ext)
+#' }
 #' @importFrom sf st_bbox 
 #' @importFrom raster nlayers plotRGB plot ncell RGB
 #' @importFrom slippymath raster_to_png
 #' @importFrom magick image_read
+#' @importFrom grDevices topo.colors
+#' @importFrom utils installed.packages
 #' @export
 #' @name basemap
 basemap <- function(ext = NULL, map_service = NULL, map_type = NULL, map_res = NULL, map_token = NULL, map_dir = NULL, class = "raster", 

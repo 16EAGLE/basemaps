@@ -5,6 +5,19 @@
 #' @inheritParams basemap
 #' @return None
 #' 
+#' @examples
+#' library(basemaps)
+#' data(ext)
+#' 
+#' # set defaults for the basemap
+#' set_defaults(ext = ext, map_service = "osm", map_type = "terrain_bg")
+#' # for mapbox maps, you need a map_token. Register for free at mapbox.com to get a token
+#' 
+#' \dontrun{
+#' # load and return basemap map as raster (default)
+#' map <- basemap()
+#' }
+#' 
 #' @name defaults
 #' @export
 

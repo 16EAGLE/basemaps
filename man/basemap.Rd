@@ -125,7 +125,7 @@ basemap_png(
 
 \item{map_dir}{character, cache directory where downloaded basemap tiles will be stored. By default, a temporary directory is used, which is destroyed when the session is terminated.}
 
-\item{class}{character, output class, either \code{"raster"}, \code{"stars"}, \code{"mapview"}, \code{"plot"}, \code{"ggplot"} or \code{"gglayer"}.}
+\item{class}{character, output class, either \code{"raster"}, \code{"stars"}, \code{"mapview"}, \code{"plot"}, \code{"ggplot"}, \code{"gglayer"}, \code{"magick"} or \code{"png"}.}
 
 \item{...}{additional arguments, including
 \itemize{
@@ -136,8 +136,30 @@ basemap_png(
 \item{verbose}{logical, if \code{TRUE}, messages and progress information are displayed on the console (default).}
 }
 \value{
-
+A basemap of the defined class
 }
 \description{
 These functions (down)load and cache a basemap of a defined extent \code{ext}, \code{map_service} and \code{map_type} and return it as an object of the defined class. Alternatively to defining the following arguments, \code{\link{set_defaults}} can be used to define basemap preferences once for the running session.
+}
+\examples{
+library(basemaps)
+
+# example extent
+data(ext)
+
+# view all available maps
+get_maptypes()
+
+# set defaults for the basemap
+set_defaults(map_service = "osm", map_type = "terrain_bg")
+# for mapbox maps, you need a map_token. Register for free at mapbox.com to get a token
+
+\dontrun{
+# load and return basemap map as raster (default)
+map <- basemap(ext)
+
+# or as many different classes such as:
+basemap_magick(ext)
+basemap_plot(ext)
+}
 }
