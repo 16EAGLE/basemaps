@@ -69,7 +69,7 @@
       <a href="http://jxsw.de/getSpatialData">getSpatialData</a>
     </li>
     <li>
-      <a href="http://www.github.com/bleutner/RStoolbox">RStoolbox</a>
+      <a href="https://bleutner.github.io/RStoolbox/">RStoolbox</a>
     </li>
   </ul>
 </li>
@@ -111,11 +111,17 @@
 </h1></div>
 
 <p><code>basemaps</code> is a lightweight <code>R</code> package to download and cache spatial basemaps from open sources such as <em>OpenStreetMap</em>, <em>Carto</em> and <em>Mapbox</em>. Retrieved basemaps are translated into and returned as classes of choice, such as <code>raster</code>, <code>stars</code>, <code>ggplot</code>, <code>mapview</code> or <code>magick</code>.</p>
+<div id="installation" class="section level2">
+<h2 class="hasAnchor">
+<a href="#installation" class="anchor"></a>Installation</h2>
+<p>The lastes version can be installed from GitHub:</p>
+<div class="sourceCode" id="cb1"><pre class="r"><span class="kw pkg">devtools</span><span class="kw ns">::</span><span class="fu"><a href="https://devtools.r-lib.org//reference/remote-reexports.html">install_github</a></span>(<span class="st">"16EAGLE/basemaps"</span>)</pre></div>
+</div>
 <div id="get-started" class="section level2">
 <h2 class="hasAnchor">
 <a href="#get-started" class="anchor"></a>Get started</h2>
 <p>All available map services and types can be printed using <code><a href="reference/get_maptypes.html">get_maptypes()</a></code>. The <code><a href="reference/basemap.html">basemap()</a></code> function and its class-specific aliases facilitate (down)loading a basemap and returning it as a class of choice. Map preferences that should be used during a session can be set as defaults using <code><a href="reference/defaults.html">set_defaults()</a></code>.</p>
-<div class="sourceCode" id="cb1"><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">basemaps</span>)
+<div class="sourceCode" id="cb2"><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">basemaps</span>)
 <span class="fu"><a href="https://rdrr.io/r/utils/data.html">data</a></span>(<span class="no">ext</span>)
 
 <span class="co"># view all available maps</span>
@@ -130,18 +136,18 @@
 <span class="fu"><a href="reference/basemap.html">basemap_plot</a></span>(<span class="no">ext</span>)
 <span class="co">#&gt; Loading basemap 'satellite' from map service 'mapbox'...</span></pre></div>
 <p><img src="https://i.imgur.com/Z6a4ucn.png" width="623"></p>
-<div class="sourceCode" id="cb2"><pre class="r">
+<div class="sourceCode" id="cb3"><pre class="r">
 <span class="fu"><a href="reference/basemap.html">basemap_mapview</a></span>(<span class="no">ext</span>)
 <span class="co">#&gt; Loading basemap 'satellite' from map service 'mapbox'...</span></pre></div>
 <p><img src="https://i.imgur.com/ILLiSi6.png" width="623"></p>
-<div class="sourceCode" id="cb3"><pre class="r"><span class="fu"><a href="reference/basemap.html">basemap_ggplot</a></span>(<span class="no">ext</span>)
+<div class="sourceCode" id="cb4"><pre class="r"><span class="fu"><a href="reference/basemap.html">basemap_ggplot</a></span>(<span class="no">ext</span>)
 <span class="co">#&gt; Loading basemap 'satellite' from map service 'mapbox'...</span></pre></div>
 <p><img src="https://i.imgur.com/ATyDXRQ.png" width="623"></p>
-<div class="sourceCode" id="cb4"><pre class="r">
+<div class="sourceCode" id="cb5"><pre class="r">
 <span class="fu"><a href="reference/basemap.html">basemap_magick</a></span>(<span class="no">ext</span>)
 <span class="co">#&gt; Loading basemap 'satellite' from map service 'mapbox'...</span></pre></div>
 <p><img src="https://i.imgur.com/JPcsRRH.png" width="623"></p>
-<div class="sourceCode" id="cb5"><pre class="r"><span class="fu"><a href="reference/basemap.html">basemap_raster</a></span>(<span class="no">ext</span>)
+<div class="sourceCode" id="cb6"><pre class="r"><span class="fu"><a href="reference/basemap.html">basemap_raster</a></span>(<span class="no">ext</span>)
 <span class="co">#&gt; Loading basemap 'satellite' from map service 'mapbox'...</span>
 <span class="co">#&gt; class      : RasterBrick </span>
 <span class="co">#&gt; dimensions : 582, 623, 362586, 3  (nrow, ncol, ncell, nlayers)</span>
@@ -182,34 +188,34 @@
 <h2 class="hasAnchor">
 <a href="#map-services-and-types" class="anchor"></a>Map services and types</h2>
 <p><code>basemaps</code> supports a variety of map services and types (which can be printed using <code><a href="reference/get_maptypes.html">get_maptypes()</a></code>). A selection of available map types is shown below:</p>
-<div class="sourceCode" id="cb6"><pre class="r"><span class="fu"><a href="reference/basemap.html">basemap_magick</a></span>(<span class="no">ext</span>, <span class="kw">map_service</span> <span class="kw">=</span> <span class="st">"osm"</span>, <span class="kw">map_type</span> <span class="kw">=</span> <span class="st">"topographic"</span>)
+<div class="sourceCode" id="cb7"><pre class="r"><span class="fu"><a href="reference/basemap.html">basemap_magick</a></span>(<span class="no">ext</span>, <span class="kw">map_service</span> <span class="kw">=</span> <span class="st">"osm"</span>, <span class="kw">map_type</span> <span class="kw">=</span> <span class="st">"topographic"</span>)
 <span class="co">#&gt; Loading basemap 'topographic' from map service 'osm'...</span></pre></div>
 <p><img src="https://i.imgur.com/4mVIjci.png" width="623"></p>
-<div class="sourceCode" id="cb7"><pre class="r"><span class="fu"><a href="reference/basemap.html">basemap_magick</a></span>(<span class="no">ext</span>, <span class="kw">map_service</span> <span class="kw">=</span> <span class="st">"osm"</span>, <span class="kw">map_type</span> <span class="kw">=</span> <span class="st">"toner"</span>)
+<div class="sourceCode" id="cb8"><pre class="r"><span class="fu"><a href="reference/basemap.html">basemap_magick</a></span>(<span class="no">ext</span>, <span class="kw">map_service</span> <span class="kw">=</span> <span class="st">"osm"</span>, <span class="kw">map_type</span> <span class="kw">=</span> <span class="st">"toner"</span>)
 <span class="co">#&gt; Loading basemap 'toner' from map service 'osm'...</span></pre></div>
 <p><img src="https://i.imgur.com/sPQ8uIV.png" width="623"></p>
-<div class="sourceCode" id="cb8"><pre class="r"><span class="fu"><a href="reference/basemap.html">basemap_magick</a></span>(<span class="no">ext</span>, <span class="kw">map_service</span> <span class="kw">=</span> <span class="st">"osm"</span>, <span class="kw">map_type</span> <span class="kw">=</span> <span class="st">"hike"</span>)
+<div class="sourceCode" id="cb9"><pre class="r"><span class="fu"><a href="reference/basemap.html">basemap_magick</a></span>(<span class="no">ext</span>, <span class="kw">map_service</span> <span class="kw">=</span> <span class="st">"osm"</span>, <span class="kw">map_type</span> <span class="kw">=</span> <span class="st">"hike"</span>)
 <span class="co">#&gt; Loading basemap 'hike' from map service 'osm'...</span></pre></div>
 <p><img src="https://i.imgur.com/2u6BMSO.png" width="623"></p>
-<div class="sourceCode" id="cb9"><pre class="r"><span class="fu"><a href="reference/basemap.html">basemap_magick</a></span>(<span class="no">ext</span>, <span class="kw">map_service</span> <span class="kw">=</span> <span class="st">"carto"</span>, <span class="kw">map_type</span> <span class="kw">=</span> <span class="st">"dark"</span>)
+<div class="sourceCode" id="cb10"><pre class="r"><span class="fu"><a href="reference/basemap.html">basemap_magick</a></span>(<span class="no">ext</span>, <span class="kw">map_service</span> <span class="kw">=</span> <span class="st">"carto"</span>, <span class="kw">map_type</span> <span class="kw">=</span> <span class="st">"dark"</span>)
 <span class="co">#&gt; Loading basemap 'dark' from map service 'carto'...</span></pre></div>
 <p><img src="https://i.imgur.com/bcFKweX.png" width="623"></p>
-<div class="sourceCode" id="cb10"><pre class="r"><span class="fu"><a href="reference/basemap.html">basemap_magick</a></span>(<span class="no">ext</span>, <span class="kw">map_service</span> <span class="kw">=</span> <span class="st">"mapbox"</span>, <span class="kw">map_type</span> <span class="kw">=</span> <span class="st">"hybrid"</span>)
+<div class="sourceCode" id="cb11"><pre class="r"><span class="fu"><a href="reference/basemap.html">basemap_magick</a></span>(<span class="no">ext</span>, <span class="kw">map_service</span> <span class="kw">=</span> <span class="st">"mapbox"</span>, <span class="kw">map_type</span> <span class="kw">=</span> <span class="st">"hybrid"</span>)
 <span class="co">#&gt; Loading basemap 'hybrid' from map service 'mapbox'...</span></pre></div>
 <p><img src="https://i.imgur.com/F7fU32T.png" width="623"></p>
-<div class="sourceCode" id="cb11"><pre class="r"><span class="fu"><a href="reference/basemap.html">basemap_magick</a></span>(<span class="no">ext</span>, <span class="kw">map_service</span> <span class="kw">=</span> <span class="st">"mapbox"</span>, <span class="kw">map_type</span> <span class="kw">=</span> <span class="st">"streets"</span>)
+<div class="sourceCode" id="cb12"><pre class="r"><span class="fu"><a href="reference/basemap.html">basemap_magick</a></span>(<span class="no">ext</span>, <span class="kw">map_service</span> <span class="kw">=</span> <span class="st">"mapbox"</span>, <span class="kw">map_type</span> <span class="kw">=</span> <span class="st">"streets"</span>)
 <span class="co">#&gt; Loading basemap 'streets' from map service 'mapbox'...</span></pre></div>
 <p><img src="https://i.imgur.com/a0FUoau.png" width="623"></p>
-<div class="sourceCode" id="cb12"><pre class="r"><span class="fu"><a href="reference/basemap.html">basemap_magick</a></span>(<span class="no">ext</span>, <span class="kw">map_service</span> <span class="kw">=</span> <span class="st">"mapbox"</span>, <span class="kw">map_type</span> <span class="kw">=</span> <span class="st">"hike"</span>)
+<div class="sourceCode" id="cb13"><pre class="r"><span class="fu"><a href="reference/basemap.html">basemap_magick</a></span>(<span class="no">ext</span>, <span class="kw">map_service</span> <span class="kw">=</span> <span class="st">"mapbox"</span>, <span class="kw">map_type</span> <span class="kw">=</span> <span class="st">"hike"</span>)
 <span class="co">#&gt; Loading basemap 'hike' from map service 'mapbox'...</span></pre></div>
 <p><img src="https://i.imgur.com/syITrpf.png" width="623"></p>
-<div class="sourceCode" id="cb13"><pre class="r"><span class="fu"><a href="reference/basemap.html">basemap_magick</a></span>(<span class="no">ext</span>, <span class="kw">map_service</span> <span class="kw">=</span> <span class="st">"mapbox"</span>, <span class="kw">map_type</span> <span class="kw">=</span> <span class="st">"terrain"</span>)
+<div class="sourceCode" id="cb14"><pre class="r"><span class="fu"><a href="reference/basemap.html">basemap_magick</a></span>(<span class="no">ext</span>, <span class="kw">map_service</span> <span class="kw">=</span> <span class="st">"mapbox"</span>, <span class="kw">map_type</span> <span class="kw">=</span> <span class="st">"terrain"</span>)
 <span class="co">#&gt; Loading basemap 'terrain' from map service 'mapbox'...</span></pre></div>
 <p><img src="https://i.imgur.com/WOVHncM.png" width="623"></p>
-<div class="sourceCode" id="cb14"><pre class="r"><span class="fu"><a href="reference/basemap.html">basemap_magick</a></span>(<span class="no">ext</span>, <span class="kw">map_service</span> <span class="kw">=</span> <span class="st">"mapbox"</span>, <span class="kw">map_type</span> <span class="kw">=</span> <span class="st">"comic"</span>)
+<div class="sourceCode" id="cb15"><pre class="r"><span class="fu"><a href="reference/basemap.html">basemap_magick</a></span>(<span class="no">ext</span>, <span class="kw">map_service</span> <span class="kw">=</span> <span class="st">"mapbox"</span>, <span class="kw">map_type</span> <span class="kw">=</span> <span class="st">"comic"</span>)
 <span class="co">#&gt; Loading basemap 'comic' from map service 'mapbox'...</span></pre></div>
 <p><img src="https://i.imgur.com/ppOyTPL.png" width="623"></p>
-<div class="sourceCode" id="cb15"><pre class="r"><span class="fu"><a href="reference/basemap.html">basemap_magick</a></span>(<span class="no">ext</span>, <span class="kw">map_service</span> <span class="kw">=</span> <span class="st">"mapbox"</span>, <span class="kw">map_type</span> <span class="kw">=</span> <span class="st">"pirates"</span>)
+<div class="sourceCode" id="cb16"><pre class="r"><span class="fu"><a href="reference/basemap.html">basemap_magick</a></span>(<span class="no">ext</span>, <span class="kw">map_service</span> <span class="kw">=</span> <span class="st">"mapbox"</span>, <span class="kw">map_type</span> <span class="kw">=</span> <span class="st">"pirates"</span>)
 <span class="co">#&gt; Loading basemap 'pirates' from map service 'mapbox'...</span></pre></div>
 <p><img src="https://i.imgur.com/4uLFU2D.png" width="623"></p>
 <p><sup>Created on 2020-05-28 by the <a href="https://reprex.tidyverse.org">reprex package</a> (v0.3.0)</sup></p>

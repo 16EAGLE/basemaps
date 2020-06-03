@@ -8,6 +8,15 @@
 
 `basemaps` is a lightweight `R` package to download and cache spatial basemaps from open sources such as *OpenStreetMap*, *Carto* and *Mapbox*. Retrieved basemaps are translated into and returned as classes of choice, such as `raster`, `stars`, `ggplot`, `mapview` or `magick`.
 
+
+## Installation
+
+The lastes version can be installed from GitHub:
+
+```r
+devtools::install_github("16EAGLE/basemaps")
+```
+
 ## Get started
 
 All available map services and types can be printed using `get_maptypes()`. The `basemap()` function and its class-specific aliases facilitate (down)loading a basemap and returning it as a class of choice. Map preferences that should be used during a session can be set as defaults using `set_defaults()`.
