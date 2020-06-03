@@ -25,6 +25,7 @@ Suggests:
   ggplot2,
   stars,
   mapview,
+  mapedit,
   testthat
 BugReports: http://www.github.com/16eagle/basemaps/issues
 RoxygenNote: 7.1.0

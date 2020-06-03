@@ -1,0 +1,39 @@
+development:
+  mode: release
+
+home:
+  links:
+  - text: Browse source code
+    href: http://github.com/16eagle/basemaps
+  - text: Find out more about our work
+    href: http://remote-sensing.org
+
+navbar:
+  #type: inverse
+  left:
+    - icon: fa-home fa-lg
+      href: index.html
+    - text: "Get Started"
+      href: index.html#get-started
+    - text: "Map examples"
+      href: index.html#map-services-and-types
+    - text: "News"
+      href: news/index.html
+    - text: "Functions"
+      href: reference/index.html
+    - text: "Other packages"
+      menu:
+      -  text: "moveVis"
+         href: https://movevis.org
+      -  text: "getSpatialData"
+         href: http://jxsw.de/getSpatialData
+      -  text: "RStoolbox"
+         href: http://www.github.com/bleutner/RStoolbox
+  
+  right:
+    - icon: fa-twitter fa-lg
+      href: http://www.twitter.com/schwalbwillmann
+    - icon: fa-github fa-lg
+      href: http://www.github.com/16eagle
+    - icon: fa-globe fa-lg
+      href: http://jakob.schwalb-willmann.de
