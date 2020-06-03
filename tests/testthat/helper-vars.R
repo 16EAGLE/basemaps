@@ -1,8 +1,15 @@
 # map test settings
-map_token = Sys.getenv("moveVis_map_token")
+map_token = Sys.getenv("basemaps_map_token")
 if(map_token != "") run_mapbox <- TRUE else run_mapbox <- FALSE
 run_esri <- FALSE
-test_maps = as.logical(Sys.getenv("moveVis_test_maps"))
+test_maps = as.logical(Sys.getenv("basemaps_test_maps"))
+
+# test dir
+map_dir = Sys.getenv("basemaps_test_dir")
+if(map_dir == ""){
+  map_dir <- paste0(tempdir(), "/basemaps/")
+}
+if(!dir.exists(map_dir)) dir.create(map_dir, recursive = T)
 
 # example extent
 data("ext", package = "basemaps", envir = environment())

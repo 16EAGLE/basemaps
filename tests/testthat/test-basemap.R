@@ -2,7 +2,7 @@ skip_on_cran()
 context("basemap")
 
 test_that("basemap()", {
-  map <- expect_is(basemap(ext, verbose = F), "RasterBrick")
+  map <- expect_is(basemap(ext, map_dir = map_dir, verbose = F), "RasterBrick")
   expect_equal(dim(map), c(582, 623, 3))
 })
 

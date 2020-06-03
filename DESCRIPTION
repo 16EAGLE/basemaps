@@ -21,6 +21,7 @@ Imports:
   utils,
   grDevices
 Suggests:
+  rgdal,
   ggplot2,
   stars,
   mapview,

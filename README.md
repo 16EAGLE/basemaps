@@ -1,5 +1,11 @@
 # `basemaps`
 
+[![CRAN version](https://www.r-pkg.org/badges/version/basemaps)](https://CRAN.R-project.org/package=basemaps)
+[![Build Status](https://travis-ci.org/16EAGLE/basemaps.svg?branch=master)](https://travis-ci.org/16EAGLE/basemaps) 
+[![AppVeyor build status](https://ci.appveyor.com/api/projects/status/github/16EAGLE/basemaps?branch=master&svg=true)](https://ci.appveyor.com/project/16EAGLE/basemaps)
+[![Coverage](https://codecov.io/gh/16eagle/basemaps/branch/master/graph/badge.svg)](https://codecov.io/gh/16EAGLE/basemaps)
+[![Package dependencies](https://tinyverse.netlify.com/badge/basemaps)](https://CRAN.R-project.org/package=basemaps)
+
 `basemaps` is a lightweight `R` package to download and cache spatial basemaps from open sources such as *OpenStreetMap*, *Carto* and *Mapbox*. Retrieved basemaps are translated into and returned as classes of choice, such as `raster`, `stars`, `ggplot`, `mapview` or `magick`.
 
 ## Get started
@@ -16,7 +22,7 @@ get_maptypes()
 # set defaults for the basemap
 set_defaults(map_service = "mapbox", map_type = "satellite",
              map_token = "YOUR_MAPTOKEN_IF_NEEDED")
-# for mapbox maps, register for free at mapbox.com to get a token
+# token only needed for mapbox maps, register for free at mapbox.com to get a token
 
 # load and return basemap map as many different classes:
 basemap_plot(ext)

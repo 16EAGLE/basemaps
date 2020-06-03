@@ -151,7 +151,7 @@ gg.bmap <- function(r, r_type, gglayer = F, ...){
       
       # get images
       images <- .apply(tg$tiles, MARGIN = 1, function(x){
-        file <- paste0(map_dir, map_service, "_", map_type, "_", x[1], "_", x[2], ".png")
+        file <- paste0(map_dir, "/", map_service, "_", map_type, "_", x[1], "_", x[2], ".png")
         
         retry <- list(do = TRUE, count = 0)
         while(retry$do){
