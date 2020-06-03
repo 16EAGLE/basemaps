@@ -52,5 +52,4 @@ artifacts:
     name: Bits
     
 on_success:
-  - Rscript -e "install.packages('covr')"
   - Rscript -e "covr::codecov()"

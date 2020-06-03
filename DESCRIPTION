@@ -26,6 +26,7 @@ Suggests:
   stars,
   mapview,
   mapedit,
-  testthat
+  testthat,
+  covr
 BugReports: http://www.github.com/16eagle/basemaps/issues
 RoxygenNote: 7.1.0
