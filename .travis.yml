@@ -10,10 +10,6 @@ before_install:
   - sudo apt-get -q update
   - sudo apt-get -y install libproj-dev libudunits2-dev libgeos-dev libgdal-dev cargo libavformat-dev libavcodec-dev libavfilter-dev libavdevice-dev libmagick++-dev
   - R -e 'install.packages("devtools")'
-  - R -e 'install.packages("covr")'
-
-r_github_packages:
-  - r-lib/covr
 
 install:
   - R -e 'devtools::install_deps(dep = T)'
@@ -22,7 +18,3 @@ script:
   - R CMD build .
   - R CMD check *tar.gz --no-tests
   - R -e 'devtools::test("/home/travis/build/16EAGLE/basemaps/")'
-
-after_success:
-  - Rscript -e 'covr::codecov()'
-
