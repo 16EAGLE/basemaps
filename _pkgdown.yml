@@ -28,7 +28,7 @@ navbar:
       -  text: "getSpatialData"
          href: http://jxsw.de/getSpatialData
       -  text: "RStoolbox"
-         href: http://www.github.com/bleutner/RStoolbox
+         href: https://bleutner.github.io/RStoolbox/
   
   right:
     - icon: fa-twitter fa-lg
