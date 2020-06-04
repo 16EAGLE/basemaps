@@ -6,12 +6,12 @@
 [![Coverage](https://codecov.io/gh/16eagle/basemaps/branch/master/graph/badge.svg)](https://codecov.io/gh/16EAGLE/basemaps)
 [![Package dependencies](https://tinyverse.netlify.com/badge/basemaps)](https://CRAN.R-project.org/package=basemaps)
 
-`basemaps` is a lightweight `R` package to download and cache spatial basemaps from open sources such as *OpenStreetMap*, *Carto* and *Mapbox*. Retrieved basemaps are translated into and returned as classes of choice, such as `raster`, `stars`, `ggplot`, `mapview` or `magick`.
+`basemaps` is a lightweight `R` package to download and cache spatial basemaps from open sources such as *OpenStreetMap*, *Carto* and *Mapbox*. Retrieved basemaps are translated into and returned as classes of choice, such as `raster`, `stars`, `ggplot`, `mapview` or `magick`. The package aims to ease the use of basemaps in different contexts by providing a function interface as minimalistic as possible.
 
 
 ## Installation
 
-The lastes version can be installed from GitHub:
+`basemaps` is not on CRAN yet. The latest version can be installed from GitHub:
 
 ```r
 devtools::install_github("16EAGLE/basemaps")
@@ -19,11 +19,12 @@ devtools::install_github("16EAGLE/basemaps")
 
 ## Get started
 
-All available map services and types can be printed using `get_maptypes()`. The `basemap()` function and its class-specific aliases facilitate (down)loading a basemap and returning it as a class of choice. Map preferences that should be used during a session can be set as defaults using `set_defaults()`.
+All available map services and map types can be printed using `get_maptypes()`. The `basemap()` function and its class-specific aliases facilitate (down)loading a basemap and returning it as a class of choice. Map preferences that should be used during a session can be set as defaults using `set_defaults()`.
 
 ``` r
 library(basemaps)
 data(ext)
+# or use draw_ext() to interactively draw an extent yourself
 
 # view all available maps
 get_maptypes()
@@ -102,7 +103,7 @@ basemap_png(ext)
 #> [1] "/tmp/RtmpjCVUpd/basemaps//mapbox_satellite_2020-05-28_21-25-47.png"
 ```
 
-## Map services and types
+## Map examples
 
 `basemaps` supports a variety of map services and types (which can be printed using `get_maptypes()`). A selection of available map types is shown below:
 
@@ -182,7 +183,7 @@ basemap_magick(ext, map_service = "mapbox", map_type = "pirates")
 
 * `get_maptypes()` returns every supported map type that can be used as input to the `map_type` argument of `set_defaults()`, `basemap()` or associated functions.
 * `draw_ext()` lets you draw an extent on an interactive map.
-* `set_defaults()` and `get_defaults()` sets and gets the defaults of all map arguments passed to `basemap()` or associated functions.
+* `set_defaults()`, `get_defaults()` and `reset_defaults()` set, get or reset the defaults of all map arguments passed to `basemap()` or associated functions.
 * `basemap()` and its aliases `basemap_raster()`, `basemap_stars()`, `basemap_mapview()`, `basemap_plot()`, `basemap_ggplot()`, `basemap_gglayer()`, `basemap_magick()` and `basemap_png()` (down)load and cache a basemap of a defined extent `ext`, `map_service` and `map_type` and return it as an object of the defined class.
 
 

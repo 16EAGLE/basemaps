@@ -1,4 +1,5 @@
 #' Suppress messages and warnings
+#' @keywords internal
 #' @noRd 
 quiet <- function(expr){
   #return(expr)
@@ -14,7 +15,6 @@ quiet <- function(expr){
 #'
 #' @keywords internal
 #' @noRd
-
 out <- function(input, type = 1, ll = NULL, msg = FALSE, sign = "", verbose = getOption("basemaps.verbose")){
   if(is.null(ll)) if(isTRUE(verbose)) ll <- 1 else ll <- 2
   if(type == 2 & ll <= 2){warning(paste0(sign,input), call. = FALSE, immediate. = TRUE)}
@@ -27,14 +27,16 @@ out <- function(input, type = 1, ll = NULL, msg = FALSE, sign = "", verbose = ge
 #' verbose apply
 #'
 #' @importFrom pbapply pbapply
-#' @noRd 
+#' @keywords internal
+#' @noRd
 .apply <- function(X, MARGIN, FUN, ...){
   verbose = getOption("basemaps.verbose")
   if(isTRUE(verbose)) pbapply(X, MARGIN, FUN, ...) else apply(X, MARGIN, FUN, ...)
 }
 
 #' combine two extents into one
-#' @noRd 
+#' @keywords internal
+#' @noRd
 .combine_ext <- function(ext.both){
   ext.combi <- ext.both[[1]]
   ext.combi@xmin <- min(c(ext.both[[1]]@xmin, ext.both[[2]]@xmin))
@@ -43,7 +45,8 @@ out <- function(input, type = 1, ll = NULL, msg = FALSE, sign = "", verbose = ge
 }
 
 #' expand two extents by the one with larger x range
-#' @noRd 
+#' @keywords internal
+#' @noRd
 .expand_ext <- function(ext.both, rg){
   if(which.min(rg) == 1){
     ext.both[[which.min(rg)]]@xmin <- -180+ext.both[[which.min(rg)]]@xmin-180
@@ -57,7 +60,8 @@ out <- function(input, type = 1, ll = NULL, msg = FALSE, sign = "", verbose = ge
 
 #' plot raster as ggplot
 #' @importFrom raster ncell aggregate
-#' @noRd 
+#' @keywords internal
+#' @noRd
 gg.bmap <- function(r, r_type, gglayer = F, ...){
   extras <- list(...)
   if(!is.null(extras$maxpixels)) maxpixels <- extras$maxpixels else maxpixels <- 500000
@@ -117,7 +121,8 @@ gg.bmap <- function(r, r_type, gglayer = F, ...){
 #' @importFrom curl curl_download
 #' @importFrom httr http_error GET
 #' @importFrom sf st_transform st_bbox st_as_sfc st_crs
-#' @noRd 
+#' @keywords internal
+#' @noRd
 .get_map <- function(ext, map_service, map_type, map_token, map_dir, map_res, ...){
   
   extras <- list(...)
@@ -242,6 +247,16 @@ gg.bmap <- function(r, r_type, gglayer = F, ...){
   # seems to be a bug
 }
 
+#' defaults
+#' @keywords internal
+#' @noRd
+.defaults <- function(){
+  list(map_service = "osm",
+       map_type = "terrain",
+       map_res = 1,
+       map_token = NA)
+}
+
 
 #' package startup
 #' @importFrom pbapply pboptions
@@ -250,10 +265,7 @@ gg.bmap <- function(r, r_type, gglayer = F, ...){
   pboptions(type = "timer", char = "=", txt.width = getOption("width")-30) # can be changed to "none"
   if(is.null(getOption("basemaps.verbose")))  options(basemaps.verbose = FALSE)
   if(is.null(getOption("basemaps.cached"))) options(basemaps.cached = list())
-  if(is.null(getOption("basemaps.defaults")))  options(basemaps.defaults = list(map_service = "osm",
-                                                                                map_type = "terrain",
-                                                                                map_res = 1,
-                                                                                map_token = NA))
+  if(is.null(getOption("basemaps.defaults")))  options(basemaps.defaults = .defaults())
   # overwrite temp dir
   defaults <- getOption("basemaps.defaults")
   defaults$map_dir <- paste0(tempdir(), "/basemaps/")

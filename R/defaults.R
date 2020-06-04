@@ -1,9 +1,9 @@
-#' Set \code{basemaps} defaults
+#' Set, get and reset \code{basemaps} defaults
 #'
-#' These functions set or get the defaults of all map arguments passed to \code{\link{basemap}} and associated functions.
+#' These functions set, get or reset the defaults of all map arguments passed to \code{\link{basemap}} and associated functions.
 #' 
 #' @inheritParams basemap
-#' @return None
+#' @return For \code{get_defaults}, a list of defaults, otherwise none.
 #' 
 #' @examples
 #' library(basemaps)
@@ -13,10 +13,16 @@
 #' set_defaults(ext = ext, map_service = "osm", map_type = "terrain_bg")
 #' # for mapbox maps, you need a map_token. Register for free at mapbox.com to get a token
 #' 
+#' # get defaults
+#' get_defaults()
+#' 
 #' \dontrun{
 #' # load and return basemap map as raster (default)
 #' map <- basemap()
 #' }
+#' 
+#' # reset defaults
+#' reset_defaults()
 #' 
 #' @name defaults
 #' @export
@@ -37,4 +43,10 @@ set_defaults <- function(ext = NULL, map_service = NULL, map_type = NULL, map_re
 #' @export
 get_defaults <- function(){
   getOption("basemaps.defaults")
+}
+
+#' @rdname defaults
+#' @export
+reset_defaults <- function(){
+  options(basemaps.defaults = .defaults())
 }
