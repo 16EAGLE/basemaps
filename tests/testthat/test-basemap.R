@@ -2,8 +2,28 @@ skip_on_cran()
 context("basemap")
 
 test_that("basemap()", {
-  map <- expect_is(basemap(ext, map_dir = map_dir, verbose = F), "RasterBrick")
+  # test nominal
+  map <- expect_output(expect_is(basemap(ext, map_dir = map_dir, verbose = T), "RasterBrick"))
   expect_equal(dim(map), c(582, 623, 3))
+  
+  # test nominal terrain with col
+  if(isTRUE(run_mapbox)){
+    map <- expect_is(basemap(ext, map_service = "mapbox", map_type = "terrain", map_token = map_token, map_dir = map_dir, 
+                           col = grDevices::topo.colors(25), verbose = F), "RasterLayer")
+    # test nominal RGB calculatio for single layer magick
+    map <- expect_is(basemap_magick(ext, map_service = "mapbox", map_type = "terrain", map_token = map_token, map_dir = map_dir, 
+                             col = grDevices::topo.colors(25), verbose = F), "magick-image")
+  }
+  
+  # test hiddena arguments
+  expect_is(basemap(ext, no_transform = T, no_crop = T, verbose = F), "RasterBrick")
+  
+  # test warning with false map_dir
+  expect_warning(basemap_plot(ext, map_dir = "/this/is/nonsense/", verbose = F))
+  
+  # test ext error
+  expect_error(basemap())
+  
 })
 
 test_that("basemap_raster()", {
@@ -12,7 +32,7 @@ test_that("basemap_raster()", {
 })
 
 test_that("basemap_magick()", {
-  map <- expect_is(basemap_magick(ext, verbose = F), "magick-image")
+  expect_is(basemap_magick(ext, verbose = F), "magick-image")
 })
 
 test_that("basemap_png()", {
@@ -27,11 +47,19 @@ test_that("basemap_plot()", {
 
 if(isTRUE(check_ggplot)){
   test_that("basemap_ggplot()", {
-    map <- expect_is(basemap_ggplot(ext, verbose = F), "gg")
+    expect_is(basemap_ggplot(ext, verbose = F), "gg")
+    
+    # test nominal with hidden arguments and aggregation
+    expect_warning(expect_is(basemap_ggplot(ext, maxColorValue = 200, verbose = F), "gg"))
+    
+    # test nominal with hidden arguments and aggregation
+    if(isTRUE(run_mapbox)) expect_is(basemap_ggplot(ext, map_type = "terrain", map_service = "mapbox", map_token = map_token, 
+                                                    maxColorValue = NA, alpha = 1, maxpixels = 1000, verbose = F), "gg")
   })
   
   test_that("basemap_gglayer()", {
-    map <- expect_is(basemap_gglayer(ext, verbose = F), "LayerInstance")
+    expect_is(basemap_gglayer(ext, verbose = F), "LayerInstance")
+    if(isTRUE(run_mapbox)) expect_is(basemap_gglayer(ext, map_type = "terrain", map_service = "mapbox", map_token = map_token, verbose = F), "LayerInstance")
   })
 }
 
@@ -50,7 +78,7 @@ if(isTRUE(check_stars)){
 
 if(isTRUE(check_mapview)){
   test_that("basemap_mapview()", {
-    map <- expect_is(basemap_mapview(ext, verbose = F), "mapview")
+    expect_is(basemap_mapview(ext, verbose = F), "mapview")
   })
 }
 
