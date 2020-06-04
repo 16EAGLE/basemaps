@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Set <code>basemaps</code> defaults — defaults • basemaps</title>
+<title>Set, get and reset <code>basemaps</code> defaults — defaults • basemaps</title>
 
 
 <!-- jquery -->
@@ -39,8 +39,8 @@
 
 
 
-<meta property="og:title" content="Set <code>basemaps</code> defaults — defaults" />
-<meta property="og:description" content="These functions set or get the defaults of all map arguments passed to basemap and associated functions." />
+<meta property="og:title" content="Set, get and reset <code>basemaps</code> defaults — defaults" />
+<meta property="og:description" content="These functions set, get or reset the defaults of all map arguments passed to basemap and associated functions." />
 
 
 
@@ -88,7 +88,7 @@
   <a href="../index.html#get-started">Get Started</a>
 </li>
 <li>
-  <a href="../index.html#map-services-and-types">Map examples</a>
+  <a href="../index.html#map-examples">Map examples</a>
 </li>
 <li>
   <a href="../news/index.html">News</a>
@@ -147,13 +147,13 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Set <code>basemaps</code> defaults</h1>
+    <h1>Set, get and reset <code>basemaps</code> defaults</h1>
     
     <div class="hidden name"><code>defaults.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>These functions set or get the defaults of all map arguments passed to <code><a href='basemap.html'>basemap</a></code> and associated functions.</p>
+    <p>These functions set, get or reset the defaults of all map arguments passed to <code><a href='basemap.html'>basemap</a></code> and associated functions.</p>
     </div>
 
     <pre class="usage"><span class='fu'>set_defaults</span>(
@@ -165,7 +165,9 @@
   <span class='kw'>map_dir</span> <span class='kw'>=</span> <span class='kw'>NULL</span>
 )
 
-<span class='fu'>get_defaults</span>()</pre>
+<span class='fu'>get_defaults</span>()
+
+<span class='fu'>reset_defaults</span>()</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -198,7 +200,7 @@
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>None</p>
+    <p>For <code>get_defaults</code>, a list of defaults, otherwise none.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>basemaps</span>)
@@ -208,10 +210,38 @@
 <span class='fu'>set_defaults</span>(<span class='kw'>ext</span> <span class='kw'>=</span> <span class='no'>ext</span>, <span class='kw'>map_service</span> <span class='kw'>=</span> <span class='st'>"osm"</span>, <span class='kw'>map_type</span> <span class='kw'>=</span> <span class='st'>"terrain_bg"</span>)
 <span class='co'># for mapbox maps, you need a map_token. Register for free at mapbox.com to get a token</span>
 
+<span class='co'># get defaults</span>
+<span class='fu'>get_defaults</span>()</div><div class='output co'>#&gt; $map_service
+#&gt; [1] "osm"
+#&gt; 
+#&gt; $map_type
+#&gt; [1] "terrain_bg"
+#&gt; 
+#&gt; $map_res
+#&gt; [1] 1
+#&gt; 
+#&gt; $map_token
+#&gt; [1] NA
+#&gt; 
+#&gt; $map_dir
+#&gt; [1] "/tmp/RtmpU8knk1/basemaps/"
+#&gt; 
+#&gt; $ext
+#&gt; Simple feature collection with 1 feature and 2 fields
+#&gt; geometry type:  POLYGON
+#&gt; dimension:      XY
+#&gt; bbox:           xmin: 1225767 ymin: 6034383 xmax: 1237651 ymax: 6045498
+#&gt; projected CRS:  WGS 84 / Pseudo-Mercator
+#&gt;   X_leaflet_id feature_type                       geometry
+#&gt; 1          446    rectangle POLYGON ((1225767 6034383, ...
+#&gt; </div><div class='input'>
 <span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
 <span class='co'># load and return basemap map as raster (default)</span>
 <span class='no'>map</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='basemap.html'>basemap</a></span>()
-}</div></pre>
+}
+
+<span class='co'># reset defaults</span>
+<span class='fu'>reset_defaults</span>()</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

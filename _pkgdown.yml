@@ -18,7 +18,7 @@ navbar:
     - text: "Get Started"
       href: index.html#get-started
     - text: "Map examples"
-      href: index.html#map-services-and-types
+      href: index.html#map-examples
     - text: "News"
       href: news/index.html
     - text: "Functions"
@@ -39,3 +39,19 @@ navbar:
       href: http://www.github.com/16eagle
     - icon: fa-globe fa-lg
       href: http://jakob.schwalb-willmann.de
+      
+
+reference:
+- title: Session settings
+  desc:  Draw an extent and define session defaults for all function calls
+  contents:
+  - draw_ext
+  - set_defaults
+- title: Basemap retrieval
+  desc:  (Down)load and cache basemaps and return them as a class of choice
+  contents: 
+  - get_maptypes
+  - basemap
+- title: Example data
+  contents:
+  - ext

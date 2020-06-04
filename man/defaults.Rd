@@ -4,7 +4,8 @@
 \alias{defaults}
 \alias{set_defaults}
 \alias{get_defaults}
-\title{Set \code{basemaps} defaults}
+\alias{reset_defaults}
+\title{Set, get and reset \code{basemaps} defaults}
 \usage{
 set_defaults(
   ext = NULL,
@@ -16,6 +17,8 @@ set_defaults(
 )
 
 get_defaults()
+
+reset_defaults()
 }
 \arguments{
 \item{ext}{extent to be covered by the basemap as any spatial class supported by \code{st_bbox}.}
@@ -31,10 +34,10 @@ get_defaults()
 \item{map_dir}{character, cache directory where downloaded basemap tiles will be stored. By default, a temporary directory is used, which is destroyed when the session is terminated.}
 }
 \value{
-None
+For \code{get_defaults}, a list of defaults, otherwise none.
 }
 \description{
-These functions set or get the defaults of all map arguments passed to \code{\link{basemap}} and associated functions.
+These functions set, get or reset the defaults of all map arguments passed to \code{\link{basemap}} and associated functions.
 }
 \examples{
 library(basemaps)
@@ -44,9 +47,15 @@ data(ext)
 set_defaults(ext = ext, map_service = "osm", map_type = "terrain_bg")
 # for mapbox maps, you need a map_token. Register for free at mapbox.com to get a token
 
+# get defaults
+get_defaults()
+
 \dontrun{
 # load and return basemap map as raster (default)
 map <- basemap()
 }
+
+# reset defaults
+reset_defaults()
 
 }

@@ -47,7 +47,7 @@
   <a href="index.html#get-started">Get Started</a>
 </li>
 <li>
-  <a href="index.html#map-services-and-types">Map examples</a>
+  <a href="index.html#map-examples">Map examples</a>
 </li>
 <li>
   <a href="news/index.html">News</a>
@@ -110,19 +110,20 @@
 <a href="#basemaps" class="anchor"></a><code>basemaps</code>
 </h1></div>
 
-<p><code>basemaps</code> is a lightweight <code>R</code> package to download and cache spatial basemaps from open sources such as <em>OpenStreetMap</em>, <em>Carto</em> and <em>Mapbox</em>. Retrieved basemaps are translated into and returned as classes of choice, such as <code>raster</code>, <code>stars</code>, <code>ggplot</code>, <code>mapview</code> or <code>magick</code>.</p>
+<p><code>basemaps</code> is a lightweight <code>R</code> package to download and cache spatial basemaps from open sources such as <em>OpenStreetMap</em>, <em>Carto</em> and <em>Mapbox</em>. Retrieved basemaps are translated into and returned as classes of choice, such as <code>raster</code>, <code>stars</code>, <code>ggplot</code>, <code>mapview</code> or <code>magick</code>. The package aims to ease the use of basemaps in different contexts by providing a function interface as minimalistic as possible.</p>
 <div id="installation" class="section level2">
 <h2 class="hasAnchor">
 <a href="#installation" class="anchor"></a>Installation</h2>
-<p>The lastes version can be installed from GitHub:</p>
+<p><code>basemaps</code> is not on CRAN yet. The latest version can be installed from GitHub:</p>
 <div class="sourceCode" id="cb1"><pre class="r"><span class="kw pkg">devtools</span><span class="kw ns">::</span><span class="fu"><a href="https://devtools.r-lib.org//reference/remote-reexports.html">install_github</a></span>(<span class="st">"16EAGLE/basemaps"</span>)</pre></div>
 </div>
 <div id="get-started" class="section level2">
 <h2 class="hasAnchor">
 <a href="#get-started" class="anchor"></a>Get started</h2>
-<p>All available map services and types can be printed using <code><a href="reference/get_maptypes.html">get_maptypes()</a></code>. The <code><a href="reference/basemap.html">basemap()</a></code> function and its class-specific aliases facilitate (down)loading a basemap and returning it as a class of choice. Map preferences that should be used during a session can be set as defaults using <code><a href="reference/defaults.html">set_defaults()</a></code>.</p>
+<p>All available map services and map types can be printed using <code><a href="reference/get_maptypes.html">get_maptypes()</a></code>. The <code><a href="reference/basemap.html">basemap()</a></code> function and its class-specific aliases facilitate (down)loading a basemap and returning it as a class of choice. Map preferences that should be used during a session can be set as defaults using <code><a href="reference/defaults.html">set_defaults()</a></code>.</p>
 <div class="sourceCode" id="cb2"><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">basemaps</span>)
 <span class="fu"><a href="https://rdrr.io/r/utils/data.html">data</a></span>(<span class="no">ext</span>)
+<span class="co"># or use draw_ext() to interactively draw an extent yourself</span>
 
 <span class="co"># view all available maps</span>
 <span class="fu"><a href="reference/get_maptypes.html">get_maptypes</a></span>()
@@ -184,9 +185,9 @@
 <span class="co">#&gt; Loading basemap 'satellite' from map service 'mapbox'...</span>
 <span class="co">#&gt; [1] "/tmp/RtmpjCVUpd/basemaps//mapbox_satellite_2020-05-28_21-25-47.png"</span></pre></div>
 </div>
-<div id="map-services-and-types" class="section level2">
+<div id="map-examples" class="section level2">
 <h2 class="hasAnchor">
-<a href="#map-services-and-types" class="anchor"></a>Map services and types</h2>
+<a href="#map-examples" class="anchor"></a>Map examples</h2>
 <p><code>basemaps</code> supports a variety of map services and types (which can be printed using <code><a href="reference/get_maptypes.html">get_maptypes()</a></code>). A selection of available map types is shown below:</p>
 <div class="sourceCode" id="cb7"><pre class="r"><span class="fu"><a href="reference/basemap.html">basemap_magick</a></span>(<span class="no">ext</span>, <span class="kw">map_service</span> <span class="kw">=</span> <span class="st">"osm"</span>, <span class="kw">map_type</span> <span class="kw">=</span> <span class="st">"topographic"</span>)
 <span class="co">#&gt; Loading basemap 'topographic' from map service 'osm'...</span></pre></div>
@@ -229,7 +230,7 @@
 <li>
 <code><a href="reference/draw_ext.html">draw_ext()</a></code> lets you draw an extent on an interactive map.</li>
 <li>
-<code><a href="reference/defaults.html">set_defaults()</a></code> and <code><a href="reference/defaults.html">get_defaults()</a></code> sets and gets the defaults of all map arguments passed to <code><a href="reference/basemap.html">basemap()</a></code> or associated functions.</li>
+<code><a href="reference/defaults.html">set_defaults()</a></code>, <code><a href="reference/defaults.html">get_defaults()</a></code> and <code><a href="reference/defaults.html">reset_defaults()</a></code> set, get or reset the defaults of all map arguments passed to <code><a href="reference/basemap.html">basemap()</a></code> or associated functions.</li>
 <li>
 <code><a href="reference/basemap.html">basemap()</a></code> and its aliases <code><a href="reference/basemap.html">basemap_raster()</a></code>, <code><a href="reference/basemap.html">basemap_stars()</a></code>, <code><a href="reference/basemap.html">basemap_mapview()</a></code>, <code><a href="reference/basemap.html">basemap_plot()</a></code>, <code><a href="reference/basemap.html">basemap_ggplot()</a></code>, <code><a href="reference/basemap.html">basemap_gglayer()</a></code>, <code><a href="reference/basemap.html">basemap_magick()</a></code> and <code><a href="reference/basemap.html">basemap_png()</a></code> (down)load and cache a basemap of a defined extent <code>ext</code>, <code>map_service</code> and <code>map_type</code> and return it as an object of the defined class.</li>
 </ul>
