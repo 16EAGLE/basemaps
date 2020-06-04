@@ -43,6 +43,7 @@ test_that("basemap_png()", {
 
 test_that("basemap_plot()", {
   expect_is(basemap_plot(ext, verbose = F), "NULL")
+  if(isTRUE(run_mapbox)) expect_is(basemap_plot(ext, map_service = "mapbox", map_type = "terrain", map_token = map_token, verbose = F), "NULL")
 })
 
 if(isTRUE(check_ggplot)){
