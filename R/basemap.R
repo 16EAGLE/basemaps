@@ -84,7 +84,7 @@ basemap <- function(ext = NULL, map_service = NULL, map_type = NULL, map_res = N
   if("plot" == class) if(nlayers(map) == 3) return(plotRGB(map)) else return(plot(map))
   if(any("png" == class, "magick" == class)){
     file <- paste0(map_dir, "/", map_service, "_", map_type, "_", gsub(":", "-", gsub(" ", "_", Sys.time())), ".png")
-    if(nlayers(map) == 1) map <- RGB(map, col = col)
+    if(nlayers(map) == 1) map <- RGB(map[[1]], col = col)
     raster_to_png(map, file)
     
     if(grepl("png", class)){
