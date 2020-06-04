@@ -9,7 +9,7 @@ test_that("basemap()", {
   # test nominal terrain with col
   if(isTRUE(run_mapbox)){
     map <- expect_is(basemap(ext, map_service = "mapbox", map_type = "terrain", map_token = map_token, map_dir = map_dir, 
-                           col = grDevices::topo.colors(25), verbose = F), "RasterLayer")
+                             col = grDevices::topo.colors(25), verbose = F), "RasterLayer")
     # test nominal RGB calculatio for single layer magick
     map <- expect_is(basemap_magick(ext, map_service = "mapbox", map_type = "terrain", map_token = map_token, map_dir = map_dir, 
                              col = grDevices::topo.colors(25), verbose = F), "magick-image")

@@ -15,6 +15,9 @@ cache:
 
 environment:
   NOT_CRAN: true
+  basemaps_map_token:
+    secure: secret:KkNhwGMw0h93kCHyiwfesMV03geuvaJ6oy012blOL2wyiXdZcanQO3bPKAqN8abzKRisstaUbkxP9GTMVlSvm+VRCEPx9qg5aoffRfGUlwh7vpDRmI+rT1D9dzUIZNVM3F0sWx4MNd9Pup9KYPLkICp6eH7hIDeOfjhhlCdawEwVYo3fA7NmhfXHrQMkuNrL
+  basemaps_test_maps: false
   # env vars that may need to be set, at least temporarily, from time to time
   # see https://github.com/krlmlr/r-appveyor#readme for details
   # USE_RTOOLS: true
