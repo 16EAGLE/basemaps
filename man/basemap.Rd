@@ -20,6 +20,7 @@ basemap(
   map_token = NULL,
   map_dir = NULL,
   class = "raster",
+  force = FALSE,
   ...,
   verbose = TRUE
 )
@@ -31,6 +32,7 @@ basemap_raster(
   map_res = NULL,
   map_token = NULL,
   map_dir = NULL,
+  force = NULL,
   ...,
   verbose = TRUE
 )
@@ -42,6 +44,7 @@ basemap_stars(
   map_res = NULL,
   map_token = NULL,
   map_dir = NULL,
+  force = NULL,
   ...,
   verbose = TRUE
 )
@@ -53,6 +56,7 @@ basemap_mapview(
   map_res = NULL,
   map_token = NULL,
   map_dir = NULL,
+  force = NULL,
   ...,
   verbose = TRUE
 )
@@ -64,6 +68,7 @@ basemap_plot(
   map_res = NULL,
   map_token = NULL,
   map_dir = NULL,
+  force = NULL,
   ...,
   verbose = TRUE
 )
@@ -75,6 +80,7 @@ basemap_ggplot(
   map_res = NULL,
   map_token = NULL,
   map_dir = NULL,
+  force = NULL,
   ...,
   verbose = TRUE
 )
@@ -86,6 +92,7 @@ basemap_gglayer(
   map_res = NULL,
   map_token = NULL,
   map_dir = NULL,
+  force = NULL,
   ...,
   verbose = TRUE
 )
@@ -97,6 +104,7 @@ basemap_magick(
   map_res = NULL,
   map_token = NULL,
   map_dir = NULL,
+  force = NULL,
   ...,
   verbose = TRUE
 )
@@ -108,6 +116,7 @@ basemap_png(
   map_res = NULL,
   map_token = NULL,
   map_dir = NULL,
+  force = NULL,
   ...,
   verbose = TRUE
 )
@@ -121,11 +130,13 @@ basemap_png(
 
 \item{map_res}{numeric, resolution of base map in range from 0 to 1.}
 
-\item{map_token}{character, mapbox authentification token for mapbox basemaps. Register at \url{https://www.mapbox.com/} to get a mapbox token. Mapbox is free of charge after registration for up to 50.000 map requests per month. Ignored, if \code{map_service = "osm"}.}
+\item{map_token}{character, authentification token for services that require registration, which are \code{"osm_thunderforest"} and \code{"mapbox"}. Register at \url{https://www.thunderforest.com/} and/or \url{https://mapbox.com} to get tokens. Ignored for all other map services.}
 
 \item{map_dir}{character, cache directory where downloaded basemap tiles will be stored. By default, a temporary directory is used, which is destroyed when the session is terminated.}
 
 \item{class}{character, output class, either \code{"raster"}, \code{"stars"}, \code{"mapview"}, \code{"plot"}, \code{"ggplot"}, \code{"gglayer"}, \code{"magick"} or \code{"png"}.}
+
+\item{force}{logical, whether to force download over cached files or not. Default is \code{FALSE}.}
 
 \item{...}{additional arguments, including
 \itemize{
@@ -141,6 +152,11 @@ A basemap of the defined class
 \description{
 These functions (down)load and cache a basemap of a defined extent \code{ext}, \code{map_service} and \code{map_type} and return it as an object of the defined class. Alternatively to defining the following arguments, \code{\link{set_defaults}} can be used to define basemap preferences once for the running session.
 }
+\note{
+See \link{get_maptypes} for available map services and their sources.
+
+The use of the map services \code{"osm_thunderforest"} and \code{"mapbox"} require registration to obtain an API token/key which can be supplied to \code{map_token}. Register at \url{https://www.thunderforest.com/} and/or \url{https://mapbox.com} to get a token.
+}
 \examples{
 library(basemaps)
 
@@ -152,7 +168,8 @@ get_maptypes()
 
 # set defaults for the basemap
 set_defaults(map_service = "osm", map_type = "terrain_bg")
-# for mapbox maps, you need a map_token. Register for free at mapbox.com to get a token
+# for osm_thunderforest and mapbox maps, you need a API token. 
+# Register for free at thunderforest.com and mapbox.com to get a token
 
 \dontrun{
 # load and return basemap map as raster (default)

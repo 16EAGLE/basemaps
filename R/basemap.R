@@ -5,10 +5,11 @@
 #' @param ext extent to be covered by the basemap as any spatial class supported by \code{st_bbox}.
 #' @param map_service character, a map service, either \code{"osm"}, \code{"carto"} or \code{"mapbox"}. Default is \code{"osm"}.
 #' @param map_type character, a map type, e.g. \code{"streets"}. For a full list of available map types, see \code{\link{get_maptypes}}.
-#' @param map_token character, mapbox authentification token for mapbox basemaps. Register at \url{https://www.mapbox.com/} to get a mapbox token. Mapbox is free of charge after registration for up to 50.000 map requests per month. Ignored, if \code{map_service = "osm"}.
+#' @param map_token character, authentification token for services that require registration, which are \code{"osm_thunderforest"} and \code{"mapbox"}. Register at \url{https://www.thunderforest.com/} and/or \url{https://mapbox.com} to get tokens. Ignored for all other map services.
 #' @param map_res numeric, resolution of base map in range from 0 to 1.
 #' @param map_dir character, cache directory where downloaded basemap tiles will be stored. By default, a temporary directory is used, which is destroyed when the session is terminated.
 #' @param class character, output class, either \code{"raster"}, \code{"stars"}, \code{"mapview"}, \code{"plot"}, \code{"ggplot"}, \code{"gglayer"}, \code{"magick"} or \code{"png"}.
+#' @param force logical, whether to force download over cached files or not. Default is \code{FALSE}.
 #' @param ... additional arguments, including
 #' \itemize{
 #'    \item \code{browse}, logical, for \code{class = "png"} and interactive sessions only. Whether to open the png file in the system's default PNG viewer or not. Default is \code{TRUE}.
@@ -19,6 +20,11 @@
 #' @return
 #' A basemap of the defined class
 #' 
+#' @note 
+#' 
+#' See \link{get_maptypes} for available map services and their sources.
+#' 
+#' The use of the map services \code{"osm_thunderforest"} and \code{"mapbox"} require registration to obtain an API token/key which can be supplied to \code{map_token}. Register at \url{https://www.thunderforest.com/} and/or \url{https://mapbox.com} to get a token.
 #' 
 #' @examples
 #' library(basemaps)
@@ -31,7 +37,8 @@
 #' 
 #' # set defaults for the basemap
 #' set_defaults(map_service = "osm", map_type = "terrain_bg")
-#' # for mapbox maps, you need a map_token. Register for free at mapbox.com to get a token
+#' # for osm_thunderforest and mapbox maps, you need a API token. 
+#' # Register for free at thunderforest.com and mapbox.com to get a token
 #' 
 #' \dontrun{
 #' # load and return basemap map as raster (default)
@@ -49,7 +56,7 @@
 #' @importFrom utils installed.packages
 #' @export
 #' @name basemap
-basemap <- function(ext = NULL, map_service = NULL, map_type = NULL, map_res = NULL, map_token = NULL, map_dir = NULL, class = "raster", 
+basemap <- function(ext = NULL, map_service = NULL, map_type = NULL, map_res = NULL, map_token = NULL, map_dir = NULL, class = "raster", force = FALSE,
                     ..., verbose = TRUE){
   
   ## checks
@@ -66,7 +73,6 @@ basemap <- function(ext = NULL, map_service = NULL, map_type = NULL, map_res = N
   if(!is.null(extras$browse)) browse <- extras$browse else browse <- TRUE
   if(!is.null(extras$col)) col <- extras$col else col <- topo.colors(25)
   
-  
   if(!is.null(map_dir)) if(!dir.exists(map_dir)){
     out("Directory defined by argument 'map_dir' does not exist, using a temporary directory instead.", type = 2)
     map_dir <- NULL
@@ -77,11 +83,13 @@ basemap <- function(ext = NULL, map_service = NULL, map_type = NULL, map_res = N
   ## get map
   out(paste0("Loading basemap '", map_type, "' from map service '", map_service, "'..."))
   ext <- st_bbox(ext)
-  map <- .get_map(ext, map_service, map_type, map_token, map_dir, map_res, ...)
+  map <- .get_map(ext, map_service, map_type, map_token, map_dir, map_res, force, class, ...)
   
   ## define class
+  if("stars" %in% class) return(map)
   if("raster" %in% class) return(map)
-  if("plot" == class) if(nlayers(map) == 3) return(plotRGB(map)) else return(plot(map))
+  if("plot" == class) if(nlayers(map) == 3) return(image(r, rgb = 1:3)) else return(image(map, col = col))
+  
   if(any("png" == class, "magick" == class)){
     file <- paste0(map_dir, "/", map_service, "_", map_type, "_", gsub(":", "-", gsub(" ", "_", Sys.time())), ".png")
     if(nlayers(map) == 1) map <- RGB(map[[1]], col = col)
@@ -95,13 +103,13 @@ basemap <- function(ext = NULL, map_service = NULL, map_type = NULL, map_res = N
       return(image_read(file))
     }
   }
-  if("stars" %in% class){
-    if(any(grepl("stars", rownames(installed.packages())))){
-      return(stars::st_as_stars(map))
-    } else{
-      out("Package 'stars' is not installed. Please install 'stars' using install.packages('stars').")
-    }
-  }
+  # if("stars" %in% class){
+  #   if(any(grepl("stars", rownames(installed.packages())))){
+  #     return(stars::st_as_stars(map))
+  #   } else{
+  #     out("Package 'stars' is not installed. Please install 'stars' using install.packages('stars').")
+  #   }
+  # }
   if("mapview" %in% class){
     if(any(grepl("mapview", rownames(installed.packages())))){
       quiet(if(nlayers(map) == 3) return(mapview::viewRGB(map, 1, 2, 3, layer.name = "Basemap", maxpixels = ncell(map))) else return(mapview::mapview(map)))
@@ -127,48 +135,48 @@ basemap <- function(ext = NULL, map_service = NULL, map_type = NULL, map_res = N
 
 #' @rdname basemap
 #' @export
-basemap_raster <- function(ext = NULL, map_service = NULL, map_type = NULL, map_res = NULL, map_token = NULL, map_dir = NULL, ..., verbose = TRUE){
-  basemap(ext, map_service, map_type, map_res, map_token, map_dir, class = "raster", ..., verbose = verbose)
+basemap_raster <- function(ext = NULL, map_service = NULL, map_type = NULL, map_res = NULL, map_token = NULL, map_dir = NULL, force = NULL, ..., verbose = TRUE){
+  basemap(ext, map_service, map_type, map_res, map_token, map_dir, class = "raster", force, ..., verbose = verbose)
 }
 
 #' @rdname basemap
 #' @export
-basemap_stars <- function(ext = NULL, map_service = NULL, map_type = NULL, map_res = NULL, map_token = NULL, map_dir = NULL, ..., verbose = TRUE){
-  basemap(ext, map_service, map_type, map_res, map_token, map_dir, class = "stars", ..., verbose = verbose)
+basemap_stars <- function(ext = NULL, map_service = NULL, map_type = NULL, map_res = NULL, map_token = NULL, map_dir = NULL, force = NULL, ..., verbose = TRUE){
+  basemap(ext, map_service, map_type, map_res, map_token, map_dir, class = "stars", force, ..., verbose = verbose)
 }
 
 #' @rdname basemap
 #' @export
-basemap_mapview <- function(ext = NULL, map_service = NULL, map_type = NULL, map_res = NULL, map_token = NULL, map_dir = NULL, ..., verbose = TRUE){
-  basemap(ext, map_service, map_type, map_res, map_token, map_dir, class = "mapview", ..., verbose = verbose)
+basemap_mapview <- function(ext = NULL, map_service = NULL, map_type = NULL, map_res = NULL, map_token = NULL, map_dir = NULL, force = NULL, ..., verbose = TRUE){
+  basemap(ext, map_service, map_type, map_res, map_token, map_dir, class = "mapview", force, ..., verbose = verbose)
 }
 
 #' @rdname basemap
 #' @export
-basemap_plot <- function(ext = NULL, map_service = NULL, map_type = NULL, map_res = NULL, map_token = NULL, map_dir = NULL, ..., verbose = TRUE){
-  basemap(ext, map_service, map_type, map_res, map_token, map_dir, class = "plot", ..., verbose = verbose)
+basemap_plot <- function(ext = NULL, map_service = NULL, map_type = NULL, map_res = NULL, map_token = NULL, map_dir = NULL, force = NULL, ..., verbose = TRUE){
+  basemap(ext, map_service, map_type, map_res, map_token, map_dir, class = "plot", force, ..., verbose = verbose)
 }
 
 #' @rdname basemap
 #' @export
-basemap_ggplot <- function(ext = NULL, map_service = NULL, map_type = NULL, map_res = NULL, map_token = NULL, map_dir = NULL, ..., verbose = TRUE){
-  basemap(ext, map_service, map_type, map_res, map_token, map_dir, class = "ggplot", ..., verbose = verbose)
+basemap_ggplot <- function(ext = NULL, map_service = NULL, map_type = NULL, map_res = NULL, map_token = NULL, map_dir = NULL, force = NULL, ..., verbose = TRUE){
+  basemap(ext, map_service, map_type, map_res, map_token, map_dir, class = "ggplot", force, ..., verbose = verbose)
 }
 
 #' @rdname basemap
 #' @export
-basemap_gglayer <- function(ext = NULL, map_service = NULL, map_type = NULL, map_res = NULL, map_token = NULL, map_dir = NULL, ..., verbose = TRUE){
-  basemap(ext, map_service, map_type, map_res, map_token, map_dir, class = "gglayer", ..., verbose = verbose)
+basemap_gglayer <- function(ext = NULL, map_service = NULL, map_type = NULL, map_res = NULL, map_token = NULL, map_dir = NULL, force = NULL, ..., verbose = TRUE){
+  basemap(ext, map_service, map_type, map_res, map_token, map_dir, class = "gglayer", force, ..., verbose = verbose)
 }
 
 #' @rdname basemap
 #' @export
-basemap_magick <- function(ext = NULL, map_service = NULL, map_type = NULL, map_res = NULL, map_token = NULL, map_dir = NULL, ..., verbose = TRUE){
-  basemap(ext, map_service, map_type, map_res, map_token, map_dir, class = "magick", ..., verbose = verbose)
+basemap_magick <- function(ext = NULL, map_service = NULL, map_type = NULL, map_res = NULL, map_token = NULL, map_dir = NULL, force = NULL, ..., verbose = TRUE){
+  basemap(ext, map_service, map_type, map_res, map_token, map_dir, class = "magick", force, ..., verbose = verbose)
 }
 
 #' @rdname basemap
 #' @export
-basemap_png <- function(ext = NULL, map_service = NULL, map_type = NULL, map_res = NULL, map_token = NULL, map_dir = NULL, ..., verbose = TRUE){
-  basemap(ext, map_service, map_type, map_res, map_token, map_dir, class = "png", ..., verbose = verbose)
+basemap_png <- function(ext = NULL, map_service = NULL, map_type = NULL, map_res = NULL, map_token = NULL, map_dir = NULL, force = NULL, ..., verbose = TRUE){
+  basemap(ext, map_service, map_type, map_res, map_token, map_dir, class = "png", force, ..., verbose = verbose)
 }

@@ -2,9 +2,24 @@
 #'
 #' This function returns every supported map type that can be used as input to the \code{map_type} argument of \code{\link{set_defaults}}, \code{\link{basemap}} or associated functions.
 #'
-#' @param map_service character, optional, either \code{"osm"}, \code{"carto"} or \code{"mapbox"}. Otherwise, a list of map types for both services is returned.
+#' @param map_service character, optional, either \code{"osm"}, \code{"osm_stamen"},  \code{"osm_thunderforest"},  \code{"carto"}, \code{"mapbox"} or \code{"esri"}. Otherwise, a list of map types for both services is returned.
 #' @return A character vector of supported map types
 #' 
+#' 
+#' @source 
+#' 
+#' \code{"osm"}: Open Street Map contributors (\url{https://www.openstreetmap.org/copyright}), Open Topo Map (\url{https://opentopomap.org/}), Martin Tesar (\url{http://mtbmap.cz/})
+#' 
+#' \code{"osm_stamen"}: Stamen (\url{http://maps.stamen.com/}), Open Street Map contributors (\url{https://www.openstreetmap.org/copyright})
+#' 
+#' \code{"osm_thunderforest"}: Thunderforest (\url{https://www.thunderforest.com/}), Open Street Map contributors (\url{https://www.openstreetmap.org/copyright})
+#'
+#' \code{"carto"}: Carto (\url{https://carto.com/})
+#' 
+#' \code{"mapbox"}: Mapbox (\url{https://www.mapbox.com})
+#' 
+#' \code{"esri"}: Esri (\url{https://www.esri.com/})
+#'
 #' @examples 
 #' # for all services
 #' get_maptypes()
