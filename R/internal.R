@@ -115,12 +115,13 @@ gg.bmap <- function(r, r_type, gglayer = F, ...){
 
 
 #' get map
-#' @importFrom slippymath bbox_to_tile_grid compose_tile_grid
-#' @importFrom raster projectRaster extent extent<- resample extend merge crs crop writeRaster nlayers brick
+#' @importFrom slippymath bbox_to_tile_grid tile_bbox
+#' @importFrom raster extent extent<- resample extend merge brick
 #' @importFrom magick image_read image_write image_convert
 #' @importFrom curl curl_download
 #' @importFrom httr http_error GET
-#' @importFrom sf st_transform st_bbox st_as_sfc st_crs
+#' @importFrom sf st_transform st_bbox st_as_sfc st_crs st_crs<- st_crop
+#' @importFrom stars read_stars write_stars st_as_stars st_set_bbox st_mosaic
 #' @keywords internal
 #' @noRd
 .get_map <- function(ext, map_service, map_type, map_token, map_dir, map_res, force, class, ...){
@@ -130,7 +131,7 @@ gg.bmap <- function(r, r_type, gglayer = F, ...){
   if(!is.null(extras$no_crop)) no_crop <- extras$no_crop else no_crop <- FALSE
   
   if(inherits(ext, "bbox")) ext <- list(ext)
-  r <- lapply(ext, function(y){
+  file_comp <- lapply(ext, function(y){
     
     ## calculate needed slippy tiles using slippymath
     ext.ll <- st_bbox(st_transform(st_as_sfc(y), crs = st_crs(4326)))
@@ -204,7 +205,7 @@ gg.bmap <- function(r, r_type, gglayer = F, ...){
       }, SIMPLIFY = F)
       r <- do.call(st_mosaic, r)
       
-      if(isFALSE(no_transform)){
+      if(isFALSE(no_transform)){ ## needed?
         if(as.numeric(tg$crs$epsg) != 3857){
           r <- st_transform(r, crs = tg$crs)
           #r <- projectRaster(r, crs = crs(paste0("+init=epsg:", tg$crs$epsg)), method = "ngb")
@@ -229,38 +230,45 @@ gg.bmap <- function(r, r_type, gglayer = F, ...){
       write_stars(r, dsn = file_comp)
       #writeRaster(r, filename = file_comp, overwrite = T) # datatype = "INT1U",
       options(basemaps.cached = c(cached, list(list(tg = tg, file_comp = file_comp))))
-    } else{
-      r <- read_stars(file_comp)
-      #r <- brick(file_comp)
-    }
-    return(r)
+    } 
+    return(file_comp)
   })
+  
+  #assemble dateline crossing basemap
+  if(length(file_comp) > 1){
 
-  # assemble dateline crossing basemap
-  # if(length(r) > 1){
-  # 
-  #   # extend over dateline
-  #   ext.both <- list(east = extent(r$east), west = extent(r$west))
-  #   rg <- c("east"= diff(c(ext.both$east@xmin, ext.both$east@xmax)), "west" = diff(c(ext.both$west@xmin, ext.both$west@xmax)))
-  # 
-  #   ext.both <- .expand_ext(ext.both, rg)
-  #   #ext.both <- .shift_ext(ext.both)
-  #   extent(r$east) <- ext.both$east
-  #   extent(r$west) <- ext.both$west
-  # 
-  #   # extend lower res raster, resample higher res raster and merge both
-  #   ext.combi <- .combine_ext(ext.both)
-  # 
-  #   r[[which.min(rg)]] <- extend(r[[which.min(rg)]], ext.combi)
-  #   r[[which.max(rg)]] <- resample(r[[which.max(rg)]], r[[which.min(rg)]])
-  #   r <- list(merge(r[[1]], r[[2]]))
-  # }
+    # load and name 
+    r <- lapply(file_comp, brick)
+    names(r) <- names(ext)
+    
+    # extend over dateline
+    ext.both <- list(east = extent(r$east), west = extent(r$west))
+    rg <- c("east"= diff(c(ext.both$east@xmin, ext.both$east@xmax)), "west" = diff(c(ext.both$west@xmin, ext.both$west@xmax)))
+
+    ext.both <- .expand_ext(ext.both, rg)
+    #ext.both <- .shift_ext(ext.both)
+    extent(r$east) <- ext.both$east
+    extent(r$west) <- ext.both$west
+
+    # extend lower res raster, resample higher res raster and merge both
+    ext.combi <- .combine_ext(ext.both)
+
+    r[[which.min(rg)]] <- extend(r[[which.min(rg)]], ext.combi)
+    r[[which.max(rg)]] <- resample(r[[which.max(rg)]], r[[which.min(rg)]])
+    r <- list(merge(r[[1]], r[[2]]))
+    
+    file_comp <- paste0(map_dir, "basemap_", gsub(":", "", gsub(" ", "", gsub("-", "", Sys.time()))), ".tif")
+    write_stars(st_as_stars(r), file_comp)
+  } else{
+    file_comp <- file_comp[[1]]
+  }
   
   # rename layers
-  r <- r[[1]]
-  names(r) <- "val"
+  #r <- r[[1]]
+  #names(r) <- "val"
   #names(r) <- paste0("val", 1:nlayers(r))
-  if("raster" %in% class) brick(file_comp) else return(r)
+  #if("raster" %in% class) brick(file_comp) else return(r)
+  return(file_comp)
 }
 
 #' defaults
@@ -291,7 +299,7 @@ gg.bmap <- function(r, r_type, gglayer = F, ...){
     osm = list(
       streets = "https://tile.openstreetmap.org/",
       streets_de = "http://tile.openstreetmap.de/tiles/osmde/",
-      streets_fr = "https://tile.openstreetmap.fr/osmfr/",
+      #streets_fr = "https://tile.openstreetmap.fr/osmfr/",
       humanitarian = "http://tile.openstreetmap.fr/hot/",
       topographic = "https://tile.opentopomap.org/",
       hike = "https://tiles.wmflabs.org/hikebike/",

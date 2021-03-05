@@ -21,6 +21,9 @@
 #' 
 #' @export
 draw_ext <- function(){
-  if(any(grepl("mapedit", rownames(utils::installed.packages())))) out("Package 'mapedit' was not found. Please install 'mapedit' to use this function.", type = 3)
-  mapedit::drawFeatures(title = "Draw a basemap extent")
+  if(any(grepl("mapedit", rownames(utils::installed.packages())))){
+    mapedit::drawFeatures(title = "Draw a basemap extent")
+  } else{
+    out("Package 'mapedit' was not found. Please install 'mapedit' to use this function.", type = 3)
+  }
 }

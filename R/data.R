@@ -1,6 +1,6 @@
 #' Example extemt
 #'
-#' The example dataset contains the object \code{ext}, an \code{sf} object that can be used to call \code{\link{basemap}} and the associated functions.
+#' The example dataset contains the \code{sf} objects \code{ext} and \code{ext_eur} that can be used to call \code{\link{basemap}} and the associated functions.
 #' 
 #' @format \code{sf} object
 #' @usage data(ext)

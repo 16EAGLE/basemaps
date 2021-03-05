@@ -8,7 +8,7 @@
 #' @param map_token character, authentification token for services that require registration, which are \code{"osm_thunderforest"} and \code{"mapbox"}. Register at \url{https://www.thunderforest.com/} and/or \url{https://mapbox.com} to get tokens. Ignored for all other map services.
 #' @param map_res numeric, resolution of base map in range from 0 to 1.
 #' @param map_dir character, cache directory where downloaded basemap tiles will be stored. By default, a temporary directory is used, which is destroyed when the session is terminated.
-#' @param class character, output class, either \code{"raster"}, \code{"stars"}, \code{"mapview"}, \code{"plot"}, \code{"ggplot"}, \code{"gglayer"}, \code{"magick"} or \code{"png"}.
+#' @param class character, output class, either \code{"stars"}, \code{"raster"}, \code{"mapview"}, \code{"plot"}, \code{"ggplot"}, \code{"gglayer"}, \code{"magick"}, \code{"png"} or \code{"geotif"}..
 #' @param force logical, whether to force download over cached files or not. Default is \code{FALSE}.
 #' @param ... additional arguments, including
 #' \itemize{
@@ -18,7 +18,7 @@
 #' @param verbose logical, if \code{TRUE}, messages and progress information are displayed on the console (default).
 #' 
 #' @return
-#' A basemap of the defined class
+#' A basemap of the defined class in Web/Pseudo Mercator Projection (EPSG: 3857)
 #' 
 #' @note 
 #' 
@@ -49,15 +49,15 @@
 #' basemap_plot(ext)
 #' }
 #' @importFrom sf st_bbox 
-#' @importFrom raster nlayers plotRGB plot ncell RGB
-#' @importFrom slippymath raster_to_png
+#' @importFrom raster nlayers brick raster
+#' @importFrom stars read_stars
 #' @importFrom magick image_read
-#' @importFrom grDevices topo.colors
+#' @importFrom grDevices topo.colors col2rgb
 #' @importFrom utils installed.packages
 #' @export
 #' @name basemap
-basemap <- function(ext = NULL, map_service = NULL, map_type = NULL, map_res = NULL, map_token = NULL, map_dir = NULL, class = "raster", force = FALSE,
-                    ..., verbose = TRUE){
+basemap <- function(ext = NULL, map_service = NULL, map_type = NULL, map_res = NULL, map_token = NULL,
+                    map_dir = NULL, class = "stars", force = FALSE, ..., verbose = TRUE){
   
   ## checks
   if(inherits(verbose, "logical")) options(basemaps.verbose = verbose)
@@ -82,53 +82,97 @@ basemap <- function(ext = NULL, map_service = NULL, map_type = NULL, map_res = N
   
   ## get map
   out(paste0("Loading basemap '", map_type, "' from map service '", map_service, "'..."))
-  ext <- st_bbox(ext)
-  map <- .get_map(ext, map_service, map_type, map_token, map_dir, map_res, force, class, ...)
+  ext <- st_bbox(st_transform(st_as_sfc(st_bbox(ext)), crs = st_crs(3857))) #bbox as web mercator, always
+  #ext <- st_bbox(ext)
+  map_file <- .get_map(ext, map_service, map_type, map_token, map_dir, map_res, force, class, ...)
   
-  ## define class
-  if("stars" %in% class) return(map)
-  if("raster" %in% class) return(map)
-  if("plot" == class) if(nlayers(map) == 3) return(image(r, rgb = 1:3)) else return(image(map, col = col))
+  # return file if needed
+  if("geotif" %in% class) return(map_file)
   
-  if(any("png" == class, "magick" == class)){
-    file <- paste0(map_dir, "/", map_service, "_", map_type, "_", gsub(":", "-", gsub(" ", "_", Sys.time())), ".png")
-    if(nlayers(map) == 1) map <- RGB(map[[1]], col = col)
-    raster_to_png(map, file)
+  ## stars-based:
+  if(any(c("stars", "plot", "png", "magick") %in% class)){
+    map <- read_stars(map_file)
     
-    if(grepl("png", class)){
-      if(all(isTRUE(interactive()), isTRUE(browse))) utils::browseURL(file)
-      return(file)
+    if("stars" %in% class) return(map)
+    if("plot" == class) if(is.na(dim(map)[3])){
+      plot(map, col = col, main = NULL, downsample = 0)
+    } else if(dim(map)[3] == 3){
+      plot(map, rgb = 1:3, main = NULL, downsample = 0) 
+    } else{
+      plot(map, col = col, main = NULL, downsample = 0) # add ... for arguments here?
     }
-    if(grepl("magick", class)){
-      return(image_read(file))
+    if(any("png" == class, "magick" == class)){
+      if(!any(grepl("png", rownames(installed.packages())))){
+        out("Package 'png' is not installed. Please install 'png' using install.packages('png').")
+      } else{
+        file <- paste0(map_dir, "/", map_service, "_", map_type, "_", gsub(":", "-", gsub(" ", "_", Sys.time())), ".png")
+        map_arr <- map[[1]]
+        
+        if(!is.na(dim(map_arr)[3])){
+          #for(i in 1:dim(map_arr)[3]) map_arr[,,i] <- t(map_arr[,,i])
+          map_arr <- aperm(map_arr, c(2, 1, 3))
+          map_arr <- sweep(map_arr, MARGIN = 3, STATS = max(map_arr), FUN = "/")
+          png::writePNG(map_arr, target = file)
+        } else{
+          # convert to range 0 to 1
+          map_arr <- sweep(t(map_arr), MARGIN = 1, STATS = max(map_arr), FUN = "/")
+          # map col to value range
+          map_arr_col <- col[findInterval(map_arr, seq(0, 1, length.out = length(col)))]#, dim(map_arr))
+          # convert hex to rgb
+          map_arr_rgb <- col2rgb(map_arr_col)
+          # switch dimensions to fit writeRGB
+          map_arr_rgb <- aperm(array(map_arr_rgb, c(3, dim(map_arr))), c(2,3,1))
+          # go back to 0 to 1 again
+          map_arr_rgb <- sweep(map_arr_rgb, MARGIN = 3, STATS = max(map_arr_rgb), FUN = "/")
+          png::writePNG(map_arr_rgb, target = file)
+        }
+        if(grepl("png", class)){
+          if(all(isTRUE(interactive()), isTRUE(browse))) utils::browseURL(file)
+          return(file)
+        }
+        if(grepl("magick", class)){
+          return(image_read(file))
+        }
+      }
     }
   }
-  # if("stars" %in% class){
-  #   if(any(grepl("stars", rownames(installed.packages())))){
-  #     return(stars::st_as_stars(map))
-  #   } else{
-  #     out("Package 'stars' is not installed. Please install 'stars' using install.packages('stars').")
-  #   }
-  # }
-  if("mapview" %in% class){
-    if(any(grepl("mapview", rownames(installed.packages())))){
-      quiet(if(nlayers(map) == 3) return(mapview::viewRGB(map, 1, 2, 3, layer.name = "Basemap", maxpixels = ncell(map))) else return(mapview::mapview(map)))
-    } else{
-      out("Package 'mapview' is not installed. Please install 'mapview' using install.packages('mapview').")
+  
+  # raster-based
+  if(any(c("raster", "mapview", "ggplot", "gglayer") %in% class)){
+    map <- quiet(brick(map_file))
+    if("raster" %in% class){
+      if(nlayers(map) == 1) map <- raster(map)
+      return(map)
     }
-  }
-  if("ggplot" %in% class){
-    if(any(grepl("ggplot", rownames(installed.packages())))){
-      if(nlayers(map) == 3) return(gg.bmap(r = map, r_type = "RGB", ...)) else return(gg.bmap(r = map, r_type = "gradient", ...))
-    } else{
-      out("Package 'ggplot2' is not installed. Please install 'ggplot2' using install.packages('ggplot2').")
+    
+    if("mapview" %in% class){
+      if(!any(grepl("mapview", rownames(installed.packages())))){
+        out("Package 'mapview' is not installed. Please install 'mapview' using install.packages('mapview').")
+      } else{
+        quiet(if(nlayers(map) == 3){
+          return(mapview::viewRGB(map, 1, 2, 3, layer.name = "Basemap", maxpixels = ncell(map)), quantiles = NULL)
+        } else return(mapview::mapview(map)))
+      }
     }
-  }
-  if("gglayer" %in% class){
-    if(any(grepl("ggplot", rownames(installed.packages())))){
-      if(nlayers(map) == 3) return(gg.bmap(r = map, r_type = "RGB", gglayer = T, ...)) else return(gg.bmap(r = map, r_type = "gradient", gglayer = T, ...))
-    } else{
-      out("Package 'ggplot2' is not installed. Please install 'ggplot2' using install.packages('ggplot2').")
+    
+    if("ggplot" %in% class){
+      if(!any(grepl("ggplot", rownames(installed.packages())))){
+        out("Package 'ggplot2' is not installed. Please install 'ggplot2' using install.packages('ggplot2').")
+      } else{
+        if(nlayers(map) == 3){
+          return(gg.bmap(r = map, r_type = "RGB", ...))
+        } else{
+          return(gg.bmap(r = map, r_type = "gradient", ...))
+        }
+      }
+    }
+  
+    if("gglayer" %in% class){
+      if(!any(grepl("ggplot", rownames(installed.packages())))){
+        out("Package 'ggplot2' is not installed. Please install 'ggplot2' using install.packages('ggplot2').")
+      } else{
+        if(nlayers(map) == 3) return(gg.bmap(r = map, r_type = "RGB", gglayer = T, ...)) else return(gg.bmap(r = map, r_type = "gradient", gglayer = T, ...))
+      }
     }
   }
 }
@@ -179,4 +223,10 @@ basemap_magick <- function(ext = NULL, map_service = NULL, map_type = NULL, map_
 #' @export
 basemap_png <- function(ext = NULL, map_service = NULL, map_type = NULL, map_res = NULL, map_token = NULL, map_dir = NULL, force = NULL, ..., verbose = TRUE){
   basemap(ext, map_service, map_type, map_res, map_token, map_dir, class = "png", force, ..., verbose = verbose)
+}
+
+#' @rdname basemap
+#' @export
+basemap_geotif <- function(ext = NULL, map_service = NULL, map_type = NULL, map_res = NULL, map_token = NULL, map_dir = NULL, force = NULL, ..., verbose = TRUE){
+  basemap(ext, map_service, map_type, map_res, map_token, map_dir, class = "geotif", force, ..., verbose = verbose)
 }
