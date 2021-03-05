@@ -3,20 +3,20 @@ context("basemap")
 
 test_that("basemap()", {
   # test nominal
-  map <- expect_output(expect_is(basemap(ext, map_dir = map_dir, verbose = T), "RasterBrick"))
-  expect_equal(dim(map), c(582, 623, 3))
+  map <- expect_output(expect_is(basemap(ext, map_dir = map_dir, verbose = T), "stars"))
+  expect_equal(dim(map), c(x = 623, y = 582, band = 3))
   
   # test nominal terrain with col
   if(isTRUE(run_mapbox)){
     map <- expect_is(basemap(ext, map_service = "mapbox", map_type = "terrain", map_token = map_token, map_dir = map_dir, 
-                             col = grDevices::topo.colors(25), verbose = F), "RasterLayer")
+                             col = grDevices::topo.colors(25), verbose = F), "stars")
     # test nominal RGB calculatio for single layer magick
     map <- expect_is(basemap_magick(ext, map_service = "mapbox", map_type = "terrain", map_token = map_token, map_dir = map_dir, 
                              col = grDevices::topo.colors(25), verbose = F), "magick-image")
   }
   
   # test hiddena arguments
-  expect_is(basemap(ext, no_transform = T, no_crop = T, verbose = F), "RasterBrick")
+  expect_is(basemap(ext, no_transform = T, no_crop = T, verbose = F), "stars")
   
   # test warning with false map_dir
   expect_warning(basemap_plot(ext, map_dir = "/this/is/nonsense/", verbose = F))
@@ -24,6 +24,11 @@ test_that("basemap()", {
   # test ext error
   expect_error(basemap())
   
+})
+
+test_that("basemap_stars()", {
+  map <- expect_is(basemap_stars(ext, verbose = F), "stars")
+  expect_equal(dim(map), c(x=623, y=582, band=3))
 })
 
 test_that("basemap_raster()", {
@@ -39,6 +44,14 @@ test_that("basemap_png()", {
   file <- expect_is(basemap_png(ext, browse = F, verbose = F), "character")
   expect_true(file.exists(file))
   expect_equal(tail(strsplit(file, "[.]")[[1]], n=1), "png")
+})
+
+
+test_that("basemap_geotif()", {
+  file <- expect_is(basemap_geotif(ext, verbose = F), "character")
+  expect_true(file.exists(file))
+  expect_equal(tail(strsplit(file, "[.]")[[1]], n=1), "tif")
+  expect_true(!is.na(sf::st_crs(stars::read_stars(file))))
 })
 
 test_that("basemap_plot()", {
@@ -64,19 +77,6 @@ if(isTRUE(check_ggplot)){
   })
 }
 
-if(isTRUE(check_stars)){
-  test_that("basemap_stars()", {
-    expect_is(basemap_stars(ext, verbose = F), "stars")
-  })
-}
-
-if(isTRUE(check_stars)){
-  test_that("basemap_stars()", {
-    map <- expect_is(basemap_stars(ext, verbose = F), "stars")
-    expect_equal(dim(map), c(x=623, y=582, band=3))
-  })
-}
-
 if(isTRUE(check_mapview)){
   test_that("basemap_mapview()", {
     expect_is(basemap_mapview(ext, verbose = F), "mapview")
@@ -94,9 +94,8 @@ if(isTRUE(test_maps)){
       #tryCatch({
       cat(paste0(" ", s, ": ", x, "\n"))
       map <- basemap(ext, map_service = s, map_type = x, map_token = Sys.getenv("moveVis_map_token"), verbose = F)
-      expect_is(map, "RasterBrick")
+      expect_is(map, "stars")
       return(NULL)
     }))
   })
 }
-

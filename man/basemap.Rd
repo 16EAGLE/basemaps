@@ -10,6 +10,7 @@
 \alias{basemap_gglayer}
 \alias{basemap_magick}
 \alias{basemap_png}
+\alias{basemap_geotif}
 \title{Get a spatial basemap}
 \usage{
 basemap(
@@ -19,7 +20,7 @@ basemap(
   map_res = NULL,
   map_token = NULL,
   map_dir = NULL,
-  class = "raster",
+  class = "stars",
   force = FALSE,
   ...,
   verbose = TRUE
@@ -120,6 +121,18 @@ basemap_png(
   ...,
   verbose = TRUE
 )
+
+basemap_geotif(
+  ext = NULL,
+  map_service = NULL,
+  map_type = NULL,
+  map_res = NULL,
+  map_token = NULL,
+  map_dir = NULL,
+  force = NULL,
+  ...,
+  verbose = TRUE
+)
 }
 \arguments{
 \item{ext}{extent to be covered by the basemap as any spatial class supported by \code{st_bbox}.}
@@ -134,7 +147,7 @@ basemap_png(
 
 \item{map_dir}{character, cache directory where downloaded basemap tiles will be stored. By default, a temporary directory is used, which is destroyed when the session is terminated.}
 
-\item{class}{character, output class, either \code{"raster"}, \code{"stars"}, \code{"mapview"}, \code{"plot"}, \code{"ggplot"}, \code{"gglayer"}, \code{"magick"} or \code{"png"}.}
+\item{class}{character, output class, either \code{"stars"}, \code{"raster"}, \code{"mapview"}, \code{"plot"}, \code{"ggplot"}, \code{"gglayer"}, \code{"magick"}, \code{"png"} or \code{"geotif"}..}
 
 \item{force}{logical, whether to force download over cached files or not. Default is \code{FALSE}.}
 
@@ -147,7 +160,7 @@ basemap_png(
 \item{verbose}{logical, if \code{TRUE}, messages and progress information are displayed on the console (default).}
 }
 \value{
-A basemap of the defined class
+A basemap of the defined class in Web/Pseudo Mercator Projection (EPSG: 3857)
 }
 \description{
 These functions (down)load and cache a basemap of a defined extent \code{ext}, \code{map_service} and \code{map_type} and return it as an object of the defined class. Alternatively to defining the following arguments, \code{\link{set_defaults}} can be used to define basemap preferences once for the running session.

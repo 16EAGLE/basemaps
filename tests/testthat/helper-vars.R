@@ -3,6 +3,7 @@ map_token = Sys.getenv("basemaps_map_token")
 if(map_token != "") run_mapbox <- TRUE else run_mapbox <- FALSE
 run_esri <- FALSE
 test_maps = as.logical(Sys.getenv("basemaps_test_maps"))
+if(is.na(test_maps)) test_maps <- FALSE
 
 # test dir
 map_dir = Sys.getenv("basemaps_test_dir")
@@ -13,8 +14,8 @@ if(!dir.exists(map_dir)) dir.create(map_dir, recursive = T)
 
 # example extent
 data("ext", package = "basemaps", envir = environment())
+ext <- ext_eur
 
 # suggests installed?
 check_ggplot <- any(grepl("ggplot2", installed.packages()[,1]))
-check_stars <- any(grepl("stars", installed.packages()[,1]))
 check_mapview <- any(grepl("mapview", installed.packages()[,1]))
