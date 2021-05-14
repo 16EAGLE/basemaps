@@ -94,12 +94,16 @@ basemap <- function(ext = NULL, map_service = NULL, map_type = NULL, map_res = N
     map <- read_stars(map_file)
     
     if("stars" %in% class) return(map)
-    if("plot" == class) if(is.na(dim(map)[3])){
-      plot(map, col = col, main = NULL, downsample = 0)
-    } else if(dim(map)[3] == 3){
-      plot(map, rgb = 1:3, main = NULL, downsample = 0) 
-    } else{
-      plot(map, col = col, main = NULL, downsample = 0) # add ... for arguments here?
+    if("plot" == class){
+      dim_map <- dim(map)
+      if(length(dim(map) == 2)) dim_map["band"] <- 1
+      if(dim_map[3] == 3){
+        plot(map, rgb = 1:3, main = NULL, downsample = 0) 
+      } else{
+        plot(map, col = col, 
+             breaks = seq(min(map[[1]]), max(map[[1]]), length.out = length(col)+1),
+             main = NULL, downsample = 0)
+      }
     }
     if(any("png" == class, "magick" == class)){
       if(!any(grepl("png", rownames(installed.packages())))){
@@ -150,7 +154,7 @@ basemap <- function(ext = NULL, map_service = NULL, map_type = NULL, map_res = N
         out("Package 'mapview' is not installed. Please install 'mapview' using install.packages('mapview').")
       } else{
         quiet(if(nlayers(map) == 3){
-          return(mapview::viewRGB(map, 1, 2, 3, layer.name = "Basemap", maxpixels = ncell(map)), quantiles = NULL)
+          return(mapview::viewRGB(map, 1, 2, 3, layer.name = "Basemap", maxpixels = ncell(map), quantiles = NULL))
         } else return(mapview::mapview(map)))
       }
     }
