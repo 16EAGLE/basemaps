@@ -1,9 +1,14 @@
 # map test settings
-map_token = Sys.getenv("basemaps_map_token")
-if(map_token != "") run_mapbox <- TRUE else run_mapbox <- FALSE
-run_esri <- FALSE
 test_maps = as.logical(Sys.getenv("basemaps_test_maps"))
 if(is.na(test_maps)) test_maps <- FALSE
+
+mapbox_token = Sys.getenv("basemaps_mapbox_token")
+if(mapbox_token != "") run_mapbox <- TRUE else run_mapbox <- FALSE
+
+osmtf_token = Sys.getenv("basemaps_osmtf_token")
+if(osmtf_token != "") run_osmtf <- TRUE else run_osmtf <- FALSE
+
+run_esri <- FALSE
 
 # test dir
 map_dir = Sys.getenv("basemaps_test_dir")
@@ -13,7 +18,7 @@ if(map_dir == ""){
 if(!dir.exists(map_dir)) dir.create(map_dir, recursive = T)
 
 # example extent
-data("ext", package = "basemaps", envir = environment())
+data("ext_eur", package = "basemaps", envir = environment())
 ext <- ext_eur
 
 # suggests installed?
