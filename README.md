@@ -9,7 +9,7 @@
 [![Package dependencies](https://tinyverse.netlify.com/badge/basemaps)](https://CRAN.R-project.org/package=basemaps)
 <!-- badges: end -->
 
-`basemaps` is a lightweight `R` package to download and cache spatial basemaps from open sources such as *OpenStreetMap*, *Carto* and *Mapbox*. Retrieved basemaps are translated into and returned as classes of choice, such as `raster`, `stars`, `ggplot`, `mapview` or `magick`. The package aims to ease the use of basemaps in different contexts by providing a function interface as minimalist as possible.
+`basemaps` is a lightweight `R` package to download and cache spatial basemaps from open sources such as *OpenStreetMap*, *Carto*, *Mapbox* and others. Retrieved basemaps are translated into and returned as classes of choice, such as `raster`, `stars`, `ggplot`, `mapview` or `magick`. The package aims to ease the use of basemaps in different contexts by providing a function interface as minimalist as possible.
 
 
 ## Installation
@@ -35,7 +35,6 @@ get_maptypes()
 # set defaults for the basemap
 set_defaults(map_service = "mapbox", map_type = "satellite",
              map_token = "YOUR_MAPTOKEN_IF_NEEDED")
-# token only needed for mapbox maps, register for free at mapbox.com to get a token
 
 # load and return basemap map as many different classes:
 basemap_plot(ext)
