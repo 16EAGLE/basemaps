@@ -2,8 +2,8 @@ pandoc: 2.7.3
 pkgdown: 1.6.1
 pkgdown_sha: ~
 articles: {}
-last_built: 2021-05-14T12:49Z
+last_built: 2021-05-14T13:02Z
 urls:
-  reference: http://jxsw.de/basemaps/reference
-  article: http://jxsw.de/basemaps/articles
+  reference: https://jakob.schwalb-willmann.de/basemaps/reference
+  article: https://jakob.schwalb-willmann.de/basemaps/articles
 

@@ -201,7 +201,7 @@
 <span class="co">#&gt; Loading basemap 'topographic' from map service 'osm'...</span></code></pre></div>
 <p><img src="https://i.imgur.com/4mVIjci.png" width="623"></p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="reference/basemap.html">basemap_magick</a></span><span class="op">(</span><span class="va">ext</span>, map_service <span class="op">=</span> <span class="st">"osm"</span>, map_type <span class="op">=</span> <span class="st">"toner"</span><span class="op">)</span>
+<code class="sourceCode R"><span class="fu"><a href="reference/basemap.html">basemap_magick</a></span><span class="op">(</span><span class="va">ext</span>, map_service <span class="op">=</span> <span class="st">"osm_stamen"</span>, map_type <span class="op">=</span> <span class="st">"toner"</span><span class="op">)</span>
 <span class="co">#&gt; Loading basemap 'toner' from map service 'osm'...</span></code></pre></div>
 <p><img src="https://i.imgur.com/sPQ8uIV.png" width="623"></p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
@@ -221,25 +221,14 @@
 <span class="co">#&gt; Loading basemap 'streets' from map service 'mapbox'...</span></code></pre></div>
 <p><img src="https://i.imgur.com/a0FUoau.png" width="623"></p>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="reference/basemap.html">basemap_magick</a></span><span class="op">(</span><span class="va">ext</span>, map_service <span class="op">=</span> <span class="st">"mapbox"</span>, map_type <span class="op">=</span> <span class="st">"hike"</span><span class="op">)</span>
-<span class="co">#&gt; Loading basemap 'hike' from map service 'mapbox'...</span></code></pre></div>
-<p><img src="https://i.imgur.com/syITrpf.png" width="623"></p>
-<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="reference/basemap.html">basemap_magick</a></span><span class="op">(</span><span class="va">ext</span>, map_service <span class="op">=</span> <span class="st">"mapbox"</span>, map_type <span class="op">=</span> <span class="st">"terrain"</span><span class="op">)</span>
 <span class="co">#&gt; Loading basemap 'terrain' from map service 'mapbox'...</span></code></pre></div>
 <p><img src="https://i.imgur.com/WOVHncM.png" width="623"></p>
-<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="reference/basemap.html">basemap_magick</a></span><span class="op">(</span><span class="va">ext</span>, map_service <span class="op">=</span> <span class="st">"mapbox"</span>, map_type <span class="op">=</span> <span class="st">"comic"</span><span class="op">)</span>
-<span class="co">#&gt; Loading basemap 'comic' from map service 'mapbox'...</span></code></pre></div>
-<p><img src="https://i.imgur.com/ppOyTPL.png" width="623"></p>
-<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="reference/basemap.html">basemap_magick</a></span><span class="op">(</span><span class="va">ext</span>, map_service <span class="op">=</span> <span class="st">"mapbox"</span>, map_type <span class="op">=</span> <span class="st">"pirates"</span><span class="op">)</span>
-<span class="co">#&gt; Loading basemap 'pirates' from map service 'mapbox'...</span></code></pre></div>
-<p><img src="https://i.imgur.com/4uLFU2D.png" width="623"></p>
 </div>
 <div id="supported-services-and-maps" class="section level2">
 <h2 class="hasAnchor">
 <a href="#supported-services-and-maps" class="anchor"></a>Supported services and maps</h2>
+<p>This table lists all currently implemented map services and map types and indicates whether they can be used without a map token (requiring registration at the respective service) or not.</p>
 <table class="table">
 <thead><tr class="header">
 <th><code>map_service</code></th>
