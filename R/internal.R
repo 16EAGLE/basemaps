@@ -173,6 +173,7 @@ gg.bmap <- function(r, r_type, gglayer = F, ...){
             resp <- GET(url)
             status <- resp$status_code
             if(status == 401 & map_service == "mapbox") out("Authentification failed. Is your map_token correct?", type = 3)
+            if(status == 403 & map_service == "osm_thunderforest") out("Authentification failed. Is your map_token correct?", type = 3)
           }
           if(!file.exists(file)){
             tryCatch(curl_download(url = url, destfile = file), error = function(e) out(paste0("Tile download failed: ", e$message), type = 3))

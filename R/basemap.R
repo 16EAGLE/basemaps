@@ -67,7 +67,10 @@ basemap <- function(ext = NULL, map_service = NULL, map_type = NULL, map_res = N
   if(is.null(map_service)) map_service <- getOption("basemaps.defaults")$map_service
   if(is.null(map_type)) map_type <- getOption("basemaps.defaults")$map_type
   if(is.null(map_res)) map_res <- getOption("basemaps.defaults")$map_res
+  
   if(is.null(map_token)) map_token <- getOption("basemaps.defaults")$map_token
+  if(map_service == "mapbox" & is.na(map_token)) out("You need to define 'map_token' to use map_service 'mapbox'. Register at https://mapbox.com to obtain a token.", type = 3)
+  if(map_service == "osm_thunderforest" & is.na(map_token)) out("You need to define 'map_token' to use map_service 'osm_thunderforest'. Register at https://thunderforest.com to obtain a token.", type = 3)
 
   extras <- list(...)
   if(!is.null(extras$browse)) browse <- extras$browse else browse <- TRUE
@@ -96,7 +99,7 @@ basemap <- function(ext = NULL, map_service = NULL, map_type = NULL, map_res = N
     if("stars" %in% class) return(map)
     if("plot" == class){
       dim_map <- dim(map)
-      if(length(dim(map) == 2)) dim_map["band"] <- 1
+      if(length(dim(map)) == 2) dim_map["band"] <- 1
       if(dim_map[3] == 3){
         plot(map, rgb = 1:3, main = NULL, downsample = 0) 
       } else{
