@@ -1,4 +1,4 @@
-url: http://jxsw.de/basemaps
+url: https://jakob.schwalb-willmann.de/basemaps
 
 development:
   mode: release
@@ -55,3 +55,4 @@ reference:
 - title: Example data
   contents:
   - ext
+  - ext_eur

@@ -120,7 +120,7 @@ basemap_magick(ext, map_service = "osm", map_type = "topographic")
 <img src="https://i.imgur.com/4mVIjci.png" width="623" />
 
 ``` r
-basemap_magick(ext, map_service = "osm", map_type = "toner")
+basemap_magick(ext, map_service = "osm_stamen", map_type = "toner")
 #> Loading basemap 'toner' from map service 'osm'...
 ```
 
@@ -155,34 +155,15 @@ basemap_magick(ext, map_service = "mapbox", map_type = "streets")
 <img src="https://i.imgur.com/a0FUoau.png" width="623" />
 
 ``` r
-basemap_magick(ext, map_service = "mapbox", map_type = "hike")
-#> Loading basemap 'hike' from map service 'mapbox'...
-```
-
-<img src="https://i.imgur.com/syITrpf.png" width="623" />
-
-``` r
 basemap_magick(ext, map_service = "mapbox", map_type = "terrain")
 #> Loading basemap 'terrain' from map service 'mapbox'...
 ```
 
 <img src="https://i.imgur.com/WOVHncM.png" width="623" />
 
-``` r
-basemap_magick(ext, map_service = "mapbox", map_type = "comic")
-#> Loading basemap 'comic' from map service 'mapbox'...
-```
-
-<img src="https://i.imgur.com/ppOyTPL.png" width="623" />
-
-``` r
-basemap_magick(ext, map_service = "mapbox", map_type = "pirates")
-#> Loading basemap 'pirates' from map service 'mapbox'...
-```
-
-<img src="https://i.imgur.com/4uLFU2D.png" width="623" />
-
 ## Supported services and maps
+
+This table lists all currently implemented map services and map types and indicates whether they can be used without a map token (requiring registration at the respective service) or not.
 
 | `map_service` | `map_type` | `map_token` required? |
 | ------ |  ------ | ------ |
