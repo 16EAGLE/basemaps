@@ -110,7 +110,7 @@ ggplot() +
 
 ## Map examples
 
-`basemaps` supports a variety of map services and types (which can be printed using `get_maptypes()`). A selection of available map types is shown below. For a complete table of available map types, see ['Supported services and maps](#supported-services-and-maps).
+`basemaps` supports a variety of map services and types (which can be printed using `get_maptypes()`). A selection of available map types is shown below. For a complete table of available map types, see [supported services and maps](#supported-services-and-maps).
 
 ``` r
 basemap_magick(ext, map_service = "osm", map_type = "topographic")

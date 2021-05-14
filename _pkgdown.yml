@@ -5,8 +5,6 @@ development:
 
 home:
   links:
-  - text: Browse source code
-    href: http://github.com/16eagle/basemaps
   - text: Find out more about our work
     href: http://remote-sensing.org
 
@@ -19,6 +17,8 @@ navbar:
       href: index.html#get-started
     - text: "Map examples"
       href: index.html#map-examples
+    - text: "Supported maps"
+      href: index.html##supported-services-and-maps
     - text: "News"
       href: news/index.html
     - text: "Functions"
@@ -28,14 +28,14 @@ navbar:
       -  text: "moveVis"
          href: https://movevis.org
       -  text: "getSpatialData"
-         href: http://jxsw.de/getSpatialData
+         href: http://jakob.schwalb-willmann.de/getSpatialData
       -  text: "RStoolbox"
          href: https://bleutner.github.io/RStoolbox/
   
   right:
-    - icon: fa-twitter fa-lg
+    - icon: fa-twitter fa-lg fab
       href: http://www.twitter.com/schwalbwillmann
-    - icon: fa-github fa-lg
+    - icon: fa-github fa-lg fab
       href: http://www.github.com/16eagle
     - icon: fa-globe fa-lg
       href: http://jakob.schwalb-willmann.de
