@@ -282,6 +282,17 @@ gg.bmap <- function(r, r_type, gglayer = F, ...){
        map_token = NA)
 }
 
+#' create a markdown table of map types
+#' @keywords internal
+#' @noRd
+.md_maptypes_table <- function(maptypes){
+  x <- paste0(lapply(names(maptypes), function(service){
+    paste0(unlist(lapply(maptypes[[service]], function(x, s = service){
+      paste0("| `", s, "` | `", x, "` | ", if(any(grepl("mapbox", s), grepl("osm_thunderforest", s))) "yes" else "no", " |")
+    })), collapse = "\n")
+  }), collapse = "\n")
+  cat(paste0("| `map_service` | `map_type` | `map_token` required? |\n | ------ |  ------ | ------ |\n", x))
+}
 
 #' package startup
 #' @importFrom pbapply pboptions

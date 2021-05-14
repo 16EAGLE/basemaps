@@ -18,3 +18,7 @@ test_that(".expand_ext & .combine_ext", {
 test_that("onLoad", {
   expect_null(basemaps:::.onLoad())
 })
+
+test_that(".md_maptypes_table", {
+  expect_output(basemaps:::.md_maptypes_table(get_maptypes()))
+})
