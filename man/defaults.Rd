@@ -29,7 +29,7 @@ reset_defaults()
 
 \item{map_res}{numeric, resolution of base map in range from 0 to 1.}
 
-\item{map_token}{character, authentification token for services that require registration, which are \code{"osm_thunderforest"} and \code{"mapbox"}. Register at \url{https://www.thunderforest.com/} and/or \url{https://mapbox.com} to get tokens. Ignored for all other map services.}
+\item{map_token}{character, authentification token for services that require registration, which are \code{"osm_thunderforest"} and \code{"mapbox"}. Register at \url{https://www.thunderforest.com/} and/or \url{https://www.mapbox.com/} to get tokens. Ignored for all other map services.}
 
 \item{map_dir}{character, cache directory where downloaded basemap tiles will be stored. By default, a temporary directory is used, which is destroyed when the session is terminated.}
 }
@@ -45,7 +45,6 @@ data(ext)
 
 # set defaults for the basemap
 set_defaults(ext = ext, map_service = "osm", map_type = "terrain_bg")
-# for mapbox maps, you need a map_token. Register for free at mapbox.com to get a token
 
 # get defaults
 get_defaults()

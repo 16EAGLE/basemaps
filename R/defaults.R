@@ -11,7 +11,6 @@
 #' 
 #' # set defaults for the basemap
 #' set_defaults(ext = ext, map_service = "osm", map_type = "terrain_bg")
-#' # for mapbox maps, you need a map_token. Register for free at mapbox.com to get a token
 #' 
 #' # get defaults
 #' get_defaults()
