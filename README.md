@@ -14,7 +14,7 @@
 
 ## Installation
 
-`basemaps` is not on CRAN yet. The latest version can be installed from GitHub:
+Install the latest development version of `basemaps` from GitHub:
 
 ```r
 devtools::install_github("16EAGLE/basemaps")
@@ -41,73 +41,76 @@ basemap_plot(ext)
 #> Loading basemap 'satellite' from map service 'mapbox'...
 ```
 
-<img src="https://i.imgur.com/Z6a4ucn.png" width="623" />
+![](https://i.imgur.com/54KABxh.png)
 
 ``` r
-
 basemap_mapview(ext)
 #> Loading basemap 'satellite' from map service 'mapbox'...
 ```
 
-<img src="https://i.imgur.com/ILLiSi6.png" width="623" />
+![](https://i.imgur.com/hcSaXip.png)
 
 ``` r
 basemap_ggplot(ext)
 #> Loading basemap 'satellite' from map service 'mapbox'...
 ```
 
-<img src="https://i.imgur.com/ATyDXRQ.png" width="623" />
+![](https://i.imgur.com/6Q8iweb.png)
 
 ``` r
-
 basemap_magick(ext)
 #> Loading basemap 'satellite' from map service 'mapbox'...
 ```
 
-<img src="https://i.imgur.com/JPcsRRH.png" width="623" />
+<img src="https://i.imgur.com/QDnY4Nw.jpg" width="1339" />
 
 ``` r
 basemap_raster(ext)
 #> Loading basemap 'satellite' from map service 'mapbox'...
 #> class      : RasterBrick 
-#> dimensions : 582, 623, 362586, 3  (nrow, ncol, ncell, nlayers)
-#> resolution : 19.10926, 19.10926  (x, y)
-#> extent     : 1225763, 1237668, 6034379, 6045500  (xmin, xmax, ymin, ymax)
-#> crs        : +proj=merc +a=6378137 +b=6378137 +lat_ts=0 +lon_0=0 +x_0=0 +y_0=0 +k=1 +units=m +nadgrids=@null +no_defs 
-#> source     : /tmp/RtmpjCVUpd/basemaps/basemap_20200528212540.tif 
-#> names      : val1, val2, val3 
-#> min values :   23,   16,   14 
-#> max values :  255,  255,  255
-
+#> dimensions : 1228, 1339, 1644292, 3  (nrow, ncol, ncell, nlayers)
+#> resolution : 9.554629, 9.554629  (x, y)
+#> extent     : 1224617, 1237410, 6032659, 6044392  (xmin, xmax, ymin, ymax)
+#> crs        : +proj=merc +a=6378137 +b=6378137 +lat_ts=0 +lon_0=0 +x_0=0 +y_0=0 +k=1 +units=m +nadgrids=@null +wktext +no_defs 
+#> source     : /tmp/Rtmp1Ceog7/basemaps/basemap_20210514130850.tif 
+#> names      : basemap_20210514130850.1, basemap_20210514130850.2, basemap_20210514130850.3
 basemap_stars(ext)
 #> Loading basemap 'satellite' from map service 'mapbox'...
 #> stars object with 3 dimensions and 1 attribute
 #> attribute(s), summary of first 1e+05 cells:
-#>      val1        
-#>  Min.   : 23.00  
-#>  1st Qu.: 64.00  
-#>  Median : 77.00  
-#>  Mean   : 84.12  
-#>  3rd Qu.:104.00  
-#>  Max.   :255.00  
+#>  basemap_20210514130850.tif 
+#>  Min.   :  0.00             
+#>  1st Qu.: 25.00             
+#>  Median : 38.00             
+#>  Mean   : 42.56             
+#>  3rd Qu.: 53.00             
+#>  Max.   :233.00             
 #> dimension(s):
-#>      from  to  offset    delta                       refsys point        values
-#> x       1 623 1225763  19.1093 +proj=merc +a=6378137 +b=...    NA          NULL
-#> y       1 582 6045500 -19.1093 +proj=merc +a=6378137 +b=...    NA          NULL
-#> band    1   3      NA       NA                           NA    NA val1,...,val3
-#>         
-#> x    [x]
-#> y    [y]
-#> band
-
+#>      from   to  offset    delta                   refsys point values x/y
+#> x       1 1339 1224617  9.55463 WGS 84 / Pseudo-Mercator FALSE   NULL [x]
+#> y       1 1228 6044392 -9.55463 WGS 84 / Pseudo-Mercator FALSE   NULL [y]
+#> band    1    3      NA       NA                       NA    NA   NULL
 basemap_png(ext)
 #> Loading basemap 'satellite' from map service 'mapbox'...
-#> [1] "/tmp/RtmpjCVUpd/basemaps//mapbox_satellite_2020-05-28_21-25-47.png"
+#> [1] "/tmp/Rtmp1Ceog7/basemaps//mapbox_satellite_2021-05-14_13-09-09.png"
+basemap_geotif(ext)
+#> Loading basemap 'satellite' from map service 'mapbox'...
+#> [1] "/tmp/Rtmp1Ceog7/basemaps/basemap_20210514130850.tif"
+ 
+library(ggplot2)
+ggplot() + 
+  basemap_gglayer(ext) + 
+  coord_sf() +
+  scale_fill_identity() 
+#> Loading basemap 'satellite' from map service 'mapbox'...
 ```
+
+![](https://i.imgur.com/6wBYd2o.png)
+
 
 ## Map examples
 
-`basemaps` supports a variety of map services and types (which can be printed using `get_maptypes()`). A selection of available map types is shown below:
+`basemaps` supports a variety of map services and types (which can be printed using `get_maptypes()`). A selection of available map types is shown below. For a complete table of available map types, see ['Supported services and maps](#supported-services-and-maps).
 
 ``` r
 basemap_magick(ext, map_service = "osm", map_type = "topographic")
@@ -179,14 +182,86 @@ basemap_magick(ext, map_service = "mapbox", map_type = "pirates")
 
 <img src="https://i.imgur.com/4uLFU2D.png" width="623" />
 
-<sup>Created on 2020-05-28 by the [reprex package](https://reprex.tidyverse.org) (v0.3.0)</sup>
+## Supported services and maps
+
+| `map_service` | `map_type` | `map_token` required? |
+| ------ |  ------ | ------ |
+| `osm` | `streets` | no |
+| `osm` | `streets_de` | no |
+| `osm` | `streets_fr` | no |
+| `osm` | `humanitarian` | no |
+| `osm` | `topographic` | no |
+| `osm` | `hike` | no |
+| `osm` | `hillshade` | no |
+| `osm` | `grayscale` | no |
+| `osm` | `no_labels` | no |
+| `osm` | `mtb` | no |
+| `osm_stamen` | `toner` | no |
+| `osm_stamen` | `toner_bg` | no |
+| `osm_stamen` | `toner_lite` | no |
+| `osm_stamen` | `terrain` | no |
+| `osm_stamen` | `terrain_bg` | no |
+| `osm_stamen` | `watercolor` | no |
+| `osm_thunderforest` | `cycle` | yes |
+| `osm_thunderforest` | `transport` | yes |
+| `osm_thunderforest` | `landscape` | yes |
+| `osm_thunderforest` | `outdoors` | yes |
+| `osm_thunderforest` | `transport_dark` | yes |
+| `osm_thunderforest` | `spinal` | yes |
+| `osm_thunderforest` | `pioneer` | yes |
+| `osm_thunderforest` | `mobile_atlas` | yes |
+| `osm_thunderforest` | `neighbourhood` | yes |
+| `osm_thunderforest` | `atlas` | yes |
+| `carto` | `light` | no |
+| `carto` | `light_no_labels` | no |
+| `carto` | `light_only_labels` | no |
+| `carto` | `dark` | no |
+| `carto` | `dark_no_labels` | no |
+| `carto` | `dark_only_labels` | no |
+| `carto` | `voyager` | no |
+| `carto` | `voyager_no_labels` | no |
+| `carto` | `voyager_only_labels` | no |
+| `carto` | `voyager_labels_under` | no |
+| `mapbox` | `streets` | yes |
+| `mapbox` | `outdoors` | yes |
+| `mapbox` | `light` | yes |
+| `mapbox` | `dark` | yes |
+| `mapbox` | `satellite` | yes |
+| `mapbox` | `hybrid` | yes |
+| `mapbox` | `terrain` | yes |
+| `esri` | `natgeo_world_map` | no |
+| `esri` | `usa_topo_maps` | no |
+| `esri` | `world_imagery` | no |
+| `esri` | `world_physical_map` | no |
+| `esri` | `world_shaded_relief` | no |
+| `esri` | `world_street_map` | no |
+| `esri` | `world_terrain_base` | no |
+| `esri` | `world_topo_map` | no |
+| `esri` | `world_dark_gray_base` | no |
+| `esri` | `world_dark_gray_reference` | no |
+| `esri` | `world_light_gray_base` | no |
+| `esri` | `world_light_gray_reference` | no |
+| `esri` | `world_hillshade_dark` | no |
+| `esri` | `world_hillshade` | no |
+| `esri` | `world_ocean_base` | no |
+| `esri` | `world_ocean_reference` | no |
+| `esri` | `antarctic_imagery` | no |
+| `esri` | `arctic_imagery` | no |
+| `esri` | `arctic_ocean_base` | no |
+| `esri` | `arctic_ocean_reference` | no |
+| `esri` | `world_boundaries_and_places_alternate` | no |
+| `esri` | `world_boundaries_and_places` | no |
+| `esri` | `world_reference_overlay` | no |
+| `esri` | `world_transportation` | no |
+| `esri` | `delorme_world_base_map` | no |
+| `esri` | `world_navigation_charts` | no |
 
 ## Available functions
 
-* `get_maptypes()` returns every supported map type that can be used as input to the `map_type` argument of `set_defaults()`, `basemap()` or associated functions.
+* `get_maptypes()` returns every supported map service and map type that can be used as input to the `map_service` and `map_type` arguments of `set_defaults()`, `basemap()` or associated functions.
 * `draw_ext()` lets you draw an extent on an interactive map.
 * `set_defaults()`, `get_defaults()` and `reset_defaults()` set, get or reset the defaults of all map arguments passed to `basemap()` or associated functions.
-* `basemap()` and its aliases `basemap_raster()`, `basemap_stars()`, `basemap_mapview()`, `basemap_plot()`, `basemap_ggplot()`, `basemap_gglayer()`, `basemap_magick()` and `basemap_png()` (down)load and cache a basemap of a defined extent `ext`, `map_service` and `map_type` and return it as an object of the defined class.
+* `basemap()` and its aliases `basemap_raster()`, `basemap_stars()`, `basemap_mapview()`, `basemap_plot()`, `basemap_ggplot()`, `basemap_gglayer()`, `basemap_magick()`, `basemap_png()` and `basemap_geotif()` (down)load and cache a basemap of a defined extent `ext`, `map_service` and `map_type` and return it as an object of the defined class.
 
 
 ## Related packages
