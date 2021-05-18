@@ -13,4 +13,6 @@
 
 0 errors | 0 warnings | 0 notes
 
-* This is the initial release of basemaps to CRAN.
+* Reply to comment #1 of initial submission: forwarded URLs have been replaced accordingly.
+* Reply to comment #2 of intiial submission: checked examples, tests and writing functions to not write anywhere else than tempdir() by default. Tests always use paste0(tempdir(), "/basemaps/") for writing.
+

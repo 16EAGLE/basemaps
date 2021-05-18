@@ -14,7 +14,7 @@
 
 \code{"mapbox"}: Mapbox (\url{https://www.mapbox.com})
 
-\code{"esri"}: Esri (\url{https://www.esri.com/})
+\code{"esri"}: Esri (\url{https://www.esri.com/en-us/home})
 }
 \usage{
 get_maptypes(map_service = NULL)

@@ -11,7 +11,7 @@ if(osmtf_token != "") run_osmtf <- TRUE else run_osmtf <- FALSE
 run_esri <- FALSE
 
 # test dir
-map_dir = Sys.getenv("basemaps_test_dir")
+map_dir <- Sys.getenv("basemaps_test_dir")
 if(map_dir == ""){
   map_dir <- paste0(tempdir(), "/basemaps/")
 }
