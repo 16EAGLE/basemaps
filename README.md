@@ -14,6 +14,13 @@
 
 ## Installation
 
+
+Install the latest stable release of `basemaps` from CRAN:
+
+```r
+install.packages("basemaps")
+```
+
 Install the latest development version of `basemaps` from GitHub:
 
 ```r
