@@ -1,5 +1,16 @@
 ***
 
+## basemaps 0.0.2
+Bug fixes.
+
+**Fixed bugs:**
+
+* added minimum version requirement for dependency `stars` (>= 0.5.0) to make sure that `st_set_bbox` is exported (see issue #3)
+
+<br>
+
+***
+
 ## basemaps 0.0.1
 Initial release.
 
