@@ -14,6 +14,7 @@
 #' \itemize{
 #'    \item \code{browse}, logical, for \code{class = "png"} and interactive sessions only. Whether to open the png file in the system's default PNG viewer or not. Default is \code{TRUE}.
 #'    \item \code{col}, character vector of colours for transforming single-layer basemaps into RGB, if \code{class = "png"} or \code{class = "magick"}. Default is \code{topo.colors(25)}.
+#'    \item \code{dpi},  numeric vector of length 1 or 2 specifying the resolution of the image in DPI (dots per inch) for x and y (in that order) - it is recycled to length 2.
 #' }
 #' @param verbose logical, if \code{TRUE}, messages and progress information are displayed on the console (default).
 #' 
@@ -76,6 +77,7 @@ basemap <- function(ext = NULL, map_service = NULL, map_type = NULL, map_res = N
   extras <- list(...)
   if(!is.null(extras$browse)) browse <- extras$browse else browse <- TRUE
   if(!is.null(extras$col)) col <- extras$col else col <- topo.colors(25)
+  if(!is.null(extras$dpi)) dpi <- extras$dpi else dpi <- NULL
   
   if(!is.null(map_dir)) if(!dir.exists(map_dir)){
     out("Directory defined by argument 'map_dir' does not exist, using a temporary directory instead.", type = 2)
@@ -120,7 +122,7 @@ basemap <- function(ext = NULL, map_service = NULL, map_type = NULL, map_res = N
           #for(i in 1:dim(map_arr)[3]) map_arr[,,i] <- t(map_arr[,,i])
           map_arr <- aperm(map_arr, c(2, 1, 3))
           map_arr <- sweep(map_arr, MARGIN = 3, STATS = max(map_arr), FUN = "/")
-          png::writePNG(map_arr, target = file)
+          png::writePNG(map_arr, target = file, dpi = dpi)
         } else{
           # convert to range 0 to 1
           map_arr <- sweep(t(map_arr), MARGIN = 1, STATS = max(map_arr), FUN = "/")
@@ -132,7 +134,7 @@ basemap <- function(ext = NULL, map_service = NULL, map_type = NULL, map_res = N
           map_arr_rgb <- aperm(array(map_arr_rgb, c(3, dim(map_arr))), c(2,3,1))
           # go back to 0 to 1 again
           map_arr_rgb <- sweep(map_arr_rgb, MARGIN = 3, STATS = max(map_arr_rgb), FUN = "/")
-          png::writePNG(map_arr_rgb, target = file)
+          png::writePNG(map_arr_rgb, target = file, dpi = dpi)
         }
         if(grepl("png", class)){
           if(all(isTRUE(interactive()), isTRUE(browse))) utils::browseURL(file)

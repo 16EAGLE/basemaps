@@ -30,4 +30,4 @@ Suggests:
   testthat,
   covr
 BugReports: https://github.com/16eagle/basemaps/issues
-RoxygenNote: 7.1.1
+RoxygenNote: 7.1.2

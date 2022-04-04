@@ -191,7 +191,8 @@ gg.bmap <- function(r, r_type, gglayer = F, ...){
         }
         
         # convert imagery
-        image_write(image_convert(image_read(file), format = "PNG24"), file) # convert single channel png to multi channel png
+        img_down <- image_convert(image_read(file), format = "PNG24")
+        image_write(img_down, file) # convert single channel png to multi channel png
         return(file)
       })
       
