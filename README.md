@@ -2,6 +2,8 @@
 
 <!-- badges: start -->
 [![CRAN version](https://www.r-pkg.org/badges/version/basemaps)](https://CRAN.R-project.org/package=basemaps)
+[![CRAN downloads](https://cranlogs.r-pkg.org/badges/last-month/basemaps?color=brightgreen)](https://CRAN.R-project.org/package=basemaps)
+[![CRAN checks](https://cranchecks.info/badges/summary/basemaps)](https://CRAN.R-project.org/package=basemaps)
 [![R-CMD-check](https://github.com/16EAGLE/basemaps/workflows/R-CMD-check/badge.svg)](https://github.com/16EAGLE/basemaps/actions)
 [![Build Status](https://travis-ci.org/16EAGLE/basemaps.svg?branch=master)](https://travis-ci.org/16EAGLE/basemaps) 
 [![AppVeyor build status](https://ci.appveyor.com/api/projects/status/github/16EAGLE/basemaps?branch=master&svg=true)](https://ci.appveyor.com/project/16EAGLE/basemaps)
