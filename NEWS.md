@@ -1,5 +1,17 @@
 ***
 
+## basemaps 0.0.3
+Minor improvements.
+
+**Fixed bugs:**
+
+* added CRS warning in response to issues such as #3, #7
+* added dpi argument, passing down input to png::writePNG (issue #5)
+
+<br>
+
+***
+
 ## basemaps 0.0.2
 Bug fixes.
 

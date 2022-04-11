@@ -19,7 +19,7 @@ if(!dir.exists(map_dir)) dir.create(map_dir, recursive = T)
 
 # example extent
 data("ext_eur", package = "basemaps", envir = environment())
-ext <- ext_eur
+ext <- sf::st_transform(ext_eur, 3857)
 
 # suggests installed?
 check_ggplot <- any(grepl("ggplot2", installed.packages()[,1]))

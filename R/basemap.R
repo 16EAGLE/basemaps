@@ -86,10 +86,15 @@ basemap <- function(ext = NULL, map_service = NULL, map_type = NULL, map_res = N
   if(is.null(map_dir)) map_dir <- getOption("basemaps.defaults")$map_dir
   class <- tolower(class)
   
+  ## transform ext if needed
+  crs_webmerc <- st_crs(3857)
+  if(st_crs(ext) != crs_webmerc){
+    out(paste0("Transforming 'ext' to Web Mercator (EPSG: 3857), since 'ext' has a different CRS. The CRS of the returned basemap will be Web Mercator, which is the default CRS used by the supported tile services."), type = 2)
+  }
+  ext <- st_bbox(st_transform(st_as_sfc(st_bbox(ext)), crs = crs_webmerc)) #bbox as web mercator, always
+  
   ## get map
   out(paste0("Loading basemap '", map_type, "' from map service '", map_service, "'..."))
-  ext <- st_bbox(st_transform(st_as_sfc(st_bbox(ext)), crs = st_crs(3857))) #bbox as web mercator, always
-  #ext <- st_bbox(ext)
   map_file <- .get_map(ext, map_service, map_type, map_token, map_dir, map_res, force, class, ...)
   
   # return file if needed
