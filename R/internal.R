@@ -121,7 +121,7 @@ gg.bmap <- function(r, r_type, gglayer = F, ...){
 #' @importFrom curl curl_download
 #' @importFrom httr http_error GET
 #' @importFrom sf st_transform st_bbox st_as_sfc st_crs st_crs<- st_crop
-#' @importFrom stars read_stars write_stars st_as_stars st_set_bbox st_mosaic
+#' @importFrom stars read_stars write_stars st_as_stars st_set_bbox st_mosaic st_dimensions st_dimensions<-
 #' @keywords internal
 #' @noRd
 .get_map <- function(ext, map_service, map_type, map_token, map_dir, map_res, force, class, ...){
@@ -222,10 +222,23 @@ gg.bmap <- function(r, r_type, gglayer = F, ...){
       
       # decode terrain DEM
       if(all(map_service == "mapbox", map_type == "terrain")){
-        r <-  -10000 + ((r[,,,1] * 256 * 256 + r[,,,2] * 256 + r[,,,3]) * 0.1)
+        #r <-  -10000 + ((r[,,,1] * 256 * 256 + r[,,,2] * 256 + r[,,,3]) * 0.1)
+        
+        r1 <- r[,,,1] * 256 * 256
+        r2 <- r[,,,2] * 256
+        r3 <- r[,,,3]
+        st_dimensions(r3) <- st_dimensions(r2) <- st_dimensions(r1)
+        
+        r <-  -10000 + ((r1 + r2 + r3) * 0.1)
+        
         #r <-  -10000 + ((r[[1]] * 256 * 256 + r[[2]] * 256 + r[[3]]) * 0.1)
         #r_terr <- terrain(r, opt = c("slope", "aspect"))
         #r_hs <- hillShade(r_terr$slope, r_terr$aspect)
+      }
+      
+      # empty iamgery (inf case)
+      if(identical(quiet(range(r[[1]], na.rm=T)), c(Inf, -Inf))){
+        r[[1]][] <- 0
       }
       
       unlink(file_comp)
@@ -312,23 +325,25 @@ gg.bmap <- function(r, r_type, gglayer = F, ...){
     osm = list(
       streets = "https://tile.openstreetmap.org/",
       streets_de = "http://tile.openstreetmap.de/tiles/osmde/",
-      streets_fr = "https://tile.openstreetmap.fr/osmfr/",
-      humanitarian = "http://tile.openstreetmap.fr/hot/",
-      topographic = "https://tile.opentopomap.org/",
-      hike = "https://tiles.wmflabs.org/hikebike/",
-      hillshade = "https://tiles.wmflabs.org/hillshading/",
-      grayscale = "https://tiles.wmflabs.org/bw-mapnik/",
-      no_labels = "https://tiles.wmflabs.org/osm-no-labels/",
-      mtb = "https://tile.mtbmap.cz/mtbmap_tiles/"),
+      #streets_fr = "https://tile.openstreetmap.fr/osmfr/", #down?
+      #humanitarian = "http://tile.openstreetmap.fr/hot/", #down?
+      topographic = "https://tile.opentopomap.org/"
+      #hike = "https://tiles.wmflabs.org/hikebike/", #unmaintained
+      #hillshade = "https://tiles.wmflabs.org/hillshading/", #unmaintained
+      #grayscale = "https://tiles.wmflabs.org/bw-mapnik/", #unmaintained
+      #no_labels = "https://tiles.wmflabs.org/osm-no-labels/", #unmaintained
+      #mtb = "https://tile.mtbmap.cz/mtbmap_tiles/"),
       #hydda = "https://a.tile.openstreetmap.se/hydda/full/", # unresponsive
       #hydda_base = "https://a.tile.openstreetmap.se/hydda/base/",), # unresponsive
+    ),
     osm_stamen = list(
       toner = "https://stamen-tiles-a.a.ssl.fastly.net/toner/",
       toner_bg = "https://stamen-tiles-a.a.ssl.fastly.net/toner-background/",
       toner_lite = "https://stamen-tiles-a.a.ssl.fastly.net/toner-lite/",
       terrain = "http://tile.stamen.com/terrain/",
       terrain_bg = "http://tile.stamen.com/terrain-background/",
-      watercolor = "http://tile.stamen.com/watercolor/"),
+      watercolor = "http://tile.stamen.com/watercolor/"
+    ),
     osm_thunderforest = list(
       cycle = "https://tile.thunderforest.com/cycle/",
       transport = "https://tile.thunderforest.com/transport/",
@@ -351,7 +366,8 @@ gg.bmap <- function(r, r_type, gglayer = F, ...){
       voyager = "https://basemaps.cartocdn.com/rastertiles/voyager/",
       voyager_no_labels = "https://basemaps.cartocdn.com/rastertiles/voyager_nolabels/",
       voyager_only_labels = "https://basemaps.cartocdn.com/rastertiles/voyager_only_labels/",
-      voyager_labels_under = "https://basemaps.cartocdn.com/rastertiles/voyager_labels_under/"),
+      voyager_labels_under = "https://basemaps.cartocdn.com/rastertiles/voyager_labels_under/"
+    ),
     mapbox = c(lapply(c(
       streets = "streets-v11",
       outdoors = "outdoors-v11",
@@ -388,7 +404,7 @@ gg.bmap <- function(r, r_type, gglayer = F, ...){
       world_reference_overlay = "https://services.arcgisonline.com/arcgis/rest/services/Reference/World_Reference_Overlay/MapServer/tile/",
       world_transportation = "https://services.arcgisonline.com/arcgis/rest/services/Reference/World_Transportation/MapServer/tile/",
       delorme_world_base_map = "https://services.arcgisonline.com/arcgis/rest/services/Specialty/DeLorme_World_Base_Map/MapServer/tile/",
-      world_navigation_charts = "https://services.arcgisonline.com/arcgis/rest/services/Specialty/World_Navigation_Charts/MapServer/tile/"))
-  )
+      world_navigation_charts = "https://services.arcgisonline.com/arcgis/rest/services/Specialty/World_Navigation_Charts/MapServer/tile/")
+  ))
   if(!dir.exists(getOption("basemaps.defaults")$map_dir)) dir.create(getOption("basemaps.defaults")$map_dir)
 }

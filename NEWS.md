@@ -1,5 +1,20 @@
 ***
 
+## basemaps 0.0.4
+Minor improvements, bug fixes.
+
+**Bugs:**
+* dropped defunct/unmaintained tile servers (OSM) from map services list
+* fixing a bug (`"dimensions of e1 and e2 do not match"`) when trying to build a map from `map_service="mapbox"` and `map_type="terrain"` with newer versions of `stars`
+* added a handling to fix a plotting bug for cases in which maps returned by tile servers (for whatever reasons) consist of only a single value (e.g. 0) for the given query extent 
+
+**Features:**
+* 
+
+<br>
+
+***
+
 ## basemaps 0.0.3
 Minor improvements.
 

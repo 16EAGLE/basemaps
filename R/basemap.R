@@ -109,7 +109,12 @@ basemap <- function(ext = NULL, map_service = NULL, map_type = NULL, map_res = N
       dim_map <- dim(map)
       if(length(dim(map)) == 2) dim_map["band"] <- 1
       if(dim_map[3] == 3){
-        plot(map, rgb = 1:3, main = NULL, downsample = 0) 
+        # avoid failure if only single value is present
+        if(length(unique(range(map[[1]][]))) == 1){
+          plot(map, rgb = 1:3, main = NULL, downsample = 0, maxColorValue=max(map[[1]][])+1) 
+        } else{
+          plot(map, rgb = 1:3, main = NULL, downsample = 0) 
+        }
       } else{
         plot(map, col = col, 
              breaks = seq(min(map[[1]]), max(map[[1]]), length.out = length(col)+1),
