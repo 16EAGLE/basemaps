@@ -8,7 +8,8 @@ if(mapbox_token != "") run_mapbox <- TRUE else run_mapbox <- FALSE
 osmtf_token = Sys.getenv("basemaps_osmtf_token")
 if(osmtf_token != "") run_osmtf <- TRUE else run_osmtf <- FALSE
 
-run_esri <- FALSE
+run_esri = as.logical(Sys.getenv("basemaps_run_esri"))
+if(is.na(run_esri)) run_esri <- FALSE
 
 # test dir
 map_dir <- Sys.getenv("basemaps_test_dir")
