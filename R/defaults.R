@@ -49,3 +49,4 @@ get_defaults <- function(){
 reset_defaults <- function(){
   options(basemaps.defaults = .defaults())
 }
+
