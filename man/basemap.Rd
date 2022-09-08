@@ -155,6 +155,7 @@ basemap_geotif(
 \itemize{
    \item \code{browse}, logical, for \code{class = "png"} and interactive sessions only. Whether to open the png file in the system's default PNG viewer or not. Default is \code{TRUE}.
    \item \code{col}, character vector of colours for transforming single-layer basemaps into RGB, if \code{class = "png"} or \code{class = "magick"}. Default is \code{topo.colors(25)}.
+   \item \code{dpi},  numeric vector of length 1 or 2 specifying the resolution of the image in DPI (dots per inch) for x and y (in that order) - it is recycled to length 2.
 }}
 
 \item{verbose}{logical, if \code{TRUE}, messages and progress information are displayed on the console (default).}
@@ -188,8 +189,38 @@ set_defaults(map_service = "osm", map_type = "terrain_bg")
 # load and return basemap map as raster (default)
 map <- basemap(ext)
 
-# or as many different classes such as:
+# or explicitely as different classes such as:
 basemap_magick(ext)
+basemap_raster()
+basemap_stars()
+
+# or as files:
+basemap_geotif()
+basemap_png()
+
+# or as plots:
 basemap_plot(ext)
-}
+basemap_mapview()
+
+# including ggplot2:
+basemap_ggplot(ext)
+
+# or as ggplot2 layer:
+library(ggplot2)
+ggplot() + 
+  basemap_gglayer(ext) +
+  scale_fill_identity() + 
+  coord_sf()
+
+# or, when combined with an sf vector object,
+# make sure to use Web/Pseudo Mercator (EPSG 3857), as this is
+# the CRS in which all basemaps are returned (see "Value"):
+library(sf)
+ext <- st_transform(ext,  crs = st_crs(3857))
+ggplot() + 
+  basemap_gglayer(ext) + 
+  geom_sf(data = ext, color = "red", fill = "transparent") +
+  coord_sf() +
+  scale_fill_identity()
+ }
 }

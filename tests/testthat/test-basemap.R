@@ -24,6 +24,9 @@ test_that("basemap()", {
   # test ext error
   expect_error(basemap())
   
+  # test ext warning on different CRS
+  expect_warning(basemap(ext_eur, map_dir = map_dir, verbose = T))
+  
 })
 
 test_that("basemap_stars()", {

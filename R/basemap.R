@@ -14,6 +14,7 @@
 #' \itemize{
 #'    \item \code{browse}, logical, for \code{class = "png"} and interactive sessions only. Whether to open the png file in the system's default PNG viewer or not. Default is \code{TRUE}.
 #'    \item \code{col}, character vector of colours for transforming single-layer basemaps into RGB, if \code{class = "png"} or \code{class = "magick"}. Default is \code{topo.colors(25)}.
+#'    \item \code{dpi},  numeric vector of length 1 or 2 specifying the resolution of the image in DPI (dots per inch) for x and y (in that order) - it is recycled to length 2.
 #' }
 #' @param verbose logical, if \code{TRUE}, messages and progress information are displayed on the console (default).
 #' 
@@ -44,10 +45,40 @@
 #' # load and return basemap map as raster (default)
 #' map <- basemap(ext)
 #' 
-#' # or as many different classes such as:
+#' # or explicitely as different classes such as:
 #' basemap_magick(ext)
+#' basemap_raster()
+#' basemap_stars()
+#' 
+#' # or as files:
+#' basemap_geotif()
+#' basemap_png()
+#' 
+#' # or as plots:
 #' basemap_plot(ext)
-#' }
+#' basemap_mapview()
+#' 
+#' # including ggplot2:
+#' basemap_ggplot(ext)
+#' 
+#' # or as ggplot2 layer:
+#' library(ggplot2)
+#' ggplot() + 
+#'   basemap_gglayer(ext) +
+#'   scale_fill_identity() + 
+#'   coord_sf()
+#' 
+#' # or, when combined with an sf vector object,
+#' # make sure to use Web/Pseudo Mercator (EPSG 3857), as this is
+#' # the CRS in which all basemaps are returned (see "Value"):
+#' library(sf)
+#' ext <- st_transform(ext,  crs = st_crs(3857))
+#' ggplot() + 
+#'   basemap_gglayer(ext) + 
+#'   geom_sf(data = ext, color = "red", fill = "transparent") +
+#'   coord_sf() +
+#'   scale_fill_identity()
+#'  }
 #' @importFrom sf st_bbox 
 #' @importFrom raster nlayers brick raster
 #' @importFrom stars read_stars
@@ -76,18 +107,25 @@ basemap <- function(ext = NULL, map_service = NULL, map_type = NULL, map_res = N
   extras <- list(...)
   if(!is.null(extras$browse)) browse <- extras$browse else browse <- TRUE
   if(!is.null(extras$col)) col <- extras$col else col <- topo.colors(25)
+  if(!is.null(extras$dpi)) dpi <- extras$dpi else dpi <- NULL
   
   if(!is.null(map_dir)) if(!dir.exists(map_dir)){
     out("Directory defined by argument 'map_dir' does not exist, using a temporary directory instead.", type = 2)
     map_dir <- NULL
   }
   if(is.null(map_dir)) map_dir <- getOption("basemaps.defaults")$map_dir
+  map_dir <- .add_trailing(map_dir, char = "/")
   class <- tolower(class)
+  
+  ## transform ext if needed
+  crs_webmerc <- st_crs(3857)
+  if(st_crs(ext) != crs_webmerc){
+    out(paste0("Transforming 'ext' to Web Mercator (EPSG: 3857), since 'ext' has a different CRS. The CRS of the returned basemap will be Web Mercator, which is the default CRS used by the supported tile services."), type = 2)
+  }
+  ext <- st_bbox(st_transform(st_as_sfc(st_bbox(ext)), crs = crs_webmerc)) #bbox as web mercator, always
   
   ## get map
   out(paste0("Loading basemap '", map_type, "' from map service '", map_service, "'..."))
-  ext <- st_bbox(st_transform(st_as_sfc(st_bbox(ext)), crs = st_crs(3857))) #bbox as web mercator, always
-  #ext <- st_bbox(ext)
   map_file <- .get_map(ext, map_service, map_type, map_token, map_dir, map_res, force, class, ...)
   
   # return file if needed
@@ -102,7 +140,12 @@ basemap <- function(ext = NULL, map_service = NULL, map_type = NULL, map_res = N
       dim_map <- dim(map)
       if(length(dim(map)) == 2) dim_map["band"] <- 1
       if(dim_map[3] == 3){
-        plot(map, rgb = 1:3, main = NULL, downsample = 0) 
+        # avoid failure if only single value is present
+        if(length(unique(range(map[[1]][]))) == 1){
+          plot(map, rgb = 1:3, main = NULL, downsample = 0, maxColorValue=max(map[[1]][])+1) 
+        } else{
+          plot(map, rgb = 1:3, main = NULL, downsample = 0) 
+        }
       } else{
         plot(map, col = col, 
              breaks = seq(min(map[[1]]), max(map[[1]]), length.out = length(col)+1),
@@ -120,7 +163,7 @@ basemap <- function(ext = NULL, map_service = NULL, map_type = NULL, map_res = N
           #for(i in 1:dim(map_arr)[3]) map_arr[,,i] <- t(map_arr[,,i])
           map_arr <- aperm(map_arr, c(2, 1, 3))
           map_arr <- sweep(map_arr, MARGIN = 3, STATS = max(map_arr), FUN = "/")
-          png::writePNG(map_arr, target = file)
+          png::writePNG(map_arr, target = file, dpi = dpi)
         } else{
           # convert to range 0 to 1
           map_arr <- sweep(t(map_arr), MARGIN = 1, STATS = max(map_arr), FUN = "/")
@@ -132,7 +175,7 @@ basemap <- function(ext = NULL, map_service = NULL, map_type = NULL, map_res = N
           map_arr_rgb <- aperm(array(map_arr_rgb, c(3, dim(map_arr))), c(2,3,1))
           # go back to 0 to 1 again
           map_arr_rgb <- sweep(map_arr_rgb, MARGIN = 3, STATS = max(map_arr_rgb), FUN = "/")
-          png::writePNG(map_arr_rgb, target = file)
+          png::writePNG(map_arr_rgb, target = file, dpi = dpi)
         }
         if(grepl("png", class)){
           if(all(isTRUE(interactive()), isTRUE(browse))) utils::browseURL(file)

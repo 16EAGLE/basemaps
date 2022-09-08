@@ -22,3 +22,12 @@ test_that("onLoad", {
 test_that(".md_maptypes_table", {
   expect_output(basemaps:::.md_maptypes_table(get_maptypes()))
 })
+
+test_that("string manipulation", {
+  x <- "/some/path/to/nowhere/filename.xyz"
+  x <- expect_equal(.strip_filename(x), "/some/path/to/nowhere")
+  x <- expect_equal(.add_trailing(x), "/some/path/to/nowhere/")
+  x <- expect_equal(.add_trailing(x), "/some/path/to/nowhere/") #again without changes
+  x <- expect_equal(.strip_trailing(x), "/some/path/to/nowhere")
+  x <- expect_equal(.strip_trailing(x), "/some/path/to/nowhere") #again without changes
+})

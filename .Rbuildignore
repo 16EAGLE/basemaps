@@ -9,3 +9,4 @@
 ^_pkgdown\.yml$
 docs
 ^\.github$
+playground.R

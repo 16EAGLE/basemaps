@@ -2,10 +2,12 @@
 
 <!-- badges: start -->
 [![CRAN version](https://www.r-pkg.org/badges/version/basemaps)](https://CRAN.R-project.org/package=basemaps)
+[![CRAN downloads](https://cranlogs.r-pkg.org/badges/last-month/basemaps?color=brightgreen)](https://CRAN.R-project.org/package=basemaps)
+[![CRAN checks](https://cranchecks.info/badges/summary/basemaps)](https://CRAN.R-project.org/package=basemaps)
 [![R-CMD-check](https://github.com/16EAGLE/basemaps/workflows/R-CMD-check/badge.svg)](https://github.com/16EAGLE/basemaps/actions)
 [![Build Status](https://travis-ci.org/16EAGLE/basemaps.svg?branch=master)](https://travis-ci.org/16EAGLE/basemaps) 
 [![AppVeyor build status](https://ci.appveyor.com/api/projects/status/github/16EAGLE/basemaps?branch=master&svg=true)](https://ci.appveyor.com/project/16EAGLE/basemaps)
-[![Coverage](https://codecov.io/gh/16eagle/basemaps/branch/master/graph/badge.svg)](https://codecov.io/gh/16EAGLE/basemaps)
+[![Coverage](https://codecov.io/gh/16eagle/basemaps/branch/master/graph/badge.svg)](https://app.codecov.io/gh/16EAGLE/basemaps)
 [![Package dependencies](https://tinyverse.netlify.com/badge/basemaps)](https://CRAN.R-project.org/package=basemaps)
 <!-- badges: end -->
 
@@ -176,14 +178,7 @@ This table lists all currently implemented map services and map types and indica
 | ------ |  ------ | ------ |
 | `osm` | `streets` | no |
 | `osm` | `streets_de` | no |
-| `osm` | `streets_fr` | no |
-| `osm` | `humanitarian` | no |
 | `osm` | `topographic` | no |
-| `osm` | `hike` | no |
-| `osm` | `hillshade` | no |
-| `osm` | `grayscale` | no |
-| `osm` | `no_labels` | no |
-| `osm` | `mtb` | no |
 | `osm_stamen` | `toner` | no |
 | `osm_stamen` | `toner_bg` | no |
 | `osm_stamen` | `toner_lite` | no |
