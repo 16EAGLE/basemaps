@@ -147,7 +147,7 @@ gg.bmap <- function(r, r_type, gglayer = F, ...){
     file_comp <- if(any(cached.match)){
       cached[[which(cached.match)]]$file_comp
     } else{
-      paste0(map_dir, "basemap_", gsub(":", "", gsub(" ", "", gsub("-", "", Sys.time()))), ".tif")
+      file.path(map_dir, paste0("basemap_", gsub(":", "", gsub(" ", "", gsub("-", "", Sys.time()))), ".tif"))
     } 
     
     # load cached map or proceed

@@ -4,9 +4,10 @@
 Minor improvements, bug fixes.
 
 **Bugs:**
-* dropped defunct/unmaintained tile servers (OSM) from map services list
+* dropped defunct/not maintained tile servers (OSM) from map services list
 * fixing a bug (`"dimensions of e1 and e2 do not match"`) when trying to build a map from `map_service="mapbox"` and `map_type="terrain"` with newer versions of `stars`
-* added a handling to fix a plotting bug for cases in which maps returned by tile servers (for whatever reasons) consist of only a single value (e.g. 0) for the given query extent 
+* added a handling to fix a plotting bug for cases in which maps returned by tile servers (for whatever reasons) consist of only a single value (e.g. 0) for the given query extent ([#9](https://github.com/16EAGLE/basemaps/issues/9))
+* fixed a bug placing cached maps in the wrong directory when `map_dir` is defined by the user ([#11](https://github.com/16EAGLE/basemaps/issues/11))
 
 **Features:**
 * 
