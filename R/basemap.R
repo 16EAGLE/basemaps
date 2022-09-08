@@ -84,6 +84,7 @@ basemap <- function(ext = NULL, map_service = NULL, map_type = NULL, map_res = N
     map_dir <- NULL
   }
   if(is.null(map_dir)) map_dir <- getOption("basemaps.defaults")$map_dir
+  map_dir <- .add_trailing(map_dir, char = "/")
   class <- tolower(class)
   
   ## transform ext if needed

@@ -34,6 +34,31 @@ out <- function(input, type = 1, ll = NULL, msg = FALSE, sign = "", verbose = ge
   if(isTRUE(verbose)) pbapply(X, MARGIN, FUN, ...) else apply(X, MARGIN, FUN, ...)
 }
 
+#' strip filename from path
+#'
+#' @keywords internal
+#' @noRd
+.strip_filename <- function(x){
+  paste0(head(strsplit(x, "/")[[1]], n=-1), collapse = "/")
+}
+
+#' strip a trialing char from a string if it is there
+#'
+#' @keywords internal
+#' @noRd
+.strip_trailing <- function(x, char = "/"){
+  if(substr(x, nchar(x), nchar(x)) == char) substr(x, 1, nchar(x)-1) else x
+}
+
+#' add a trialing char to a string if it is not there
+#'
+#' @keywords internal
+#' @noRd
+.add_trailing <- function(x, char = "/"){
+  if(substr(x, nchar(x), nchar(x)) == char) x else paste0(x, char)
+}
+
+
 #' combine two extents into one
 #' @keywords internal
 #' @noRd
@@ -143,6 +168,9 @@ gg.bmap <- function(r, r_type, gglayer = F, ...){
     
     # manage cache
     cached <- getOption("basemaps.cached")
+    # are cached items in current map_dir? If not, disregard them
+    if(length(cached) > 0) cached <- cached[sapply(cached, function(x) .add_trailing(.strip_filename(x$file_comp))) == map_dir]
+    
     cached.match <- if(length(cached) > 0) sapply(cached, function(x) identical(x$tg, tg)) else FALSE
     file_comp <- if(any(cached.match)){
       cached[[which(cached.match)]]$file_comp
