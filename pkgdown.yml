@@ -1,8 +1,8 @@
 pandoc: 2.7.3
-pkgdown: 2.0.2
+pkgdown: 2.0.6
 pkgdown_sha: ~
 articles: {}
-last_built: 2022-04-11T13:47Z
+last_built: 2022-09-08T09:17Z
 urls:
   reference: https://jakob.schwalb-willmann.de/basemaps/reference
   article: https://jakob.schwalb-willmann.de/basemaps/articles

@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">basemaps</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.3</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.4</span>
       </span>
     </div>
 
@@ -96,157 +96,178 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">basemap</span><span class="op">(</span>
-  ext <span class="op">=</span> <span class="cn">NULL</span>,
-  map_service <span class="op">=</span> <span class="cn">NULL</span>,
-  map_type <span class="op">=</span> <span class="cn">NULL</span>,
-  map_res <span class="op">=</span> <span class="cn">NULL</span>,
-  map_token <span class="op">=</span> <span class="cn">NULL</span>,
-  map_dir <span class="op">=</span> <span class="cn">NULL</span>,
-  class <span class="op">=</span> <span class="st">"stars"</span>,
-  force <span class="op">=</span> <span class="cn">FALSE</span>,
-  <span class="va">...</span>,
-  verbose <span class="op">=</span> <span class="cn">TRUE</span>
-<span class="op">)</span>
-
-<span class="fu">basemap_raster</span><span class="op">(</span>
-  ext <span class="op">=</span> <span class="cn">NULL</span>,
-  map_service <span class="op">=</span> <span class="cn">NULL</span>,
-  map_type <span class="op">=</span> <span class="cn">NULL</span>,
-  map_res <span class="op">=</span> <span class="cn">NULL</span>,
-  map_token <span class="op">=</span> <span class="cn">NULL</span>,
-  map_dir <span class="op">=</span> <span class="cn">NULL</span>,
-  force <span class="op">=</span> <span class="cn">NULL</span>,
-  <span class="va">...</span>,
-  verbose <span class="op">=</span> <span class="cn">TRUE</span>
-<span class="op">)</span>
-
-<span class="fu">basemap_stars</span><span class="op">(</span>
-  ext <span class="op">=</span> <span class="cn">NULL</span>,
-  map_service <span class="op">=</span> <span class="cn">NULL</span>,
-  map_type <span class="op">=</span> <span class="cn">NULL</span>,
-  map_res <span class="op">=</span> <span class="cn">NULL</span>,
-  map_token <span class="op">=</span> <span class="cn">NULL</span>,
-  map_dir <span class="op">=</span> <span class="cn">NULL</span>,
-  force <span class="op">=</span> <span class="cn">NULL</span>,
-  <span class="va">...</span>,
-  verbose <span class="op">=</span> <span class="cn">TRUE</span>
-<span class="op">)</span>
-
-<span class="fu">basemap_mapview</span><span class="op">(</span>
-  ext <span class="op">=</span> <span class="cn">NULL</span>,
-  map_service <span class="op">=</span> <span class="cn">NULL</span>,
-  map_type <span class="op">=</span> <span class="cn">NULL</span>,
-  map_res <span class="op">=</span> <span class="cn">NULL</span>,
-  map_token <span class="op">=</span> <span class="cn">NULL</span>,
-  map_dir <span class="op">=</span> <span class="cn">NULL</span>,
-  force <span class="op">=</span> <span class="cn">NULL</span>,
-  <span class="va">...</span>,
-  verbose <span class="op">=</span> <span class="cn">TRUE</span>
-<span class="op">)</span>
-
-<span class="fu">basemap_plot</span><span class="op">(</span>
-  ext <span class="op">=</span> <span class="cn">NULL</span>,
-  map_service <span class="op">=</span> <span class="cn">NULL</span>,
-  map_type <span class="op">=</span> <span class="cn">NULL</span>,
-  map_res <span class="op">=</span> <span class="cn">NULL</span>,
-  map_token <span class="op">=</span> <span class="cn">NULL</span>,
-  map_dir <span class="op">=</span> <span class="cn">NULL</span>,
-  force <span class="op">=</span> <span class="cn">NULL</span>,
-  <span class="va">...</span>,
-  verbose <span class="op">=</span> <span class="cn">TRUE</span>
-<span class="op">)</span>
-
-<span class="fu">basemap_ggplot</span><span class="op">(</span>
-  ext <span class="op">=</span> <span class="cn">NULL</span>,
-  map_service <span class="op">=</span> <span class="cn">NULL</span>,
-  map_type <span class="op">=</span> <span class="cn">NULL</span>,
-  map_res <span class="op">=</span> <span class="cn">NULL</span>,
-  map_token <span class="op">=</span> <span class="cn">NULL</span>,
-  map_dir <span class="op">=</span> <span class="cn">NULL</span>,
-  force <span class="op">=</span> <span class="cn">NULL</span>,
-  <span class="va">...</span>,
-  verbose <span class="op">=</span> <span class="cn">TRUE</span>
-<span class="op">)</span>
-
-<span class="fu">basemap_gglayer</span><span class="op">(</span>
-  ext <span class="op">=</span> <span class="cn">NULL</span>,
-  map_service <span class="op">=</span> <span class="cn">NULL</span>,
-  map_type <span class="op">=</span> <span class="cn">NULL</span>,
-  map_res <span class="op">=</span> <span class="cn">NULL</span>,
-  map_token <span class="op">=</span> <span class="cn">NULL</span>,
-  map_dir <span class="op">=</span> <span class="cn">NULL</span>,
-  force <span class="op">=</span> <span class="cn">NULL</span>,
-  <span class="va">...</span>,
-  verbose <span class="op">=</span> <span class="cn">TRUE</span>
-<span class="op">)</span>
-
-<span class="fu">basemap_magick</span><span class="op">(</span>
-  ext <span class="op">=</span> <span class="cn">NULL</span>,
-  map_service <span class="op">=</span> <span class="cn">NULL</span>,
-  map_type <span class="op">=</span> <span class="cn">NULL</span>,
-  map_res <span class="op">=</span> <span class="cn">NULL</span>,
-  map_token <span class="op">=</span> <span class="cn">NULL</span>,
-  map_dir <span class="op">=</span> <span class="cn">NULL</span>,
-  force <span class="op">=</span> <span class="cn">NULL</span>,
-  <span class="va">...</span>,
-  verbose <span class="op">=</span> <span class="cn">TRUE</span>
-<span class="op">)</span>
-
-<span class="fu">basemap_png</span><span class="op">(</span>
-  ext <span class="op">=</span> <span class="cn">NULL</span>,
-  map_service <span class="op">=</span> <span class="cn">NULL</span>,
-  map_type <span class="op">=</span> <span class="cn">NULL</span>,
-  map_res <span class="op">=</span> <span class="cn">NULL</span>,
-  map_token <span class="op">=</span> <span class="cn">NULL</span>,
-  map_dir <span class="op">=</span> <span class="cn">NULL</span>,
-  force <span class="op">=</span> <span class="cn">NULL</span>,
-  <span class="va">...</span>,
-  verbose <span class="op">=</span> <span class="cn">TRUE</span>
-<span class="op">)</span>
-
-<span class="fu">basemap_geotif</span><span class="op">(</span>
-  ext <span class="op">=</span> <span class="cn">NULL</span>,
-  map_service <span class="op">=</span> <span class="cn">NULL</span>,
-  map_type <span class="op">=</span> <span class="cn">NULL</span>,
-  map_res <span class="op">=</span> <span class="cn">NULL</span>,
-  map_token <span class="op">=</span> <span class="cn">NULL</span>,
-  map_dir <span class="op">=</span> <span class="cn">NULL</span>,
-  force <span class="op">=</span> <span class="cn">NULL</span>,
-  <span class="va">...</span>,
-  verbose <span class="op">=</span> <span class="cn">TRUE</span>
-<span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">basemap</span><span class="op">(</span></span>
+<span>  ext <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  map_service <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  map_type <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  map_res <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  map_token <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  map_dir <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  class <span class="op">=</span> <span class="st">"stars"</span>,</span>
+<span>  force <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  <span class="va">...</span>,</span>
+<span>  verbose <span class="op">=</span> <span class="cn">TRUE</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">basemap_raster</span><span class="op">(</span></span>
+<span>  ext <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  map_service <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  map_type <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  map_res <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  map_token <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  map_dir <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  force <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  <span class="va">...</span>,</span>
+<span>  verbose <span class="op">=</span> <span class="cn">TRUE</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">basemap_stars</span><span class="op">(</span></span>
+<span>  ext <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  map_service <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  map_type <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  map_res <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  map_token <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  map_dir <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  force <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  <span class="va">...</span>,</span>
+<span>  verbose <span class="op">=</span> <span class="cn">TRUE</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">basemap_mapview</span><span class="op">(</span></span>
+<span>  ext <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  map_service <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  map_type <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  map_res <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  map_token <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  map_dir <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  force <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  <span class="va">...</span>,</span>
+<span>  verbose <span class="op">=</span> <span class="cn">TRUE</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">basemap_plot</span><span class="op">(</span></span>
+<span>  ext <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  map_service <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  map_type <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  map_res <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  map_token <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  map_dir <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  force <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  <span class="va">...</span>,</span>
+<span>  verbose <span class="op">=</span> <span class="cn">TRUE</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">basemap_ggplot</span><span class="op">(</span></span>
+<span>  ext <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  map_service <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  map_type <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  map_res <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  map_token <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  map_dir <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  force <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  <span class="va">...</span>,</span>
+<span>  verbose <span class="op">=</span> <span class="cn">TRUE</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">basemap_gglayer</span><span class="op">(</span></span>
+<span>  ext <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  map_service <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  map_type <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  map_res <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  map_token <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  map_dir <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  force <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  <span class="va">...</span>,</span>
+<span>  verbose <span class="op">=</span> <span class="cn">TRUE</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">basemap_magick</span><span class="op">(</span></span>
+<span>  ext <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  map_service <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  map_type <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  map_res <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  map_token <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  map_dir <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  force <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  <span class="va">...</span>,</span>
+<span>  verbose <span class="op">=</span> <span class="cn">TRUE</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">basemap_png</span><span class="op">(</span></span>
+<span>  ext <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  map_service <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  map_type <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  map_res <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  map_token <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  map_dir <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  force <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  <span class="va">...</span>,</span>
+<span>  verbose <span class="op">=</span> <span class="cn">TRUE</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">basemap_geotif</span><span class="op">(</span></span>
+<span>  ext <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  map_service <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  map_type <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  map_res <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  map_token <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  map_dir <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  force <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  <span class="va">...</span>,</span>
+<span>  verbose <span class="op">=</span> <span class="cn">TRUE</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>ext</dt>
 <dd><p>extent to be covered by the basemap as any spatial class supported by <code>st_bbox</code>.</p></dd>
+
+
 <dt>map_service</dt>
 <dd><p>character, a map service, either <code>"osm"</code>, <code>"carto"</code> or <code>"mapbox"</code>. Default is <code>"osm"</code>.</p></dd>
+
+
 <dt>map_type</dt>
 <dd><p>character, a map type, e.g. <code>"streets"</code>. For a full list of available map types, see <code><a href="get_maptypes.html">get_maptypes</a></code>.</p></dd>
+
+
 <dt>map_res</dt>
 <dd><p>numeric, resolution of base map in range from 0 to 1.</p></dd>
+
+
 <dt>map_token</dt>
 <dd><p>character, authentification token for services that require registration, which are <code>"osm_thunderforest"</code> and <code>"mapbox"</code>. Register at <a href="https://www.thunderforest.com/" class="external-link">https://www.thunderforest.com/</a> and/or <a href="https://www.mapbox.com/" class="external-link">https://www.mapbox.com/</a> to get tokens. Ignored for all other map services.</p></dd>
+
+
 <dt>map_dir</dt>
 <dd><p>character, cache directory where downloaded basemap tiles will be stored. By default, a temporary directory is used, which is destroyed when the session is terminated.</p></dd>
+
+
 <dt>class</dt>
 <dd><p>character, output class, either <code>"stars"</code>, <code>"raster"</code>, <code>"mapview"</code>, <code>"plot"</code>, <code>"ggplot"</code>, <code>"gglayer"</code>, <code>"magick"</code>, <code>"png"</code> or <code>"geotif"</code>..</p></dd>
+
+
 <dt>force</dt>
 <dd><p>logical, whether to force download over cached files or not. Default is <code>FALSE</code>.</p></dd>
+
+
 <dt>...</dt>
 <dd><p>additional arguments, including</p><ul><li><p><code>browse</code>, logical, for <code>class = "png"</code> and interactive sessions only. Whether to open the png file in the system's default PNG viewer or not. Default is <code>TRUE</code>.</p></li>
 <li><p><code>col</code>, character vector of colours for transforming single-layer basemaps into RGB, if <code>class = "png"</code> or <code>class = "magick"</code>. Default is <code>topo.colors(25)</code>.</p></li>
 <li><p><code>dpi</code>,  numeric vector of length 1 or 2 specifying the resolution of the image in DPI (dots per inch) for x and y (in that order) - it is recycled to length 2.</p></li>
 </ul></dd>
+
+
 <dt>verbose</dt>
 <dd><p>logical, if <code>TRUE</code>, messages and progress information are displayed on the console (default).</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>A basemap of the defined class in Web/Pseudo Mercator Projection (EPSG: 3857)</p>
+    
+
+<p>A basemap of the defined class in Web/Pseudo Mercator Projection (EPSG: 3857)</p>
     </div>
     <div id="note">
     <h2>Note</h2>
@@ -256,16 +277,15 @@
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">basemaps</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># example extent</span></span>
-<span class="r-in"><span class="fu"><a href="data.html">data</a></span><span class="op">(</span><span class="va">ext</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># view all available maps</span></span>
-<span class="r-in"><span class="fu"><a href="get_maptypes.html">get_maptypes</a></span><span class="op">(</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">basemaps</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># example extent</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="data.html">data</a></span><span class="op">(</span><span class="va">ext</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># view all available maps</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="get_maptypes.html">get_maptypes</a></span><span class="op">(</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $osm</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [1] "streets"      "streets_de"   "streets_fr"   "humanitarian" "topographic" </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [6] "hike"         "hillshade"    "grayscale"    "no_labels"    "mtb"         </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "streets"     "streets_de"  "topographic"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $osm_stamen</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "toner"      "toner_bg"   "toner_lite" "terrain"    "terrain_bg"</span>
@@ -314,20 +334,20 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> [25] "delorme_world_base_map"               </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [26] "world_navigation_charts"              </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># set defaults for the basemap</span></span>
-<span class="r-in"><span class="fu"><a href="defaults.html">set_defaults</a></span><span class="op">(</span>map_service <span class="op">=</span> <span class="st">"osm"</span>, map_type <span class="op">=</span> <span class="st">"terrain_bg"</span><span class="op">)</span></span>
-<span class="r-in"><span class="co"># for osm_thunderforest and mapbox maps, you need a API token. </span></span>
-<span class="r-in"><span class="co"># Register for free at thunderforest.com and mapbox.com to get a token</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span>
-<span class="r-in"><span class="co"># load and return basemap map as raster (default)</span></span>
-<span class="r-in"><span class="va">map</span> <span class="op">&lt;-</span> <span class="fu">basemap</span><span class="op">(</span><span class="va">ext</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># or as many different classes such as:</span></span>
-<span class="r-in"><span class="fu">basemap_magick</span><span class="op">(</span><span class="va">ext</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu">basemap_plot</span><span class="op">(</span><span class="va">ext</span><span class="op">)</span></span>
-<span class="r-in"><span class="op">}</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># set defaults for the basemap</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="defaults.html">set_defaults</a></span><span class="op">(</span>map_service <span class="op">=</span> <span class="st">"osm"</span>, map_type <span class="op">=</span> <span class="st">"terrain_bg"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co"># for osm_thunderforest and mapbox maps, you need a API token. </span></span></span>
+<span class="r-in"><span><span class="co"># Register for free at thunderforest.com and mapbox.com to get a token</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span></span>
+<span class="r-in"><span><span class="co"># load and return basemap map as raster (default)</span></span></span>
+<span class="r-in"><span><span class="va">map</span> <span class="op">&lt;-</span> <span class="fu">basemap</span><span class="op">(</span><span class="va">ext</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># or as many different classes such as:</span></span></span>
+<span class="r-in"><span><span class="fu">basemap_magick</span><span class="op">(</span><span class="va">ext</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">basemap_plot</span><span class="op">(</span><span class="va">ext</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">}</span></span></span>
 </code></pre></div>
     </div>
   </div>
@@ -342,7 +362,7 @@
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>

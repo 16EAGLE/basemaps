@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">basemaps</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.3</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.4</span>
       </span>
     </div>
 
@@ -91,6 +91,13 @@
     </div>
 
     <div class="section level2">
+<h2 class="page-header" data-toc-text="0.0.4" id="basemaps-004">basemaps 0.0.4<a class="anchor" aria-label="anchor" href="#basemaps-004"></a></h2>
+<p>Minor improvements, bug fixes.</p>
+<p><strong>Bugs:</strong> * dropped defunct/not maintained tile servers (OSM) from map services list * fixing a bug (<code>"dimensions of e1 and e2 do not match"</code>) when trying to build a map from <code>map_service="mapbox"</code> and <code>map_type="terrain"</code> with newer versions of <code>stars</code> * added a handling to fix a plotting bug for cases in which maps returned by tile servers (for whatever reasons) consist of only a single value (e.g. 0) for the given query extent (<a href="https://github.com/16EAGLE/basemaps/issues/9" class="external-link">#9</a>) * fixed a bug placing cached maps in the wrong directory when <code>map_dir</code> is defined by the user (<a href="https://github.com/16EAGLE/basemaps/issues/11" class="external-link">#11</a>) * cached maps stored in other directories than the currently set <code>map_dir</code> are now disregarded to avoid path errors when switching map directories during a session (<a href="https://github.com/16EAGLE/basemaps/issues/11" class="external-link">#11</a>)</p>
+<p><strong>Features:</strong></p>
+<p><br></p>
+<hr></div>
+    <div class="section level2">
 <h2 class="page-header" data-toc-text="0.0.3" id="basemaps-003">basemaps 0.0.3<a class="anchor" aria-label="anchor" href="#basemaps-003"></a></h2>
 <p>Minor improvements.</p>
 <p><strong>Features:</strong></p>
@@ -102,8 +109,7 @@
 <h2 class="page-header" data-toc-text="0.0.2" id="basemaps-002">basemaps 0.0.2<a class="anchor" aria-label="anchor" href="#basemaps-002"></a></h2>
 <p>Bug fixes.</p>
 <p><strong>Fixed bugs:</strong></p>
-<ul><li>added minimum version requirement for dependency <code>stars</code> (&gt;= 0.5.0) to make sure that <code>st_set_bbox</code> is exported (see issue <a href="https://github.com/16eagle/basemaps/issues/3" class="external-link">#3</a>)</li>
-</ul><p><br></p>
+<ul><li>added minimum version requirement for dependency <code>stars</code> (&gt;= 0.5.0) to make sure that <code>st_set_bbox</code> is exported (see issue <a href="https://github.com/16eagle/basemaps/issues/3" class="external-link">#3</a>)</li></ul><p><br></p>
 <hr></div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="0.0.1" id="basemaps-001">basemaps 0.0.1<small>2021-05-19</small><a class="anchor" aria-label="anchor" href="#basemaps-001"></a></h2>
@@ -118,8 +124,7 @@
 <li>
 <code><a href="../reference/basemap.html">basemap()</a></code> and its aliases <code><a href="../reference/basemap.html">basemap_raster()</a></code>, <code><a href="../reference/basemap.html">basemap_stars()</a></code>, <code><a href="../reference/basemap.html">basemap_mapview()</a></code>, <code><a href="../reference/basemap.html">basemap_plot()</a></code>, <code><a href="../reference/basemap.html">basemap_ggplot()</a></code>, <code><a href="../reference/basemap.html">basemap_gglayer()</a></code>, <code><a href="../reference/basemap.html">basemap_magick()</a></code>, <code><a href="../reference/basemap.html">basemap_png()</a></code> and <code><a href="../reference/basemap.html">basemap_geotif()</a></code> (down)load and cache a basemap of a defined extent <code>ext</code>, <code>map_service</code> and <code>map_type</code> and return it as an object of the defined class.</li>
 </ul><p><strong>New features:</strong></p>
-<ul><li>Everything.</li>
-</ul><p><br></p>
+<ul><li>Everything.</li></ul><p><br></p>
 <hr><p>This document should provide a broad overview on changes that are applied to the basemaps R package. There is no warranty for completeness, since minor changes might not be included. All improvement and feature descriptions are bundled per release version. The document is currently maintained by Jakob Schwalb-Willmann.</p>
 </div>
   </div>
@@ -136,7 +141,7 @@
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>
