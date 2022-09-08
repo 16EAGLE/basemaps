@@ -37,6 +37,7 @@ out <- function(input, type = 1, ll = NULL, msg = FALSE, sign = "", verbose = ge
 #' strip filename from path
 #'
 #' @keywords internal
+#' @importFrom utils head
 #' @noRd
 .strip_filename <- function(x){
   paste0(head(strsplit(x, "/")[[1]], n=-1), collapse = "/")
