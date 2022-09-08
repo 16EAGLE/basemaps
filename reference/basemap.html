@@ -344,10 +344,40 @@
 <span class="r-in"><span><span class="co"># load and return basemap map as raster (default)</span></span></span>
 <span class="r-in"><span><span class="va">map</span> <span class="op">&lt;-</span> <span class="fu">basemap</span><span class="op">(</span><span class="va">ext</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="co"># or as many different classes such as:</span></span></span>
+<span class="r-in"><span><span class="co"># or explicitely as different classes such as:</span></span></span>
 <span class="r-in"><span><span class="fu">basemap_magick</span><span class="op">(</span><span class="va">ext</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">basemap_raster</span><span class="op">(</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">basemap_stars</span><span class="op">(</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># or as files:</span></span></span>
+<span class="r-in"><span><span class="fu">basemap_geotif</span><span class="op">(</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">basemap_png</span><span class="op">(</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># or as plots:</span></span></span>
 <span class="r-in"><span><span class="fu">basemap_plot</span><span class="op">(</span><span class="va">ext</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="op">}</span></span></span>
+<span class="r-in"><span><span class="fu">basemap_mapview</span><span class="op">(</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># including ggplot2:</span></span></span>
+<span class="r-in"><span><span class="fu">basemap_ggplot</span><span class="op">(</span><span class="va">ext</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># or as ggplot2 layer:</span></span></span>
+<span class="r-in"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org" class="external-link">ggplot2</a></span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> </span></span>
+<span class="r-in"><span>  <span class="fu">basemap_gglayer</span><span class="op">(</span><span class="va">ext</span><span class="op">)</span> <span class="op">+</span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_identity.html" class="external-link">scale_fill_identity</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> </span></span>
+<span class="r-in"><span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggsf.html" class="external-link">coord_sf</a></span><span class="op">(</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># or, when combined with an sf vector object,</span></span></span>
+<span class="r-in"><span><span class="co"># make sure to use Web/Pseudo Mercator (EPSG 3857), as this is</span></span></span>
+<span class="r-in"><span><span class="co"># the CRS in which all basemaps are returned (see "Value"):</span></span></span>
+<span class="r-in"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://r-spatial.github.io/sf/" class="external-link">sf</a></span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">ext</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_transform.html" class="external-link">st_transform</a></span><span class="op">(</span><span class="va">ext</span>,  crs <span class="op">=</span> <span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_crs.html" class="external-link">st_crs</a></span><span class="op">(</span><span class="fl">3857</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> </span></span>
+<span class="r-in"><span>  <span class="fu">basemap_gglayer</span><span class="op">(</span><span class="va">ext</span><span class="op">)</span> <span class="op">+</span> </span></span>
+<span class="r-in"><span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggsf.html" class="external-link">geom_sf</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">ext</span>, color <span class="op">=</span> <span class="st">"red"</span>, fill <span class="op">=</span> <span class="st">"transparent"</span><span class="op">)</span> <span class="op">+</span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggsf.html" class="external-link">coord_sf</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_identity.html" class="external-link">scale_fill_identity</a></span><span class="op">(</span><span class="op">)</span></span></span>
+<span class="r-in"><span> <span class="op">}</span></span></span>
 </code></pre></div>
     </div>
   </div>

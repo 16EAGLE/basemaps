@@ -92,10 +92,15 @@
 
     <div class="section level2">
 <h2 class="page-header" data-toc-text="0.0.4" id="basemaps-004">basemaps 0.0.4<a class="anchor" aria-label="anchor" href="#basemaps-004"></a></h2>
-<p>Minor improvements, bug fixes.</p>
-<p><strong>Bugs:</strong> * dropped defunct/not maintained tile servers (OSM) from map services list * fixing a bug (<code>"dimensions of e1 and e2 do not match"</code>) when trying to build a map from <code>map_service="mapbox"</code> and <code>map_type="terrain"</code> with newer versions of <code>stars</code> * added a handling to fix a plotting bug for cases in which maps returned by tile servers (for whatever reasons) consist of only a single value (e.g. 0) for the given query extent (<a href="https://github.com/16EAGLE/basemaps/issues/9" class="external-link">#9</a>) * fixed a bug placing cached maps in the wrong directory when <code>map_dir</code> is defined by the user (<a href="https://github.com/16EAGLE/basemaps/issues/11" class="external-link">#11</a>) * cached maps stored in other directories than the currently set <code>map_dir</code> are now disregarded to avoid path errors when switching map directories during a session (<a href="https://github.com/16EAGLE/basemaps/issues/11" class="external-link">#11</a>)</p>
-<p><strong>Features:</strong></p>
-<p><br></p>
+<p>Updated help, bug fixes.</p>
+<p><strong>Bugs:</strong></p>
+<ul><li>dropped defunct/not maintained tile servers (OSM) from map services list</li>
+<li>fixing a bug (<code>"dimensions of e1 and e2 do not match"</code>) when trying to build a map from <code>map_service="mapbox"</code> and <code>map_type="terrain"</code> with newer versions of <code>stars</code>
+</li>
+<li>added a handling to fix a plotting bug for cases in which maps returned by tile servers (for whatever reasons) consist of only a single value (e.g. 0) for the given query extent (<a href="https://github.com/16EAGLE/basemaps/issues/9" class="external-link">#9</a>)</li>
+<li>fixed a bug placing cached maps in the wrong directory when <code>map_dir</code> is defined by the user (<a href="https://github.com/16EAGLE/basemaps/issues/11" class="external-link">#11</a>)</li>
+<li>cached maps stored in other directories than the currently set <code>map_dir</code> are now disregarded to avoid path errors when switching map directories during a session (<a href="https://github.com/16EAGLE/basemaps/issues/11" class="external-link">#11</a>)</li>
+</ul><p><br></p>
 <hr></div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="0.0.3" id="basemaps-003">basemaps 0.0.3<a class="anchor" aria-label="anchor" href="#basemaps-003"></a></h2>
