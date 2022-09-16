@@ -1,5 +1,16 @@
 ***
 
+## basemaps 0.0.5
+Added *gg_raster*
+
+**Features:**
+
+* added `gg_raster`, a function that plots objects of class `RasterLayer`, `RasterBrick` or `{RasterStack` as `ggplot2`
+
+<br>
+
+***
+
 ## basemaps 0.0.4
 Updated help, bug fixes.
 

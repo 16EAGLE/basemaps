@@ -84,62 +84,6 @@ out <- function(input, type = 1, ll = NULL, msg = FALSE, sign = "", verbose = ge
   return(ext.both)
 }
 
-#' plot raster as ggplot
-#' @importFrom raster ncell aggregate
-#' @keywords internal
-#' @noRd
-gg.bmap <- function(r, r_type, gglayer = F, ...){
-  extras <- list(...)
-  if(!is.null(extras$maxpixels)) maxpixels <- extras$maxpixels else maxpixels <- 500000
-  if(!is.null(extras$alpha)) alpha <- extras$alpha else alpha <- 1
-  if(!is.null(extras$maxColorValue)) maxColorValue <- extras$maxColorValue else maxColorValue <- NA
-  
-  # aggregate raster if too large
-  if(maxpixels < ncell(r)) r <- aggregate(r, fact = ceiling(ncell(r)/maxpixels))
-  
-  # transform into data.frame
-  df <- data.frame(raster::as.data.frame(r, xy = T))
-  colnames(df) <- c("x", "y", paste0("val", 1:(ncol(df)-2)))
-  
-  # factor if discrete to show categrocial legend
-  df$fill <- df$val1
-  if(r_type == "discrete") df$fill <- as.factor(df$fill)
-  
-  # transform to RGB colours
-  if(r_type == "RGB"){
-    if(is.na(maxColorValue)) maxColorValue <- max(c(df$val1, df$val2, df$val3), na.rm = T)
-    
-    if(maxColorValue < max(c(df$val1, df$val2, df$val3), na.rm = T)){
-      out("maxColorValue < maximum raster value. maxColorValue is set to maximum raster value.", type = 2)
-      maxColorValue <- max(c(df$val1, df$val2, df$val3), na.rm = T)
-    }
-    
-    # remove NAs
-    na.sel <- is.na(df$val1) & is.na(df$val2) & is.na(df$val3)
-    if(any(na.sel)) df <- df[!na.sel,]
-    
-    df$fill <- grDevices::rgb(red = df$val1, green = df$val2, blue = df$val3, maxColorValue = maxColorValue)
-  } else{
-    
-    # remove NAs
-    na.sel <- is.na(df$val1)
-    if(any(na.sel)) df <- df[!na.sel,]
-  }
-  # if NA gaps are there, use geom_tile, otherwise make it fast using geom_raster
-  if(any(na.sel)){
-    gg <- ggplot2::geom_tile(ggplot2::aes_string(x = "x", y = "y", fill = "fill"), data = df, alpha = alpha)
-  } else{
-    gg <- ggplot2::geom_raster(ggplot2::aes_string(x = "x", y = "y", fill = "fill"), data = df, alpha = alpha)
-  }
-  
-  if(isFALSE(gglayer)){
-    gg <- ggplot2::ggplot() + gg + ggplot2::coord_sf()
-    if(r_type == "RGB") gg <- gg + ggplot2::scale_fill_identity() 
-  }
-  return(gg)
-}
-
-
 #' get map
 #' @importFrom slippymath bbox_to_tile_grid tile_bbox
 #' @importFrom raster extent extent<- resample extend merge brick

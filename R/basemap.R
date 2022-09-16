@@ -211,9 +211,9 @@ basemap <- function(ext = NULL, map_service = NULL, map_type = NULL, map_res = N
         out("Package 'ggplot2' is not installed. Please install 'ggplot2' using install.packages('ggplot2').")
       } else{
         if(nlayers(map) == 3){
-          return(gg.bmap(r = map, r_type = "RGB", ...))
+          return(gg_raster(r = map, r_type = "RGB", ...))
         } else{
-          return(gg.bmap(r = map, r_type = "gradient", ...))
+          return(gg_raster(r = map, r_type = "gradient", ...))
         }
       }
     }
@@ -222,7 +222,7 @@ basemap <- function(ext = NULL, map_service = NULL, map_type = NULL, map_res = N
       if(!any(grepl("ggplot", rownames(installed.packages())))){
         out("Package 'ggplot2' is not installed. Please install 'ggplot2' using install.packages('ggplot2').")
       } else{
-        if(nlayers(map) == 3) return(gg.bmap(r = map, r_type = "RGB", gglayer = T, ...)) else return(gg.bmap(r = map, r_type = "gradient", gglayer = T, ...))
+        if(nlayers(map) == 3) return(gg_raster(r = map, r_type = "RGB", gglayer = T, ...)) else return(gg_raster(r = map, r_type = "gradient", gglayer = T, ...))
       }
     }
   }
