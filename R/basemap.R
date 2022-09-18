@@ -95,7 +95,10 @@ basemap <- function(ext = NULL, map_service = NULL, map_type = NULL, map_res = N
   if(inherits(verbose, "logical")) options(basemaps.verbose = verbose)
   if(is.null(ext)) ext <- getOption("basemaps.defaults")$ext
   if(is.null(ext)) out("Argument 'ext' is not defined and there is no default defined using set_defaults().", type = 3)
-  if(inherits(ext, "sf")) ext <- st_bbox(ext)
+  if(!inherits(ext, "list")) ext <- list(ext)
+  ext <- lapply(ext, function(x){
+    if(inherits(x, "sf")) st_bbox(x) else x
+  })
   if(is.null(map_service)) map_service <- getOption("basemaps.defaults")$map_service
   if(is.null(map_type)) map_type <- getOption("basemaps.defaults")$map_type
   if(is.null(map_res)) map_res <- getOption("basemaps.defaults")$map_res
@@ -119,10 +122,12 @@ basemap <- function(ext = NULL, map_service = NULL, map_type = NULL, map_res = N
   
   ## transform ext if needed
   crs_webmerc <- st_crs(3857)
-  if(st_crs(ext) != crs_webmerc){
+  if(any(sapply(ext, function(x) st_crs(x) != crs_webmerc, USE.NAMES = F))){
     out(paste0("Transforming 'ext' to Web Mercator (EPSG: 3857), since 'ext' has a different CRS. The CRS of the returned basemap will be Web Mercator, which is the default CRS used by the supported tile services."), type = 2)
   }
-  ext <- st_bbox(st_transform(st_as_sfc(st_bbox(ext)), crs = crs_webmerc)) #bbox as web mercator, always
+  ext <- lapply(ext, function(x){
+    st_bbox(st_transform(st_as_sfc(st_bbox(x)), crs = crs_webmerc)) #bbox as web mercator, always
+  })
   
   ## get map
   out(paste0("Loading basemap '", map_type, "' from map service '", map_service, "'..."))
