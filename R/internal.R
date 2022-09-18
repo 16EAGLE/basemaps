@@ -74,19 +74,22 @@ out <- function(input, type = 1, ll = NULL, msg = FALSE, sign = "", verbose = ge
 #' @keywords internal
 #' @noRd
 .expand_ext <- function(ext.both, rg){
-  if(which.min(rg) == 1){
-    ext.both[[which.min(rg)]]@xmin <- -180+ext.both[[which.min(rg)]]@xmin-180
-    ext.both[[which.min(rg)]]@xmax <- -180+ext.both[[which.min(rg)]]@xmax-180
-  } else{
-    ext.both[[which.max(rg)]]@xmin <- 180+ext.both[[which.max(rg)]]@xmin+180
-    ext.both[[which.max(rg)]]@xmax <- 180+ext.both[[which.max(rg)]]@xmax+180
+  
+  if(ext.both[[which.max(rg)]]@xmin < 0){
+    ext.both[[which.max(rg)]]@xmin <- ext.both[[which.max(rg)]]@xmin - rg[which.min(rg)]
+    ext.both[[which.min(rg)]]@xmax <- ext.both[[which.min(rg)]]@xmax + rg[which.max(rg)]
+  }else{
+    ext.both[[which.max(rg)]]@xmax <- ext.both[[which.max(rg)]]@xmax + rg[which.min(rg)]
+    ext.both[[which.min(rg)]]@xnub <- ext.both[[which.min(rg)]]@xmin - rg[which.max(rg)]
   }
+  
   return(ext.both)
 }
 
+
 #' get map
 #' @importFrom slippymath bbox_to_tile_grid tile_bbox
-#' @importFrom raster extent extent<- resample extend merge brick
+#' @importFrom raster extent extent<- resample extend merge brick projectRaster
 #' @importFrom magick image_read image_write image_convert
 #' @importFrom curl curl_download
 #' @importFrom httr http_error GET
@@ -99,6 +102,7 @@ out <- function(input, type = 1, ll = NULL, msg = FALSE, sign = "", verbose = ge
   extras <- list(...)
   if(!is.null(extras$no_transform)) no_transform <- extras$no_transform else no_transform <- FALSE
   if(!is.null(extras$no_crop)) no_crop <- extras$no_crop else no_crop <- FALSE
+  if(!is.null(extras$custom_crs)) custom_crs <- extras$custom_crs else custom_crs <- NA
   
   if(inherits(ext, "bbox")) ext <- list(ext)
   file_comp <- lapply(ext, function(y){
@@ -226,29 +230,82 @@ out <- function(input, type = 1, ll = NULL, msg = FALSE, sign = "", verbose = ge
   if(length(file_comp) > 1){
 
     # load and name 
-    r <- lapply(file_comp, brick)
-    names(r) <- names(ext)
+    r <- r_as_is <- lapply(unname(file_comp), brick)
     
-    # extend over dateline
-    ext.both <- list(east = extent(r$east), west = extent(r$west))
-    rg <- c("east"= diff(c(ext.both$east@xmin, ext.both$east@xmax)), "west" = diff(c(ext.both$west@xmin, ext.both$west@xmax)))
-
-    ext.both <- .expand_ext(ext.both, rg)
-    #ext.both <- .shift_ext(ext.both)
-    extent(r$east) <- ext.both$east
-    extent(r$west) <- ext.both$west
-
-    # extend lower res raster, resample higher res raster and merge both
-    ext.combi <- .combine_ext(ext.both)
-
+    # get original extents of untouched rasters
+    ext.both <- lapply(r, extent)
+    
+    # measure x diff, which side should be preserved, whcih side should be extended to the other?
+    rg <- sapply(ext.both, function(x) diff(c(x@xmin, x@xmax)))
+    
+    # save the x end coodinate of this grid
+    cc.xmin <- ext.both[[which.max(rg)]]@xmin
+    
+    # expand both extents
+    ext.both.exp <- .expand_ext(ext.both, rg)
+    
+    # choose an extent
+    ext.combi <- ext.both.exp[[which.max(rg)]]
+    
+    # extend the larger one
+    r[[which.max(rg)]] <- extend(r[[which.max(rg)]], ext.combi)
+    
+    # shift the smaller one over to the other side
+    ext.min <- extent(r[[which.min(rg)]])
+    ext.min@xmax <- cc.xmin
+    ext.min@xmin <- cc.xmin - min(rg)
+    
+    extent(r[[which.min(rg)]]) <- ext.min
+    
+    # extent the smaller one too, resample to larger one
     r[[which.min(rg)]] <- extend(r[[which.min(rg)]], ext.combi)
-    r[[which.max(rg)]] <- resample(r[[which.max(rg)]], r[[which.min(rg)]])
-    r <- list(merge(r[[1]], r[[2]]))
+    r[[which.min(rg)]] <- resample(r[[which.min(rg)]], r[[which.max(rg)]])
+    
+    # fuse rasters over grid end
+    r <- merge(r[[1]], r[[2]])
+    
+    # if another CRS is equested, we need to do some tricks, since we cannot reproject the "shifted" raster
+    if(!is.na(custom_crs)){
+      
+      # shift extent onto one side of the coordinate line
+      ext.repro <- extent(r)
+      if(cc.xmin < 0){
+        ext.repro@xmin <- ext.repro@xmin + rg[which.min(rg)]
+        ext.repro@xmax <- ext.repro@xmax + rg[which.min(rg)]
+      } else{
+        ext.repro@xmin <- ext.repro@xmin - rg[which.min(rg)]
+        ext.repro@xmax <- ext.repro@xmax - rg[which.min(rg)]
+      }
+      # project shifted raster
+      extent(r) <- ext.repro
+      r <- projectRaster(r, crs = custom_crs)
+      
+      # now project the original extents of the two rasters
+      ext.before <- lapply(r_as_is, function(x) extent(projectRaster(x, crs = custom_crs)))
+      
+      # combine these two as before
+      rg <- sapply(ext.before, function(x) diff(c(x@xmin, x@xmax)))
+      ext.before.exp <- .expand_ext(ext.before, rg)
+      
+      # assign equivialnt extent
+      extent(r) <- ext.before.exp[[which.max(rg)]]
+    }
     
     file_comp <- paste0(map_dir, "basemap_", gsub(":", "", gsub(" ", "", gsub("-", "", Sys.time()))), ".tif")
     write_stars(st_as_stars(r), file_comp)
   } else{
-    file_comp <- file_comp[[1]]
+    
+    # custom crs?
+    if(!is.na(custom_crs)){
+      r <- brick(file_comp[[1]])
+      r <- projectRaster(r, crs = custom_crs)
+      
+      file_comp <- paste0(map_dir, "basemap_", gsub(":", "", gsub(" ", "", gsub("-", "", Sys.time()))), ".tif")
+      write_stars(st_as_stars(r), file_comp)
+    } else{
+      
+      file_comp <- file_comp[[1]]
+    }
   }
   
   # rename layers
