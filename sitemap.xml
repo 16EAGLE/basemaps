@@ -19,6 +19,9 @@
     <loc>https://jakob.schwalb-willmann.de/basemaps/reference/basemap.html</loc>
   </url>
   <url>
+    <loc>https://jakob.schwalb-willmann.de/basemaps/reference/cache.html</loc>
+  </url>
+  <url>
     <loc>https://jakob.schwalb-willmann.de/basemaps/reference/data.html</loc>
   </url>
   <url>
@@ -32,5 +35,8 @@
   </url>
   <url>
     <loc>https://jakob.schwalb-willmann.de/basemaps/reference/index.html</loc>
+  </url>
+  <url>
+    <loc>https://jakob.schwalb-willmann.de/basemaps/reference/plot.html</loc>
   </url>
 </urlset>

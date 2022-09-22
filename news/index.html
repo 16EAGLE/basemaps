@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">basemaps</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.4</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.5</span>
       </span>
     </div>
 
@@ -91,7 +91,14 @@
     </div>
 
     <div class="section level2">
-<h2 class="page-header" data-toc-text="0.0.4" id="basemaps-004">basemaps 0.0.4<a class="anchor" aria-label="anchor" href="#basemaps-004"></a></h2>
+<h2 class="page-header" data-toc-text="0.0.5" id="basemaps-005">basemaps 0.0.5<a class="anchor" aria-label="anchor" href="#basemaps-005"></a></h2>
+<p>Added <em>gg_raster</em></p>
+<p><strong>Features:</strong></p>
+<ul><li>added <code>gg_raster</code>, a function that plots objects of class <code>RasterLayer</code>, <code>RasterBrick</code> or <code>{RasterStack</code> as <code>ggplot2</code>
+</li></ul><p><br></p>
+<hr></div>
+    <div class="section level2">
+<h2 class="page-header" data-toc-text="0.0.4" id="basemaps-004">basemaps 0.0.4<small>2022-09-08</small><a class="anchor" aria-label="anchor" href="#basemaps-004"></a></h2>
 <p>Updated help, bug fixes.</p>
 <p><strong>Bugs:</strong></p>
 <ul><li>dropped defunct/not maintained tile servers (OSM) from map services list</li>
@@ -100,7 +107,8 @@
 <li>added a handling to fix a plotting bug for cases in which maps returned by tile servers (for whatever reasons) consist of only a single value (e.g. 0) for the given query extent (<a href="https://github.com/16EAGLE/basemaps/issues/9" class="external-link">#9</a>)</li>
 <li>fixed a bug placing cached maps in the wrong directory when <code>map_dir</code> is defined by the user (<a href="https://github.com/16EAGLE/basemaps/issues/11" class="external-link">#11</a>)</li>
 <li>cached maps stored in other directories than the currently set <code>map_dir</code> are now disregarded to avoid path errors when switching map directories during a session (<a href="https://github.com/16EAGLE/basemaps/issues/11" class="external-link">#11</a>)</li>
-</ul><p><br></p>
+</ul><p><strong>Features:</strong></p>
+<ul><li>added <code>flush_cache</code>, a function that flushes the cache and thereby removes all previously queried and/or composited products from the map directories (temporary or user-defined using the argument <code>map_dir</code>) used during the current session.</li></ul><p><br></p>
 <hr></div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="0.0.3" id="basemaps-003">basemaps 0.0.3<a class="anchor" aria-label="anchor" href="#basemaps-003"></a></h2>
