@@ -370,6 +370,23 @@ out <- function(input, type = 1, ll = NULL, msg = FALSE, sign = "", verbose = ge
 #' @importFrom pbapply pboptions
 #' @noRd 
 .onLoad <- function(libname, pkgname){
+  
+  # avoid messages from unfound finalizer methods
+  # see https://github.com/rspatial/terra/issues/30 but also elsewhere found
+  # remove when issue seems resolved
+  catch <- suppressMessages(trace(reg.finalizer, quote({
+    
+    classDef <- dynGet("classDef", ifnotfound = NULL)
+    if (!is.null(classDef)) {
+      f <- function(x) {
+        method <- selectMethod("$", list(x = class(x$.self)))
+        finalize <- method(x$.self, "finalize")
+        finalize()
+      }
+    }
+    
+  }), print = FALSE))
+  
   pboptions(type = "timer", char = "=", txt.width = getOption("width")-30) # can be changed to "none"
   if(is.null(getOption("basemaps.verbose")))  options(basemaps.verbose = FALSE)
   if(is.null(getOption("basemaps.cached"))) options(basemaps.cached = list())
@@ -465,4 +482,11 @@ out <- function(input, type = 1, ll = NULL, msg = FALSE, sign = "", verbose = ge
       world_navigation_charts = "https://services.arcgisonline.com/arcgis/rest/services/Specialty/World_Navigation_Charts/MapServer/tile/")
   ))
   if(!dir.exists(getOption("basemaps.defaults")$map_dir)) dir.create(getOption("basemaps.defaults")$map_dir)
+  
+}
+
+#' package detach
+#' @noRd 
+.onUnload <- function(libpath){
+  catch <- untrace(reg.finalizer)
 }

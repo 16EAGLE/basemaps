@@ -25,3 +25,21 @@ ext <- sf::st_transform(ext_eur, 3857)
 # suggests installed?
 check_ggplot <- any(grepl("ggplot2", installed.packages()[,1]))
 check_mapview <- any(grepl("mapview", installed.packages()[,1]))
+
+# 
+# # avoid messages from unfound finalizer methods
+# # see https://github.com/rspatial/terra/issues/30 but also elsewhere found
+# # remove when issue seems resolved
+# trace(reg.finalizer, quote({
+#   
+#   classDef <- dynGet("classDef", ifnotfound = NULL)
+#   if (!is.null(classDef)) {
+#     f <- function(x) {
+#       method <- selectMethod("$", list(x = class(x$.self)))
+#       finalize <- method(x$.self, "finalize")
+#       finalize()
+#     }
+#   }
+#   
+# }), print = FALSE)
+
