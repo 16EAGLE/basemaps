@@ -4,7 +4,7 @@ context("basemap")
 test_that("basemap()", {
   # test nominal
   map <- expect_output(expect_is(basemap(ext, map_dir = map_dir, verbose = T), "stars"))
-  expect_equal(dim(map), c(x = 987, y = 870, band = 3))
+  expect_equal(dim(map), c(x = 986, y = 869, band = 3))
   
   # test nominal terrain with col
   if(isTRUE(run_mapbox)){
@@ -34,12 +34,17 @@ test_that("basemap()", {
 
 test_that("basemap_stars()", {
   map <- expect_is(basemap_stars(ext, verbose = F), "stars")
-  expect_equal(dim(map), c(x=987, y=870, band=3))
+  expect_equal(dim(map), c(x=986, y=869, band=3))
+})
+
+test_that("basemap_terra()", {
+  map <- expect_is(basemap_terra(ext, verbose = F), "SpatRaster")
+  expect_equal(dim(map), c(869, 986, 3))
 })
 
 test_that("basemap_raster()", {
   map <- expect_is(basemap_raster(ext, verbose = F), "RasterBrick")
-  expect_equal(dim(map), c(870, 987, 3))
+  expect_equal(dim(map), c(869, 986, 3))
 })
 
 test_that("basemap_magick()", {

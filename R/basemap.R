@@ -192,25 +192,25 @@ basemap <- function(ext = NULL, map_service = NULL, map_type = NULL, map_res = N
           return(image_read(file))
         }
       }
-      
-      if("ggplot" %in% class){
-        if(!any(grepl("ggplot", rownames(installed.packages())))){
-          out(paste0("Package 'ggplot2' is not installed, but needed for class='", class, "'. Please install 'ggplot2' using install.packages('ggplot2')."), type = 3)
+    }
+    
+    if("ggplot" %in% class){
+      if(!any(grepl("ggplot", rownames(installed.packages())))){
+        out(paste0("Package 'ggplot2' is not installed, but needed for class='", class, "'. Please install 'ggplot2' using install.packages('ggplot2')."), type = 3)
+      } else{
+        if(terra::nlyr(map) == 3){
+          return(gg_raster(r = map, r_type = "RGB", ...))
         } else{
-          if(terra::nlyr(map) == 3){
-            return(gg_raster(r = map, r_type = "RGB", ...))
-          } else{
-            return(gg_raster(r = map, r_type = "gradient", ...))
-          }
+          return(gg_raster(r = map, r_type = "gradient", ...))
         }
       }
-      
-      if("gglayer" %in% class){
-        if(!any(grepl("ggplot", rownames(installed.packages())))){
-          out(paste0("Package 'ggplot2' is not installed, but needed for class='", class, "'. Please install 'ggplot2' using install.packages('ggplot2')."), type = 3)
-        } else{
-          if(terra::nlyr(map) == 3) return(gg_raster(r = map, r_type = "RGB", gglayer = T, ...)) else return(gg_raster(r = map, r_type = "gradient", gglayer = T, ...))
-        }
+    }
+    
+    if("gglayer" %in% class){
+      if(!any(grepl("ggplot", rownames(installed.packages())))){
+        out(paste0("Package 'ggplot2' is not installed, but needed for class='", class, "'. Please install 'ggplot2' using install.packages('ggplot2')."), type = 3)
+      } else{
+        if(terra::nlyr(map) == 3) return(gg_raster(r = map, r_type = "RGB", gglayer = T, ...)) else return(gg_raster(r = map, r_type = "gradient", gglayer = T, ...))
       }
     }
   }
@@ -296,7 +296,7 @@ basemap_mapview <- function(ext = NULL, map_service = NULL, map_type = NULL, map
 #' @rdname basemap
 #' @export
 basemap_terra <- function(ext = NULL, map_service = NULL, map_type = NULL, map_res = NULL, map_token = NULL, map_dir = NULL, force = NULL, ..., verbose = TRUE){
-  basemap(ext, map_service, map_type, map_res, map_token, map_dir, class = "raster", force, ..., verbose = verbose)
+  basemap(ext, map_service, map_type, map_res, map_token, map_dir, class = "terra", force, ..., verbose = verbose)
 }
 
 #' @rdname basemap
