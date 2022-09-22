@@ -46,13 +46,20 @@ reference:
   desc:  Draw an extent and define session defaults for all function calls
   contents:
   - draw_ext
-  - set_defaults
+  - defaults
 - title: Basemap retrieval
   desc:  (Down)load and cache basemaps and return them as a class of choice
   contents: 
   - get_maptypes
   - basemap
+- title: Plot rasters
+  desc: Plot raster objects as ggplot2
+  contents:
+  - gg_raster
+- title: Flushing cache
+  desc: Flush to delete all cached map tiles and basemaps
+  contents:
+  - cache
 - title: Example data
   contents:
-  - ext
-  - ext_eur
+  - data
