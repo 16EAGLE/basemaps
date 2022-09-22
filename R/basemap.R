@@ -80,8 +80,7 @@
 #'   scale_fill_identity()
 #'  }
 #' @importFrom sf st_bbox 
-#' @importFrom raster nlayers brick raster
-#' @importFrom stars read_stars
+#' @importFrom terra rast plotRGB plot as.array nlyr
 #' @importFrom graphics plot
 #' @importFrom magick image_read
 #' @importFrom grDevices topo.colors col2rgb
@@ -136,48 +135,51 @@ basemap <- function(ext = NULL, map_service = NULL, map_type = NULL, map_res = N
   # return file if needed
   if("geotif" %in% class) return(map_file)
   
-  ## stars-based:
-  if(any(c("stars", "plot", "png", "magick") %in% class)){
-    map <- read_stars(map_file)
+  # return terra
+  if(any(c("terra", "plot", "png", "magick", "ggplot", "gglayer") %in% class)){
+    map <- terra::rast(map_file)
     
-    if("stars" %in% class) return(map)
-    if("plot" == class){
-      dim_map <- dim(map)
-      if(length(dim(map)) == 2) dim_map["band"] <- 1
+    if("terra" %in% class) return(map)
+    
+    if("plot" %in% class){
+      dim_map <- dim(map) 
+      
       if(dim_map[3] == 3){
-        # avoid failure if only single value is present
-        if(length(unique(range(map[[1]][]))) == 1){
-          plot(map, rgb = 1:3, main = NULL, downsample = 0, maxColorValue=max(map[[1]][])+1) 
-        } else{
-          plot(map, rgb = 1:3, main = NULL, downsample = 0) 
-        }
+        terra::plotRGB(map, r = 1, g = 2, b = 3, maxcell = ncell(map))
       } else{
-        plot(map, col = col, 
-             breaks = seq(min(map[[1]]), max(map[[1]]), length.out = length(col)+1),
-             main = NULL, downsample = 0)
+        terra::plot(
+          map[[1]],
+          col = col, type = "continous",
+          breaks = seq(min(map[[1]][]), max(map[[1]][]), length.out = length(col)+1)
+        )
       }
     }
+    
     if(any("png" == class, "magick" == class)){
       if(!any(grepl("png", rownames(installed.packages())))){
-        out("Package 'png' is not installed. Please install 'png' using install.packages('png').")
+        out(paste0("Package 'png' is not installed, but needed for class='", class, "'. Please install 'png' using install.packages('png')."), type = 3)
       } else{
-        file <- paste0(map_dir, "/", map_service, "_", map_type, "_", gsub(":", "-", gsub(" ", "_", Sys.time())), ".png")
-        map_arr <- map[[1]]
         
-        if(!is.na(dim(map_arr)[3])){
+        file <- paste0(map_dir, "/", map_service, "_", map_type, "_", gsub(":", "-", gsub(" ", "_", Sys.time())), ".png")
+        map_arr <- terra::as.array(map)
+        
+        if(dim(map_arr)[3] == 3){
           #for(i in 1:dim(map_arr)[3]) map_arr[,,i] <- t(map_arr[,,i])
-          map_arr <- aperm(map_arr, c(2, 1, 3))
+          #map_arr <- aperm(map_arr, c(2, 1, 3)) ### ONLY WITH STARS
           map_arr <- sweep(map_arr, MARGIN = 3, STATS = max(map_arr), FUN = "/")
           png::writePNG(map_arr, target = file, dpi = dpi)
         } else{
+          map_arr <- map_arr[,,1]
           # convert to range 0 to 1
-          map_arr <- sweep(t(map_arr), MARGIN = 1, STATS = max(map_arr), FUN = "/")
+          #map_arr <- sweep(map_arr, MARGIN = 1, STATS = max(map_arr), FUN = "/")
+          map_arr <- ((map_arr - min(map_arr))/(max(map_arr) - min(map_arr)))
           # map col to value range
-          map_arr_col <- col[findInterval(map_arr, seq(0, 1, length.out = length(col)))]#, dim(map_arr))
+          map_arr_col <- col[findInterval(map_arr, seq(0, 1, length.out = length(col)))]
           # convert hex to rgb
           map_arr_rgb <- col2rgb(map_arr_col)
           # switch dimensions to fit writeRGB
           map_arr_rgb <- aperm(array(map_arr_rgb, c(3, dim(map_arr))), c(2,3,1))
+          #map_arr_rgb <- array(map_arr_rgb, c(dim(map_arr), 3))
           # go back to 0 to 1 again
           map_arr_rgb <- sweep(map_arr_rgb, MARGIN = 3, STATS = max(map_arr_rgb), FUN = "/")
           png::writePNG(map_arr_rgb, target = file, dpi = dpi)
@@ -190,83 +192,69 @@ basemap <- function(ext = NULL, map_service = NULL, map_type = NULL, map_res = N
           return(image_read(file))
         }
       }
+      
+      if("ggplot" %in% class){
+        if(!any(grepl("ggplot", rownames(installed.packages())))){
+          out(paste0("Package 'ggplot2' is not installed, but needed for class='", class, "'. Please install 'ggplot2' using install.packages('ggplot2')."), type = 3)
+        } else{
+          if(terra::nlyr(map) == 3){
+            return(gg_raster(r = map, r_type = "RGB", ...))
+          } else{
+            return(gg_raster(r = map, r_type = "gradient", ...))
+          }
+        }
+      }
+      
+      if("gglayer" %in% class){
+        if(!any(grepl("ggplot", rownames(installed.packages())))){
+          out(paste0("Package 'ggplot2' is not installed, but needed for class='", class, "'. Please install 'ggplot2' using install.packages('ggplot2')."), type = 3)
+        } else{
+          if(terra::nlyr(map) == 3) return(gg_raster(r = map, r_type = "RGB", gglayer = T, ...)) else return(gg_raster(r = map, r_type = "gradient", gglayer = T, ...))
+        }
+      }
+    }
+  }
+  
+  # stars
+  if("stars" %in% class){
+    if(!any(grepl("stars", rownames(installed.packages())))){
+      out(paste0("Package 'stars' is not installed, but needed for class='", class, "'. Please install 'stars' using install.packages('stars')."), type = 3)
+    } else{
+      map <- stars::read_stars(map_file)
+      return(map)
     }
   }
   
   # raster-based
   if(any(c("raster", "mapview", "ggplot", "gglayer") %in% class)){
-    map <- quiet(brick(map_file))
-    if("raster" %in% class){
-      if(nlayers(map) == 1) map <- raster(map)
-      return(map)
-    }
-    
-    if("mapview" %in% class){
-      if(!any(grepl("mapview", rownames(installed.packages())))){
-        out("Package 'mapview' is not installed. Please install 'mapview' using install.packages('mapview').")
-      } else{
-        quiet(if(nlayers(map) == 3){
-          return(mapview::viewRGB(map, 1, 2, 3, layer.name = "Basemap", maxpixels = ncell(map), quantiles = NULL))
-        } else return(mapview::mapview(map)))
+    if(!any(grepl("raster", rownames(installed.packages())))){
+      out(paste0("Package 'raster' is not installed, but needed for class='", class, "'. Please install 'raster' using install.packages('raster')."), type = 3)
+    } else{
+      
+      map <- quiet(raster::brick(map_file))
+      if("raster" %in% class){
+        if(raster::nlayers(map) == 1) map <- raster::raster(map)
+        return(map)
       }
-    }
-    
-    if("ggplot" %in% class){
-      if(!any(grepl("ggplot", rownames(installed.packages())))){
-        out("Package 'ggplot2' is not installed. Please install 'ggplot2' using install.packages('ggplot2').")
-      } else{
-        if(nlayers(map) == 3){
-          return(gg_raster(r = map, r_type = "RGB", ...))
+      
+      if("mapview" %in% class){
+        if(!any(grepl("mapview", rownames(installed.packages())))){
+          out(paste0("Package 'mapview' is not installed, but needed for class='", class, "'. Please install 'mapview' using install.packages('mapview')."), type = 3)
         } else{
-          return(gg_raster(r = map, r_type = "gradient", ...))
+          quiet(if(raster::nlayers(map) == 3){
+            return(mapview::viewRGB(map, 1, 2, 3, layer.name = "Basemap", maxpixels = raster::ncell(map), quantiles = NULL))
+          } else return(mapview::mapview(map)))
         }
-      }
-    }
-  
-    if("gglayer" %in% class){
-      if(!any(grepl("ggplot", rownames(installed.packages())))){
-        out("Package 'ggplot2' is not installed. Please install 'ggplot2' using install.packages('ggplot2').")
-      } else{
-        if(nlayers(map) == 3) return(gg_raster(r = map, r_type = "RGB", gglayer = T, ...)) else return(gg_raster(r = map, r_type = "gradient", gglayer = T, ...))
       }
     }
   }
 }
 
-#' @rdname basemap
-#' @export
-basemap_raster <- function(ext = NULL, map_service = NULL, map_type = NULL, map_res = NULL, map_token = NULL, map_dir = NULL, force = NULL, ..., verbose = TRUE){
-  basemap(ext, map_service, map_type, map_res, map_token, map_dir, class = "raster", force, ..., verbose = verbose)
-}
-
-#' @rdname basemap
-#' @export
-basemap_stars <- function(ext = NULL, map_service = NULL, map_type = NULL, map_res = NULL, map_token = NULL, map_dir = NULL, force = NULL, ..., verbose = TRUE){
-  basemap(ext, map_service, map_type, map_res, map_token, map_dir, class = "stars", force, ..., verbose = verbose)
-}
-
-#' @rdname basemap
-#' @export
-basemap_mapview <- function(ext = NULL, map_service = NULL, map_type = NULL, map_res = NULL, map_token = NULL, map_dir = NULL, force = NULL, ..., verbose = TRUE){
-  basemap(ext, map_service, map_type, map_res, map_token, map_dir, class = "mapview", force, ..., verbose = verbose)
-}
 
 #' @rdname basemap
 #' @export
 basemap_plot <- function(ext = NULL, map_service = NULL, map_type = NULL, map_res = NULL, map_token = NULL, map_dir = NULL, force = NULL, ..., verbose = TRUE){
   basemap(ext, map_service, map_type, map_res, map_token, map_dir, class = "plot", force, ..., verbose = verbose)
-}
-
-#' @rdname basemap
-#' @export
-basemap_ggplot <- function(ext = NULL, map_service = NULL, map_type = NULL, map_res = NULL, map_token = NULL, map_dir = NULL, force = NULL, ..., verbose = TRUE){
-  basemap(ext, map_service, map_type, map_res, map_token, map_dir, class = "ggplot", force, ..., verbose = verbose)
-}
-
-#' @rdname basemap
-#' @export
-basemap_gglayer <- function(ext = NULL, map_service = NULL, map_type = NULL, map_res = NULL, map_token = NULL, map_dir = NULL, force = NULL, ..., verbose = TRUE){
-  basemap(ext, map_service, map_type, map_res, map_token, map_dir, class = "gglayer", force, ..., verbose = verbose)
 }
 
 #' @rdname basemap
@@ -285,4 +273,40 @@ basemap_png <- function(ext = NULL, map_service = NULL, map_type = NULL, map_res
 #' @export
 basemap_geotif <- function(ext = NULL, map_service = NULL, map_type = NULL, map_res = NULL, map_token = NULL, map_dir = NULL, force = NULL, ..., verbose = TRUE){
   basemap(ext, map_service, map_type, map_res, map_token, map_dir, class = "geotif", force, ..., verbose = verbose)
+}
+
+#' @rdname basemap
+#' @export
+basemap_ggplot <- function(ext = NULL, map_service = NULL, map_type = NULL, map_res = NULL, map_token = NULL, map_dir = NULL, force = NULL, ..., verbose = TRUE){
+  basemap(ext, map_service, map_type, map_res, map_token, map_dir, class = "ggplot", force, ..., verbose = verbose)
+}
+
+#' @rdname basemap
+#' @export
+basemap_gglayer <- function(ext = NULL, map_service = NULL, map_type = NULL, map_res = NULL, map_token = NULL, map_dir = NULL, force = NULL, ..., verbose = TRUE){
+  basemap(ext, map_service, map_type, map_res, map_token, map_dir, class = "gglayer", force, ..., verbose = verbose)
+}
+
+#' @rdname basemap
+#' @export
+basemap_mapview <- function(ext = NULL, map_service = NULL, map_type = NULL, map_res = NULL, map_token = NULL, map_dir = NULL, force = NULL, ..., verbose = TRUE){
+  basemap(ext, map_service, map_type, map_res, map_token, map_dir, class = "mapview", force, ..., verbose = verbose)
+}
+
+#' @rdname basemap
+#' @export
+basemap_terra <- function(ext = NULL, map_service = NULL, map_type = NULL, map_res = NULL, map_token = NULL, map_dir = NULL, force = NULL, ..., verbose = TRUE){
+  basemap(ext, map_service, map_type, map_res, map_token, map_dir, class = "raster", force, ..., verbose = verbose)
+}
+
+#' @rdname basemap
+#' @export
+basemap_raster <- function(ext = NULL, map_service = NULL, map_type = NULL, map_res = NULL, map_token = NULL, map_dir = NULL, force = NULL, ..., verbose = TRUE){
+  basemap(ext, map_service, map_type, map_res, map_token, map_dir, class = "raster", force, ..., verbose = verbose)
+}
+
+#' @rdname basemap
+#' @export
+basemap_stars <- function(ext = NULL, map_service = NULL, map_type = NULL, map_res = NULL, map_token = NULL, map_dir = NULL, force = NULL, ..., verbose = TRUE){
+  basemap(ext, map_service, map_type, map_res, map_token, map_dir, class = "stars", force, ..., verbose = verbose)
 }

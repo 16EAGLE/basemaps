@@ -8,7 +8,7 @@
 gg_raster(r, r_type = "RGB", gglayer = F, ...)
 }
 \arguments{
-\item{r}{raster of class \code{RasterLayer}, \code{RasterBrick} or \code{RasterStack}.}
+\item{r}{raster of class \code{SpatRaster}, \code{RasterLayer}, \code{RasterBrick} or \code{RasterStack}.}
 
 \item{r_type}{character, either \code{"gradient"} or \code{"discrete"}.}
 
@@ -25,7 +25,7 @@ gg_raster(r, r_type = "RGB", gglayer = F, ...)
 A \code{ggplot2} object
 }
 \description{
-This function plots objects of class \code{RasterLayer}, \code{RasterBrick} or \code{RasterStack} as \code{ggplot2}. It is used internally by \code{basemap*} functions that return \code{ggplot} plots.
+This function plots objects of class \code{SpatRaster}, \code{RasterLayer}, \code{RasterBrick} or \code{RasterStack} as \code{ggplot2}. It is used internally by \code{basemap*} functions that return \code{ggplot} plots.
 }
 \examples{
 library(basemaps)

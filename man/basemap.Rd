@@ -2,15 +2,16 @@
 % Please edit documentation in R/basemap.R
 \name{basemap}
 \alias{basemap}
-\alias{basemap_raster}
-\alias{basemap_stars}
-\alias{basemap_mapview}
 \alias{basemap_plot}
-\alias{basemap_ggplot}
-\alias{basemap_gglayer}
 \alias{basemap_magick}
 \alias{basemap_png}
 \alias{basemap_geotif}
+\alias{basemap_ggplot}
+\alias{basemap_gglayer}
+\alias{basemap_mapview}
+\alias{basemap_terra}
+\alias{basemap_raster}
+\alias{basemap_stars}
 \title{Get a spatial basemap}
 \usage{
 basemap(
@@ -26,67 +27,7 @@ basemap(
   verbose = TRUE
 )
 
-basemap_raster(
-  ext = NULL,
-  map_service = NULL,
-  map_type = NULL,
-  map_res = NULL,
-  map_token = NULL,
-  map_dir = NULL,
-  force = NULL,
-  ...,
-  verbose = TRUE
-)
-
-basemap_stars(
-  ext = NULL,
-  map_service = NULL,
-  map_type = NULL,
-  map_res = NULL,
-  map_token = NULL,
-  map_dir = NULL,
-  force = NULL,
-  ...,
-  verbose = TRUE
-)
-
-basemap_mapview(
-  ext = NULL,
-  map_service = NULL,
-  map_type = NULL,
-  map_res = NULL,
-  map_token = NULL,
-  map_dir = NULL,
-  force = NULL,
-  ...,
-  verbose = TRUE
-)
-
 basemap_plot(
-  ext = NULL,
-  map_service = NULL,
-  map_type = NULL,
-  map_res = NULL,
-  map_token = NULL,
-  map_dir = NULL,
-  force = NULL,
-  ...,
-  verbose = TRUE
-)
-
-basemap_ggplot(
-  ext = NULL,
-  map_service = NULL,
-  map_type = NULL,
-  map_res = NULL,
-  map_token = NULL,
-  map_dir = NULL,
-  force = NULL,
-  ...,
-  verbose = TRUE
-)
-
-basemap_gglayer(
   ext = NULL,
   map_service = NULL,
   map_type = NULL,
@@ -123,6 +64,78 @@ basemap_png(
 )
 
 basemap_geotif(
+  ext = NULL,
+  map_service = NULL,
+  map_type = NULL,
+  map_res = NULL,
+  map_token = NULL,
+  map_dir = NULL,
+  force = NULL,
+  ...,
+  verbose = TRUE
+)
+
+basemap_ggplot(
+  ext = NULL,
+  map_service = NULL,
+  map_type = NULL,
+  map_res = NULL,
+  map_token = NULL,
+  map_dir = NULL,
+  force = NULL,
+  ...,
+  verbose = TRUE
+)
+
+basemap_gglayer(
+  ext = NULL,
+  map_service = NULL,
+  map_type = NULL,
+  map_res = NULL,
+  map_token = NULL,
+  map_dir = NULL,
+  force = NULL,
+  ...,
+  verbose = TRUE
+)
+
+basemap_mapview(
+  ext = NULL,
+  map_service = NULL,
+  map_type = NULL,
+  map_res = NULL,
+  map_token = NULL,
+  map_dir = NULL,
+  force = NULL,
+  ...,
+  verbose = TRUE
+)
+
+basemap_terra(
+  ext = NULL,
+  map_service = NULL,
+  map_type = NULL,
+  map_res = NULL,
+  map_token = NULL,
+  map_dir = NULL,
+  force = NULL,
+  ...,
+  verbose = TRUE
+)
+
+basemap_raster(
+  ext = NULL,
+  map_service = NULL,
+  map_type = NULL,
+  map_res = NULL,
+  map_token = NULL,
+  map_dir = NULL,
+  force = NULL,
+  ...,
+  verbose = TRUE
+)
+
+basemap_stars(
   ext = NULL,
   map_service = NULL,
   map_type = NULL,

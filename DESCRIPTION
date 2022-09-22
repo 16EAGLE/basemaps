@@ -15,10 +15,9 @@ Imports:
   slippymath,
   httr,
   curl,
+  terra,
   pbapply,
   magick,
-  raster,
-  stars (>= 0.5.0),
   utils,
   grDevices
 Suggests:
@@ -27,6 +26,8 @@ Suggests:
   png,
   mapview,
   mapedit,
+  raster,
+  stars,
   testthat,
   covr
 BugReports: https://github.com/16eagle/basemaps/issues

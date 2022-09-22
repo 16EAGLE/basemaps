@@ -1,8 +1,8 @@
 #' Plot raster objects using \code{ggplot}
 #' 
-#' This function plots objects of class \code{RasterLayer}, \code{RasterBrick} or \code{RasterStack} as \code{ggplot2}. It is used internally by \code{basemap*} functions that return \code{ggplot} plots.
+#' This function plots objects of class \code{SpatRaster}, \code{RasterLayer}, \code{RasterBrick} or \code{RasterStack} as \code{ggplot2}. It is used internally by \code{basemap*} functions that return \code{ggplot} plots.
 #' 
-#' @param r raster of class \code{RasterLayer}, \code{RasterBrick} or \code{RasterStack}.
+#' @param r raster of class \code{SpatRaster}, \code{RasterLayer}, \code{RasterBrick} or \code{RasterStack}.
 #' @param r_type character, either \code{"gradient"} or \code{"discrete"}.
 #' @param gglayer logical, if \code{FALSE} (default), a \code{ggplot2} plot is returned, if \code{TRUE}, a \code{ggplot2} layer is returned.
 #' @param ... additional arguments, including
@@ -28,10 +28,15 @@
 #' gg_raster(map, r_type = "RGB")
 #' }
 #' 
+#' @importFrom terra rast ncell aggregate aggregate
 #' @name plot
-#' @importFrom raster ncell aggregate
 #' @export
 gg_raster <- function(r, r_type = "RGB", gglayer = F, ...){
+  
+  if(inherits(r, "Raster")){
+    r <- rast(r)
+  }
+  
   extras <- list(...)
   if(!is.null(extras$maxpixels)) maxpixels <- extras$maxpixels else maxpixels <- 500000
   if(!is.null(extras$alpha)) alpha <- extras$alpha else alpha <- 1
@@ -42,7 +47,7 @@ gg_raster <- function(r, r_type = "RGB", gglayer = F, ...){
   if(maxpixels < ncell(r)) r <- aggregate(r, fact = ceiling(ncell(r)/maxpixels))
   
   # transform into data.frame
-  df <- data.frame(raster::as.data.frame(r, xy = T))
+  df <- data.frame(as.data.frame(r, xy = T))
   colnames(df) <- c("x", "y", paste0("val", 1:(ncol(df)-2)))
   
   # factor if discrete to show categrocial legend
