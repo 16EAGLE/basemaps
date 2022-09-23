@@ -83,18 +83,32 @@ out <- function(input, type = 1, ll = NULL, msg = FALSE, sign = "", verbose = ge
   #   ext.both[[which.max(rg)]]@xmax <- ext.both[[which.max(rg)]]@xmax + rg[which.min(rg)]
   #   ext.both[[which.min(rg)]]@xnub <- ext.both[[which.min(rg)]]@xmin - rg[which.max(rg)]
   # }
-  
-  if(ext.both[[which.max(rg)]][1] < 0){
-    ext.both[[which.max(rg)]][1] <- ext.both[[which.max(rg)]][1] - rg[which.min(rg)]
-    ext.both[[which.min(rg)]][2] <- ext.both[[which.min(rg)]][2] + rg[which.max(rg)]
+  rg_mm <- .which_rg(rg)
+  if(ext.both[[rg_mm$max]][1] < 0){
+    ext.both[[rg_mm$max]][1] <- ext.both[[rg_mm$max]][1] - rg[rg_mm$min]
+    ext.both[[rg_mm$min]][2] <- ext.both[[rg_mm$min]][2] + rg[rg_mm$max]
   }else{
-    ext.both[[which.max(rg)]][2] <- ext.both[[which.max(rg)]][2] + rg[which.min(rg)]
-    ext.both[[which.min(rg)]][1] <- ext.both[[which.min(rg)]][1] - rg[which.max(rg)]
+    ext.both[[rg_mm$max]][2] <- ext.both[[rg_mm$max]][2] + rg[rg_mm$min]
+    ext.both[[rg_mm$min]][1] <- ext.both[[rg_mm$min]][1] - rg[rg_mm$max]
   }
   
   return(ext.both)
 }
 
+#' handles case in which rg is equal
+#' @keywords internal
+#' @noRd
+.which_rg <- function(rg){
+  rg_mm <- list()
+  if(rg[1] == rg[2]){
+    rg_mm$min <- 1
+    rg_mm$max <- 2
+  } else{
+    rg_mm$min <- which.min(rg)
+    rg_mm$max <- which.max(rg)
+  }
+  return(rg_mm)
+}
 
 #' get map
 #' @importFrom slippymath bbox_to_tile_grid tile_bbox
@@ -257,28 +271,29 @@ out <- function(input, type = 1, ll = NULL, msg = FALSE, sign = "", verbose = ge
     
     # measure x diff, which side should be preserved, whcih side should be extended to the other?
     rg <- sapply(ext.both, function(x) diff(c(x[1], x[2])))
+    rg_mm <- .which_rg(rg) 
     
     # save the x end coodinate of this grid
-    cc.xmin <- ext.both[[which.max(rg)]][1] #xmin
+    cc.xmin <- ext.both[[rg_mm$max]][1] #xmin
     
     # expand both extents
     ext.both.exp <- .expand_ext(ext.both, rg)
     
     # choose an extent
-    ext.combi <- ext.both.exp[[which.max(rg)]]
+    ext.combi <- ext.both.exp[[rg_mm$max]]
     
     # extend the larger one
-    r[[which.max(rg)]] <- terra::extend(r[[which.max(rg)]], ext.combi)
+    r[[rg_mm$max]] <- terra::extend(r[[rg_mm$max]], ext.combi)
     
     # shift the smaller one over to the other side
-    ext.min <- terra::ext(r[[which.min(rg)]])
+    ext.min <- terra::ext(r[[rg_mm$min]])
     ext.min <- terra::ext(as.numeric(cc.xmin - min(rg)), cc.xmin, ext.min[3], ext.min[4])
     
-    terra::ext(r[[which.min(rg)]]) <- ext.min
+    terra::ext(r[[rg_mm$min]]) <- ext.min
     
     # extent the smaller one too, resample to larger one
-    r[[which.min(rg)]] <- terra::extend(r[[which.min(rg)]], ext.combi)
-    r[[which.min(rg)]] <- terra::resample(r[[which.min(rg)]], r[[which.max(rg)]])
+    r[[rg_mm$min]] <- terra::extend(r[[rg_mm$min]], ext.combi)
+    r[[rg_mm$min]] <- terra::resample(r[[rg_mm$min]], r[[rg_mm$max]])
     
     # fuse rasters over grid end
     r <- terra::merge(r[[1]], r[[2]])
@@ -289,11 +304,11 @@ out <- function(input, type = 1, ll = NULL, msg = FALSE, sign = "", verbose = ge
       # shift extent onto one side of the coordinate line
       ext.repro <- terra::ext(r)
       if(cc.xmin < 0){
-        ext.repro[1] <- ext.repro[1] + rg[which.min(rg)]
-        ext.repro[2] <- ext.repro[2] + rg[which.min(rg)]
+        ext.repro[1] <- ext.repro[1] + rg[rg_mm$min]
+        ext.repro[2] <- ext.repro[2] + rg[rg_mm$min]
       } else{
-        ext.repro[1] <- ext.repro[1] - rg[which.min(rg)]
-        ext.repro[2] <- ext.repro[2] - rg[which.min(rg)]
+        ext.repro[1] <- ext.repro[1] - rg[rg_mm$min]
+        ext.repro[2] <- ext.repro[2] - rg[rg_mm$min]
       }
       # project shifted raster
       terra::ext(r) <- ext.repro
@@ -305,10 +320,11 @@ out <- function(input, type = 1, ll = NULL, msg = FALSE, sign = "", verbose = ge
       
       # combine these two as before
       rg <- sapply(ext.before, function(x) diff(c(x[1], x[2])))
+      rg_mm <- .which_rg(rg) 
       ext.before.exp <- .expand_ext(ext.before, rg)
       
       # assign equivialnt extent
-      terra::ext(r) <- ext.before.exp[[which.max(rg)]]
+      terra::ext(r) <- ext.before.exp[[rg_mm$max]]
     }
     
     file_comp <- paste0(map_dir, "basemap_", gsub(":", "", gsub(" ", "", gsub("-", "", Sys.time()))), ".tif")

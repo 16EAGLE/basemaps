@@ -27,9 +27,12 @@ test_that("basemap()", {
   # test ext warning on different CRS
   expect_warning(basemap(ext_eur, map_dir = map_dir, verbose = T))
   
-  # test multiple extents
+  # test multiple extents (dateline crossing)
   expect_is(basemap_raster(list(ext), map_dir = map_dir, verbose = F), "RasterBrick")
-  
+  expect_warning(expect_is(basemap_raster(
+    ext = ext_sc, map_service = "carto", map_type = "light", map_dir = map_dir,
+    verbose = F, custom_crs = custom_crs), "RasterBrick"
+  ))
 })
 
 test_that("basemap_stars()", {

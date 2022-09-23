@@ -22,24 +22,16 @@ if(!dir.exists(map_dir)) dir.create(map_dir, recursive = T)
 data("ext_eur", package = "basemaps", envir = environment())
 ext <- sf::st_transform(ext_eur, 3857)
 
+# special case: mutliple extents and custom crs
+ext_sc <- list(
+  west = sf::st_bbox(c(xmin = -180, ymin = 47.72572, xmax = -179.94753, ymax = 47.77003), crs = sf::st_crs(4326)),
+  east = sf::st_bbox(c(xmin = 179.96495, ymin = 47.72572, xmax = 180.00000, ymax = 47.77003), crs = sf::st_crs(4326))
+)
+custom_crs <- sf::st_crs(4326)$wkt
+
 # suggests installed?
 check_ggplot <- any(grepl("ggplot2", installed.packages()[,1]))
 check_mapview <- any(grepl("mapview", installed.packages()[,1]))
 
-# 
-# # avoid messages from unfound finalizer methods
-# # see https://github.com/rspatial/terra/issues/30 but also elsewhere found
-# # remove when issue seems resolved
-# trace(reg.finalizer, quote({
-#   
-#   classDef <- dynGet("classDef", ifnotfound = NULL)
-#   if (!is.null(classDef)) {
-#     f <- function(x) {
-#       method <- selectMethod("$", list(x = class(x$.self)))
-#       finalize <- method(x$.self, "finalize")
-#       finalize()
-#     }
-#   }
-#   
-# }), print = FALSE)
+
 
