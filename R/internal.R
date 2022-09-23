@@ -206,7 +206,7 @@ out <- function(input, type = 1, ll = NULL, msg = FALSE, sign = "", verbose = ge
       if(isFALSE(no_transform)){ ## needed?
         if(as.numeric(tg$crs$epsg) != 3857){
           #r <- st_transform(r, crs = tg$crs)
-          r <- terra::project(r, y = as.character(tg$crs$wkt))
+          r <- terra::project(r, y = as.character(tg$crs$wkt), method = "bilinear")
         }
       }
       
@@ -237,10 +237,10 @@ out <- function(input, type = 1, ll = NULL, msg = FALSE, sign = "", verbose = ge
         r[[1]][] <- 0
       }
       
-      unlink(file_comp)
+      #unlink(file_comp)
       #write_stars(r, dsn = file_comp)
-      terra::writeRaster(r, filename = file_comp, overwrite = T)
-      
+      terra::writeRaster(r, filename = file_comp, overwrite = TRUE, filetype = "GTiff")
+      #gdal=c("COMPRESS=NONE", "TFW=YES")
       options(basemaps.cached = c(cached, list(list(tg = tg, file_comp = file_comp))))
     } 
     return(file_comp)
@@ -250,7 +250,7 @@ out <- function(input, type = 1, ll = NULL, msg = FALSE, sign = "", verbose = ge
   if(length(file_comp) > 1){
 
     # load and name 
-    r <- r_as_is <- lapply(unname(file_comp), terra::rast)
+    r <- lapply(unname(file_comp), terra::rast)
     
     # get original extents of untouched rasters
     ext.both <- lapply(r, terra::ext)
@@ -272,8 +272,7 @@ out <- function(input, type = 1, ll = NULL, msg = FALSE, sign = "", verbose = ge
     
     # shift the smaller one over to the other side
     ext.min <- terra::ext(r[[which.min(rg)]])
-    ext.min[2] <- as.numeric(cc.xmin)
-    ext.min[1] <- as.numeric(cc.xmin - min(rg))
+    ext.min <- terra::ext(as.numeric(cc.xmin - min(rg)), cc.xmin, ext.min[3], ext.min[4])
     
     terra::ext(r[[which.min(rg)]]) <- ext.min
     
@@ -286,7 +285,6 @@ out <- function(input, type = 1, ll = NULL, msg = FALSE, sign = "", verbose = ge
     
     # if another CRS is equested, we need to do some tricks, since we cannot reproject the "shifted" raster
     if(!is.na(custom_crs)){
-      custom_crs <- as.character(st_crs(custom_crs)$wkt)
       
       # shift extent onto one side of the coordinate line
       ext.repro <- terra::ext(r)
@@ -299,10 +297,11 @@ out <- function(input, type = 1, ll = NULL, msg = FALSE, sign = "", verbose = ge
       }
       # project shifted raster
       terra::ext(r) <- ext.repro
-      r <- terra::project(r, y = custom_crs)
+      r <- terra::project(r, y = custom_crs, method = "bilinear")
       
       # now project the original extents of the two rasters
-      ext.before <- lapply(r_as_is, function(x) terra::ext(terra::project(x, y = custom_crs)))
+      r_as_was <- lapply(unname(file_comp), terra::rast)
+      ext.before <- lapply(r_as_was, function(x) terra::ext(terra::project(x, y = custom_crs,  method = "bilinear")))
       
       # combine these two as before
       rg <- sapply(ext.before, function(x) diff(c(x[1], x[2])))
@@ -314,7 +313,7 @@ out <- function(input, type = 1, ll = NULL, msg = FALSE, sign = "", verbose = ge
     
     file_comp <- paste0(map_dir, "basemap_", gsub(":", "", gsub(" ", "", gsub("-", "", Sys.time()))), ".tif")
     #write_stars(st_as_stars(r), file_comp)
-    terra::writeRaster(r, filename = file_comp)
+    terra::writeRaster(r, filename = file_comp, overwrite = TRUE, filetype = "GTiff")
   } else{
     
     # custom crs?
@@ -325,11 +324,11 @@ out <- function(input, type = 1, ll = NULL, msg = FALSE, sign = "", verbose = ge
       
       ## TERRA
       r <- terra::rast(file_comp[[1]])
-      r <- terra::project(r, y = as.character(st_crs(custom_crs)$wkt))
+      r <- terra::project(r, y = custom_crs, method = "bilinear")
       
       file_comp <- paste0(map_dir, "basemap_", gsub(":", "", gsub(" ", "", gsub("-", "", Sys.time()))), ".tif")
       #write_stars(st_as_stars(r), file_comp)
-      terra::writeRaster(r, filename = file_comp)
+      terra::writeRaster(r, filename = file_comp, overwrite = TRUE, filetype = "GTiff")
     } else{
       
       file_comp <- file_comp[[1]]
