@@ -92,10 +92,23 @@
 
     <div class="section level2">
 <h2 class="page-header" data-toc-text="0.0.5" id="basemaps-005">basemaps 0.0.5<a class="anchor" aria-label="anchor" href="#basemaps-005"></a></h2>
-<p>Added <em>gg_raster</em></p>
+<p>Added <code>gg_raster</code> and <code>basemap_raster</code></p>
 <p><strong>Features:</strong></p>
-<ul><li>added <code>gg_raster</code>, a function that plots objects of class <code>RasterLayer</code>, <code>RasterBrick</code> or <code>{RasterStack</code> as <code>ggplot2</code>
-</li></ul><p><br></p>
+<ul><li>added <code>basemap_terra</code> to output maps as class <code>SpatRaster</code> from package <code>terra</code>
+</li>
+<li>added <code>gg_raster</code>, a function that plots objects of class <code>RasterLayer</code>, <code>RasterBrick</code> or <code>{RasterStack</code> as <code>ggplot2</code>
+</li>
+</ul><p><strong>Changes:</strong></p>
+<ul><li>replaced internal calls to <code>raster</code> functions with <code>terra</code> equivalents, included <code>terra</code> as <em>Imports</em> dependency</li>
+<li>
+<code>stars</code> was moved from <em>Imports</em> to <em>Suggests</em>
+</li>
+<li>the default class returned by <code><a href="../reference/basemap.html">basemap()</a></code> now is <code>SpatRaster</code> from package <code>terra</code>
+</li>
+<li>
+<code>raster</code> was moved from <em>Imports</em> to <em>Suggests</em>, as it was internally replaced by its successor <code>terra</code>
+</li>
+</ul><p><br></p>
 <hr></div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="0.0.4" id="basemaps-004">basemaps 0.0.4<small>2022-09-08</small><a class="anchor" aria-label="anchor" href="#basemaps-004"></a></h2>
