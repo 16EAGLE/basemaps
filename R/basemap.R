@@ -8,7 +8,7 @@
 #' @param map_token character, authentification token for services that require registration, which are \code{"osm_thunderforest"} and \code{"mapbox"}. Register at \url{https://www.thunderforest.com/} and/or \url{https://www.mapbox.com/} to get tokens. Ignored for all other map services.
 #' @param map_res numeric, resolution of base map in range from 0 to 1.
 #' @param map_dir character, cache directory where downloaded basemap tiles will be stored. By default, a temporary directory is used, which is destroyed when the session is terminated.
-#' @param class character, output class, either \code{"stars"}, \code{"raster"}, \code{"mapview"}, \code{"plot"}, \code{"ggplot"}, \code{"gglayer"}, \code{"magick"}, \code{"png"} or \code{"geotif"}..
+#' @param class character, output class, either either \code{plot} (default), \code{magick}, \code{png}, \code{geotif} or if suggested packages are installed, \code{terra}, \code{raster}, \code{stars}, \code{ggplot}, \code{gglayer} or \code{mapview}.
 #' @param force logical, whether to force download over cached files or not. Default is \code{FALSE}.
 #' @param ... additional arguments, including
 #' \itemize{
@@ -88,7 +88,7 @@
 #' @export
 #' @name basemap
 basemap <- function(ext = NULL, map_service = NULL, map_type = NULL, map_res = NULL, map_token = NULL,
-                    map_dir = NULL, class = "terra", force = FALSE, ..., verbose = TRUE){
+                    map_dir = NULL, class = "plot", force = FALSE, ..., verbose = TRUE){
   
   ## checks
   if(inherits(verbose, "logical")) options(basemaps.verbose = verbose)

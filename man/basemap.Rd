@@ -21,7 +21,7 @@ basemap(
   map_res = NULL,
   map_token = NULL,
   map_dir = NULL,
-  class = "terra",
+  class = "plot",
   force = FALSE,
   ...,
   verbose = TRUE
@@ -160,7 +160,7 @@ basemap_mapview(
 
 \item{map_dir}{character, cache directory where downloaded basemap tiles will be stored. By default, a temporary directory is used, which is destroyed when the session is terminated.}
 
-\item{class}{character, output class, either \code{"stars"}, \code{"raster"}, \code{"mapview"}, \code{"plot"}, \code{"ggplot"}, \code{"gglayer"}, \code{"magick"}, \code{"png"} or \code{"geotif"}..}
+\item{class}{character, output class, either either \code{plot} (default), \code{magick}, \code{png}, \code{geotif} or if suggested packages are installed, \code{terra}, \code{raster}, \code{stars}, \code{ggplot}, \code{gglayer} or \code{mapview}.}
 
 \item{force}{logical, whether to force download over cached files or not. Default is \code{FALSE}.}
 

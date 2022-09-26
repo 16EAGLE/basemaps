@@ -3,20 +3,20 @@ context("basemap")
 
 test_that("basemap()", {
   # test nominal
-  map <- expect_output(expect_is(basemap(ext, map_dir = map_dir, verbose = T), "SpatRaster"))
+  map <- expect_output(expect_is(basemap(ext, map_dir = map_dir, verbose = T, class = "terra"), "SpatRaster"))
   expect_equal(dim(map), c(869, 986, 3))
   
   # test nominal terrain with col
   if(isTRUE(run_mapbox)){
     map <- expect_is(basemap(ext, map_service = "mapbox", map_type = "terrain", map_token = mapbox_token, map_dir = map_dir, 
-                             col = grDevices::topo.colors(25), verbose = F), "SpatRaster")
+                             col = grDevices::topo.colors(25), verbose = F, class = "terra"), "SpatRaster")
     # test nominal RGB calculatio for single layer magick
     map <- expect_is(basemap_magick(ext, map_service = "mapbox", map_type = "terrain", map_token = mapbox_token, map_dir = map_dir, 
                              col = grDevices::topo.colors(25), verbose = F), "magick-image")
   }
   
   # test hiddena arguments
-  expect_is(basemap(ext, no_transform = T, no_crop = T, verbose = F), "SpatRaster")
+  expect_is(basemap(ext, no_transform = T, no_crop = T, verbose = F, class = "terra"), "SpatRaster")
   
   # test warning with false map_dir
   expect_warning(basemap_plot(ext, map_dir = "/this/is/nonsense/", verbose = F))

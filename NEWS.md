@@ -10,10 +10,11 @@ Added `gg_raster` and `basemap_raster`
 
 **Changes:**
 
-* replaced internal calls to `raster` functions with `terra` equivalents, included `terra` as *Imports* dependency
-* `stars` was moved from *Imports* to *Suggests*
-* the default class returned by `basemap()` now is `SpatRaster` from package `terra`
-* `raster` was moved from *Imports* to *Suggests*, as it was internally replaced by its successor `terra`
+* included `terra` as *Imports* dependency
+* replaced internal calls to `raster` functions with equivalent functions of its successor `terra`
+* moved `raster` from *Imports* to *Suggests*, as it has been internally replaced by its successor `terra`
+* moved `stars` from *Imports* to *Suggests*
+* changed default value of argument `class` to `basemap()` to `plot` for being more user-friendly to users not familiar with spatial classes
 
 <br>
 
