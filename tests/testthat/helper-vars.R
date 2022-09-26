@@ -1,6 +1,7 @@
 # map test settings
-test_maps = as.logical(Sys.getenv("basemaps_test_maps"))
-if(is.na(test_maps)) test_maps <- FALSE
+test <- list()
+test$maps = as.logical(Sys.getenv("basemaps_test_maps"))
+if(is.na(test$maps)) test$maps <- FALSE
 
 mapbox_token = Sys.getenv("basemaps_mapbox_token")
 if(mapbox_token != "") run_mapbox <- TRUE else run_mapbox <- FALSE
@@ -30,8 +31,8 @@ ext_sc <- list(
 custom_crs <- sf::st_crs(4326)$wkt
 
 # suggests installed?
-check_ggplot <- any(grepl("ggplot2", installed.packages()[,1]))
-check_mapview <- any(grepl("mapview", installed.packages()[,1]))
-
-
-
+test$ggplot <- any(grepl("ggplot2", installed.packages()[,1]))
+test$stars <- any(grepl("stars", installed.packages()[,1]))
+test$raster <- any(grepl("raster", installed.packages()[,1]))
+test$mapview <- any(grepl("mapview", installed.packages()[,1]))
+test$mapedit <- any(grepl("mapedit", installed.packages()[,1]))

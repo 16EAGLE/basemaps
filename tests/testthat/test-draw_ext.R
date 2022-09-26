@@ -1,6 +1,7 @@
 skip_on_cran()
-context("defaults")
+context("draw_ext")
 
 test_that("draw_ext()", {
-  if(!any(grepl("mapedit", rownames(installed.packages())))) expect_error(draw_ext()) else expect_true(TRUE)
+  if(isTRUE(test$mapedit)) expect_true(TRUE) else expect_error(draw_ext())
 })
+

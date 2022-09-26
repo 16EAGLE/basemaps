@@ -3,20 +3,20 @@ context("basemap")
 
 test_that("basemap()", {
   # test nominal
-  map <- expect_output(expect_is(basemap(ext, map_dir = map_dir, verbose = T), "stars"))
-  expect_equal(dim(map), c(x = 986, y = 869, band = 3))
+  map <- expect_output(expect_is(basemap(ext, map_dir = map_dir, verbose = T), "SpatRaster"))
+  expect_equal(dim(map), c(869, 986, 3))
   
   # test nominal terrain with col
   if(isTRUE(run_mapbox)){
     map <- expect_is(basemap(ext, map_service = "mapbox", map_type = "terrain", map_token = mapbox_token, map_dir = map_dir, 
-                             col = grDevices::topo.colors(25), verbose = F), "stars")
+                             col = grDevices::topo.colors(25), verbose = F), "SpatRaster")
     # test nominal RGB calculatio for single layer magick
     map <- expect_is(basemap_magick(ext, map_service = "mapbox", map_type = "terrain", map_token = mapbox_token, map_dir = map_dir, 
                              col = grDevices::topo.colors(25), verbose = F), "magick-image")
   }
   
   # test hiddena arguments
-  expect_is(basemap(ext, no_transform = T, no_crop = T, verbose = F), "stars")
+  expect_is(basemap(ext, no_transform = T, no_crop = T, verbose = F), "SpatRaster")
   
   # test warning with false map_dir
   expect_warning(basemap_plot(ext, map_dir = "/this/is/nonsense/", verbose = F))
@@ -35,19 +35,9 @@ test_that("basemap()", {
   ))
 })
 
-test_that("basemap_stars()", {
-  map <- expect_is(basemap_stars(ext, verbose = F), "stars")
-  expect_equal(dim(map), c(x=986, y=869, band=3))
-})
-
-test_that("basemap_terra()", {
-  map <- expect_is(basemap_terra(ext, verbose = F), "SpatRaster")
-  expect_equal(dim(map), c(869, 986, 3))
-})
-
-test_that("basemap_raster()", {
-  map <- expect_is(basemap_raster(ext, verbose = F), "RasterBrick")
-  expect_equal(dim(map), c(869, 986, 3))
+test_that("basemap_plot()", {
+  expect_is(basemap_plot(ext, verbose = F), "NULL")
+  if(isTRUE(run_mapbox)) expect_is(basemap_plot(ext, map_service = "mapbox", map_type = "terrain", map_token = mapbox_token, verbose = F), "NULL")
 })
 
 test_that("basemap_magick()", {
@@ -60,20 +50,33 @@ test_that("basemap_png()", {
   expect_equal(tail(strsplit(file, "[.]")[[1]], n=1), "png")
 })
 
-
 test_that("basemap_geotif()", {
   file <- expect_is(basemap_geotif(ext, verbose = F), "character")
   expect_true(file.exists(file))
   expect_equal(tail(strsplit(file, "[.]")[[1]], n=1), "tif")
-  expect_true(!is.na(sf::st_crs(stars::read_stars(file))))
+  expect_true(!is.na(terra::crs(terra::rast(file))))
 })
 
-test_that("basemap_plot()", {
-  expect_is(basemap_plot(ext, verbose = F), "NULL")
-  if(isTRUE(run_mapbox)) expect_is(basemap_plot(ext, map_service = "mapbox", map_type = "terrain", map_token = mapbox_token, verbose = F), "NULL")
+test_that("basemap_terra()", {
+  map <- expect_is(basemap_terra(ext, verbose = F), "SpatRaster")
+  expect_equal(dim(map), c(869, 986, 3))
 })
 
-if(isTRUE(check_ggplot)){
+if(isTRUE(test$raster)){
+  test_that("basemap_raster()", {
+    map <- expect_is(basemap_raster(ext, verbose = F), "RasterBrick")
+    expect_equal(dim(map), c(869, 986, 3))
+  })
+}
+
+if(isTRUE(test$stars)){
+  test_that("basemap_stars()", {
+    map <- expect_is(basemap_stars(ext, verbose = F), "stars")
+    expect_equal(dim(map), c(x=986, y=869, band=3))
+  })
+}
+
+if(isTRUE(test$ggplot)){
   test_that("basemap_ggplot()", {
     expect_is(basemap_ggplot(ext, verbose = F), "gg")
     
@@ -91,13 +94,13 @@ if(isTRUE(check_ggplot)){
   })
 }
 
-if(isTRUE(check_mapview)){
+if(isTRUE(test$mapview)){
   test_that("basemap_mapview()", {
     expect_is(basemap_mapview(ext, verbose = F), "mapview")
   })
 }
 
-if(isTRUE(test_maps)){
+if(isTRUE(test$maps)){
   test_services <- names(get_maptypes())
   if(isFALSE(run_mapbox)) test_services <- test_services[test_services != "mapbox"]
   if(isFALSE(run_osmtf)) test_services <- test_services[test_services != "osm_thunderforest"]
@@ -113,7 +116,7 @@ if(isTRUE(test_maps)){
     }
     
     test_that(paste0("basemap (", s, ": ", x, ")"), {
-      expect_is(basemap(ext, map_service = s, map_type = x, map_token = map_token, verbose = F), "stars")
+      expect_is(basemap(ext, map_service = s, map_type = x, map_token = map_token, verbose = F), "SpatRaster")
     })
     return(NULL)
   }))
