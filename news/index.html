@@ -99,15 +99,14 @@
 <li>added <code>gg_raster</code>, a function that plots objects of class <code>RasterLayer</code>, <code>RasterBrick</code> or <code>{RasterStack</code> as <code>ggplot2</code>
 </li>
 </ul><p><strong>Changes:</strong></p>
-<ul><li>replaced internal calls to <code>raster</code> functions with <code>terra</code> equivalents, included <code>terra</code> as <em>Imports</em> dependency</li>
-<li>
-<code>stars</code> was moved from <em>Imports</em> to <em>Suggests</em>
+<ul><li>included <code>terra</code> as <em>Imports</em> dependency</li>
+<li>replaced internal calls to <code>raster</code> functions with equivalent functions of its successor <code>terra</code>
 </li>
-<li>the default class returned by <code><a href="../reference/basemap.html">basemap()</a></code> now is <code>SpatRaster</code> from package <code>terra</code>
+<li>moved <code>raster</code> from <em>Imports</em> to <em>Suggests</em>, as it has been internally replaced by its successor <code>terra</code>
 </li>
-<li>
-<code>raster</code> was moved from <em>Imports</em> to <em>Suggests</em>, as it was internally replaced by its successor <code>terra</code>
+<li>moved <code>stars</code> from <em>Imports</em> to <em>Suggests</em>
 </li>
+<li>changed default value of argument <code>class</code> to <code><a href="../reference/basemap.html">basemap()</a></code> to <code>plot</code> for being more user-friendly to users not familiar with spatial classes</li>
 </ul><p><br></p>
 <hr></div>
     <div class="section level2">
