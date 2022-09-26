@@ -1,11 +1,19 @@
 ***
 
 ## basemaps 0.0.5
-Added *gg_raster*
+Added `gg_raster` and `basemap_raster`
 
 **Features:**
 
+* added `basemap_terra` to output maps as class `SpatRaster` from package `terra`
 * added `gg_raster`, a function that plots objects of class `RasterLayer`, `RasterBrick` or `{RasterStack` as `ggplot2`
+
+**Changes:**
+
+* replaced internal calls to `raster` functions with `terra` equivalents, included `terra` as *Imports* dependency
+* `stars` was moved from *Imports* to *Suggests*
+* the default class returned by `basemap()` now is `SpatRaster` from package `terra`
+* `raster` was moved from *Imports* to *Suggests*, as it was internally replaced by its successor `terra`
 
 <br>
 

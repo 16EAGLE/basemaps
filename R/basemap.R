@@ -88,7 +88,7 @@
 #' @export
 #' @name basemap
 basemap <- function(ext = NULL, map_service = NULL, map_type = NULL, map_res = NULL, map_token = NULL,
-                    map_dir = NULL, class = "stars", force = FALSE, ..., verbose = TRUE){
+                    map_dir = NULL, class = "terra", force = FALSE, ..., verbose = TRUE){
   
   ## checks
   if(inherits(verbose, "logical")) options(basemaps.verbose = verbose)
@@ -277,24 +277,6 @@ basemap_geotif <- function(ext = NULL, map_service = NULL, map_type = NULL, map_
 
 #' @rdname basemap
 #' @export
-basemap_ggplot <- function(ext = NULL, map_service = NULL, map_type = NULL, map_res = NULL, map_token = NULL, map_dir = NULL, force = NULL, ..., verbose = TRUE){
-  basemap(ext, map_service, map_type, map_res, map_token, map_dir, class = "ggplot", force, ..., verbose = verbose)
-}
-
-#' @rdname basemap
-#' @export
-basemap_gglayer <- function(ext = NULL, map_service = NULL, map_type = NULL, map_res = NULL, map_token = NULL, map_dir = NULL, force = NULL, ..., verbose = TRUE){
-  basemap(ext, map_service, map_type, map_res, map_token, map_dir, class = "gglayer", force, ..., verbose = verbose)
-}
-
-#' @rdname basemap
-#' @export
-basemap_mapview <- function(ext = NULL, map_service = NULL, map_type = NULL, map_res = NULL, map_token = NULL, map_dir = NULL, force = NULL, ..., verbose = TRUE){
-  basemap(ext, map_service, map_type, map_res, map_token, map_dir, class = "mapview", force, ..., verbose = verbose)
-}
-
-#' @rdname basemap
-#' @export
 basemap_terra <- function(ext = NULL, map_service = NULL, map_type = NULL, map_res = NULL, map_token = NULL, map_dir = NULL, force = NULL, ..., verbose = TRUE){
   basemap(ext, map_service, map_type, map_res, map_token, map_dir, class = "terra", force, ..., verbose = verbose)
 }
@@ -309,4 +291,23 @@ basemap_raster <- function(ext = NULL, map_service = NULL, map_type = NULL, map_
 #' @export
 basemap_stars <- function(ext = NULL, map_service = NULL, map_type = NULL, map_res = NULL, map_token = NULL, map_dir = NULL, force = NULL, ..., verbose = TRUE){
   basemap(ext, map_service, map_type, map_res, map_token, map_dir, class = "stars", force, ..., verbose = verbose)
+}
+
+
+#' @rdname basemap
+#' @export
+basemap_ggplot <- function(ext = NULL, map_service = NULL, map_type = NULL, map_res = NULL, map_token = NULL, map_dir = NULL, force = NULL, ..., verbose = TRUE){
+  basemap(ext, map_service, map_type, map_res, map_token, map_dir, class = "ggplot", force, ..., verbose = verbose)
+}
+
+#' @rdname basemap
+#' @export
+basemap_gglayer <- function(ext = NULL, map_service = NULL, map_type = NULL, map_res = NULL, map_token = NULL, map_dir = NULL, force = NULL, ..., verbose = TRUE){
+  basemap(ext, map_service, map_type, map_res, map_token, map_dir, class = "gglayer", force, ..., verbose = verbose)
+}
+
+#' @rdname basemap
+#' @export
+basemap_mapview <- function(ext = NULL, map_service = NULL, map_type = NULL, map_res = NULL, map_token = NULL, map_dir = NULL, force = NULL, ..., verbose = TRUE){
+  basemap(ext, map_service, map_type, map_res, map_token, map_dir, class = "mapview", force, ..., verbose = verbose)
 }

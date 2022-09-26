@@ -4,7 +4,6 @@
 [![CRAN downloads](https://cranlogs.r-pkg.org/badges/last-month/basemaps?color=brightgreen)](https://CRAN.R-project.org/package=basemaps)
 [![CRAN checks](https://cranchecks.info/badges/summary/basemaps)](https://CRAN.R-project.org/package=basemaps)
 [![R-CMD-check](https://github.com/16EAGLE/basemaps/workflows/R-CMD-check/badge.svg)](https://github.com/16EAGLE/basemaps/actions)
-[![Build Status](https://travis-ci.org/16EAGLE/basemaps.svg?branch=master)](https://travis-ci.org/16EAGLE/basemaps) 
 [![AppVeyor build status](https://ci.appveyor.com/api/projects/status/github/16EAGLE/basemaps?branch=master&svg=true)](https://ci.appveyor.com/project/16EAGLE/basemaps)
 [![Coverage](https://codecov.io/gh/16eagle/basemaps/branch/master/graph/badge.svg)](https://app.codecov.io/gh/16EAGLE/basemaps)
 [![Package dependencies](https://tinyverse.netlify.com/badge/basemaps)](https://CRAN.R-project.org/package=basemaps)
@@ -43,7 +42,7 @@ get_maptypes()
 set_defaults(map_service = "osm", map_type = "topographic")
 
 # load and return basemap map as class of choice, e.g. as image using magick:
-basemap_magick(ext, map_service = "osm", map_type = "topographic")
+basemap_magick(ext)
 #> Loading basemap 'topographic' from map service 'osm'...
 ```
 
@@ -277,7 +276,7 @@ This table lists all currently implemented map services and map types and indica
 
 If you are interested in obtaining basemaps, you also may want to have a look at [`ceramic`](https://github.com/hypertidy/ceramic), an R package developed by Michael Sumner with a similar goal.
 
-The underpinning code of `basemaps` was originally developed for [`moveVis`](http://movevis.org) and has been detached to allow its general use.
+The underpinning code of `basemaps` was originally developed for [`moveVis`](https://movevis.org) and has been detached to allow its general use.
 
 <br>
 
