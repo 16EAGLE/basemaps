@@ -126,12 +126,16 @@ out <- function(input, type = 1, ll = NULL, msg = FALSE, sign = "", verbose = ge
   if(!is.null(extras$no_crop)) no_crop <- extras$no_crop else no_crop <- FALSE
   if(!is.null(extras$custom_crs)) custom_crs <- extras$custom_crs else custom_crs <- NA
   
+  # Allow the user to specify a custom tile zoom level, to be provided to bbox_to_tile_grid()
+  if(!is.null(extras$zoom)) custom_zoom <- extras$zoom else custom_zoom <- NULL
+
+  
   if(inherits(ext, "bbox")) ext <- list(ext)
   file_comp <- lapply(ext, function(y){
     
     ## calculate needed slippy tiles using slippymath
     ext.ll <- st_bbox(st_transform(st_as_sfc(y), crs = st_crs(4326)))
-    tg <- bbox_to_tile_grid(ext.ll, max_tiles = ceiling(map_res*20))
+    tg <- bbox_to_tile_grid(ext.ll, zoom=custom_zoom, max_tiles = ceiling(map_res*20))
     tg$crs <- st_crs(y)
     tg$map_service <- map_service
     tg$map_type <- map_type
