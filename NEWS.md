@@ -1,5 +1,12 @@
 ***
 
+## basemaps 0.0.6
+Minor improvements
+
+<br>
+
+***
+
 ## basemaps 0.0.5
 Added `gg_raster` and `basemap_terra`
 

@@ -33,6 +33,17 @@ test_that("basemap()", {
     ext = ext_sc, map_service = "carto", map_type = "light", map_dir = map_dir,
     verbose = F, custom_crs = custom_crs), "RasterBrick"
   ))
+  
+  # test custom zoom
+  expect_is(
+    basemap(ext = ext, map_dir = map_dir, verbose = F, custom_zoom = 3, class = "terra"),
+    "SpatRaster"
+  )
+  
+  expect_is(
+    basemap(ext = ext, map_dir = map_dir, verbose = F, custom_zoom = 2, class = "terra"),
+    "SpatRaster"
+  )
 })
 
 test_that("basemap_plot()", {
