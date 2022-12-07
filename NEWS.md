@@ -3,6 +3,14 @@
 ## basemaps 0.0.6
 Minor improvements
 
+**Bugs:**
+
+* Fixed an issue with maps appearing blurred/of low resolution when using `basemap_ggplot` or `basemap_gglayer`. Maps should now show up with consistent resolutions across plot/viewing methods.
+
+**Changes:**
+
+* `gg_raster` now accepts `interpolate`, a logical argument to control smoothing of the plotted raster.
+
 <br>
 
 ***

@@ -226,7 +226,7 @@ basemap <- function(ext = NULL, map_service = NULL, map_type = NULL, map_res = N
   }
   
   # raster-based
-  if(any(c("raster", "mapview", "ggplot", "gglayer") %in% class)){
+  if(any(c("raster", "mapview") %in% class)){
     if(!any(grepl("raster", rownames(installed.packages())))){
       out(paste0("Package 'raster' is not installed, but needed for class='", class, "'. Please install 'raster' using install.packages('raster')."), type = 3)
     } else{

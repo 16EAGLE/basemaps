@@ -10,6 +10,7 @@
 #'    \item \code{maxpixels}, numeric, maximum number of pixels to be plotted (default: 500000)
 #'    \item \code{alpha}, numeric between 0 and 1, alpha value of the plotted data (transparency).
 #'    \item \code{maxColorValue}, numeric, the value  to use as colour maximum.
+#'    \item \code{interpolate}, logical, whether to smooth the plot (default is \code{TRUE}).
 #' }
 #' 
 #' @return A \code{ggplot2} object
@@ -41,6 +42,7 @@ gg_raster <- function(r, r_type = "RGB", gglayer = F, ...){
   if(!is.null(extras$maxpixels)) maxpixels <- extras$maxpixels else maxpixels <- 500000
   if(!is.null(extras$alpha)) alpha <- extras$alpha else alpha <- 1
   if(!is.null(extras$maxColorValue)) maxColorValue <- extras$maxColorValue else maxColorValue <- NA
+  if(!is.null(extras$interpolate)) interpolate <- extras$interpolate else interpolate <- TRUE
   if(!is.null(extras$add_coord)) add_coord <- extras$add_coord else add_coord <- TRUE
   
   # aggregate raster if too large
@@ -76,9 +78,10 @@ gg_raster <- function(r, r_type = "RGB", gglayer = F, ...){
   }
   # if NA gaps are there, use geom_tile, otherwise make it fast using geom_raster
   if(any(na.sel)){
+    # remark: is this ever called?
     gg <- ggplot2::geom_tile(ggplot2::aes_string(x = "x", y = "y", fill = "fill"), data = df, alpha = alpha)
   } else{
-    gg <- ggplot2::geom_raster(ggplot2::aes_string(x = "x", y = "y", fill = "fill"), data = df, alpha = alpha)
+    gg <- ggplot2::geom_raster(ggplot2::aes_string(x = "x", y = "y", fill = "fill"), data = df, alpha = alpha, interpolate = interpolate)
   }
   
   if(isFALSE(gglayer)){
