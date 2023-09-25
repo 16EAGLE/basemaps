@@ -174,7 +174,6 @@ out <- function(input, type = 1, ll = NULL, msg = FALSE, sign = "", verbose = ge
             if(map_service == "mapbox") paste0("?access_token=", map_token), # token or not
             if(map_service == "osm_thunderforest") paste0("?apikey=", map_token) # token or not
           )
-          print(url)
           
           if(isTRUE(http_error(url))){
             resp <- GET(url)
@@ -502,7 +501,16 @@ out <- function(input, type = 1, ll = NULL, msg = FALSE, sign = "", verbose = ge
       world_reference_overlay = "https://services.arcgisonline.com/arcgis/rest/services/Reference/World_Reference_Overlay/MapServer/tile/",
       world_transportation = "https://services.arcgisonline.com/arcgis/rest/services/Reference/World_Transportation/MapServer/tile/",
       delorme_world_base_map = "https://services.arcgisonline.com/arcgis/rest/services/Specialty/DeLorme_World_Base_Map/MapServer/tile/",
-      world_navigation_charts = "https://services.arcgisonline.com/arcgis/rest/services/Specialty/World_Navigation_Charts/MapServer/tile/")
+      world_navigation_charts = "https://services.arcgisonline.com/arcgis/rest/services/Specialty/World_Navigation_Charts/MapServer/tile/"
+    ),
+    usgs = list(
+      hydro_cached = "https://basemap.nationalmap.gov/arcgis/rest/services/USGSHydroCached/MapServer/tile/",
+      imagery_only = "https://basemap.nationalmap.gov/arcgis/rest/services/USGSImageryOnly/MapServer/tile/",
+      imagery_topo = "https://basemap.nationalmap.gov/arcgis/rest/services/USGSImageryTopo/MapServer/tile/",
+      shaded_relief = "https://basemap.nationalmap.gov/arcgis/rest/services/USGSShadedReliefOnly/MapServer/tile/",
+      national_map = "https://basemap.nationalmap.gov/arcgis/rest/services/USGSTNMBlank/MapServer/tile/",
+      topo = "https://basemap.nationalmap.gov/arcgis/rest/services/USGSTopo/MapServer/tile/"
+    )
   ))
   if(!dir.exists(getOption("basemaps.defaults")$map_dir)) dir.create(getOption("basemaps.defaults")$map_dir)
   
