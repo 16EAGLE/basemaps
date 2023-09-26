@@ -169,7 +169,7 @@ out <- function(input, type = 1, ll = NULL, msg = FALSE, sign = "", verbose = ge
           # download tiles
           url <- paste0(
             getOption("basemaps.map_api")[[map_service]][[map_type]], tg$zoom, "/", # base URL
-            if(map_service == "esri" || map_service == "usgs") paste0(x[2], "/", x[1]) else paste0(x[1], "/", x[2]), # coordinate order
+            if(map_service == "esri") paste0(x[2], "/", x[1]) else paste0(x[1], "/", x[2]), # coordinate order
             if(any(map_service != "mapbox", all(map_service == "mapbox", map_type == "terrain"))) ".png", # file suffix or not
             if(map_service == "mapbox") paste0("?access_token=", map_token), # token or not
             if(map_service == "osm_thunderforest") paste0("?apikey=", map_token) # token or not
