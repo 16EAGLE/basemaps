@@ -174,7 +174,6 @@ out <- function(input, type = 1, ll = NULL, msg = FALSE, sign = "", verbose = ge
             if(map_service == "mapbox") paste0("?access_token=", map_token), # token or not
             if(map_service == "osm_thunderforest") paste0("?apikey=", map_token) # token or not
           )
-          out(paste("URL:", url), type = 1)
           
           if(isTRUE(http_error(url))){
             resp <- GET(url)
