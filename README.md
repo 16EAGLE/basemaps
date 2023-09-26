@@ -266,7 +266,6 @@ This table lists all currently implemented map services and map types and indica
 | `usgs` | `imagery_only` | no |
 | `usgs` | `imagery_topo` | no |
 | `usgs` | `shaded_relief` | no |
-| `usgs` | `national_map` | no |
 | `usgs` | `topo` | no |
 
 ## Available functions

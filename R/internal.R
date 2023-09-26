@@ -174,7 +174,6 @@ out <- function(input, type = 1, ll = NULL, msg = FALSE, sign = "", verbose = ge
             if(map_service == "mapbox") paste0("?access_token=", map_token), # token or not
             if(map_service == "osm_thunderforest") paste0("?apikey=", map_token) # token or not
           )
-          out(url, type = 1)
           
           if(isTRUE(http_error(url))){
             resp <- GET(url)
@@ -509,7 +508,6 @@ out <- function(input, type = 1, ll = NULL, msg = FALSE, sign = "", verbose = ge
       imagery_only = "https://basemap.nationalmap.gov/arcgis/rest/services/USGSImageryOnly/MapServer/tile/",
       imagery_topo = "https://basemap.nationalmap.gov/arcgis/rest/services/USGSImageryTopo/MapServer/tile/",
       shaded_relief = "https://basemap.nationalmap.gov/arcgis/rest/services/USGSShadedReliefOnly/MapServer/tile/",
-      national_map = "https://basemap.nationalmap.gov/arcgis/rest/services/USGSTNMBlank/MapServer/tile/",
       topo = "https://basemap.nationalmap.gov/arcgis/rest/services/USGSTopo/MapServer/tile/"
     )
   ))
