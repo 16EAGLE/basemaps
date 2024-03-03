@@ -448,14 +448,14 @@ out <- function(input, type = 1, ll = NULL, msg = FALSE, sign = "", verbose = ge
       #hydda = "https://a.tile.openstreetmap.se/hydda/full/", # unresponsive
       #hydda_base = "https://a.tile.openstreetmap.se/hydda/base/",), # unresponsive
     ),
-    osm_stamen = list(
-      toner = "https://stamen-tiles-a.a.ssl.fastly.net/toner/",
-      toner_bg = "https://stamen-tiles-a.a.ssl.fastly.net/toner-background/",
-      toner_lite = "https://stamen-tiles-a.a.ssl.fastly.net/toner-lite/",
-      terrain = "http://tile.stamen.com/terrain/",
-      terrain_bg = "http://tile.stamen.com/terrain-background/",
-      watercolor = "http://tile.stamen.com/watercolor/"
-    ),
+    # osm_stamen = list(
+    #   toner = "https://stamen-tiles-a.a.ssl.fastly.net/toner/",
+    #   toner_bg = "https://stamen-tiles-a.a.ssl.fastly.net/toner-background/",
+    #   toner_lite = "https://stamen-tiles-a.a.ssl.fastly.net/toner-lite/",
+    #   terrain = "http://tile.stamen.com/terrain/",
+    #   terrain_bg = "http://tile.stamen.com/terrain-background/",
+    #   watercolor = "http://tile.stamen.com/watercolor/"
+    # ),
     osm_thunderforest = list(
       cycle = "https://tile.thunderforest.com/cycle/",
       transport = "https://tile.thunderforest.com/transport/",
