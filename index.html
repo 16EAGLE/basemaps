@@ -115,7 +115,7 @@
 <code>basemaps</code><a class="anchor" aria-label="anchor" href="#basemaps"></a>
 </h1></div>
 <p><a href="https://CRAN.R-project.org/package=basemaps" class="external-link"><img src="https://www.r-pkg.org/badges/version/basemaps" alt="CRAN version"></a> <a href="https://CRAN.R-project.org/package=basemaps" class="external-link"><img src="https://cranlogs.r-pkg.org/badges/last-month/basemaps?color=brightgreen" alt="CRAN downloads"></a> <a href="https://CRAN.R-project.org/package=basemaps" class="external-link"><img src="https://cranchecks.info/badges/summary/basemaps" alt="CRAN checks"></a> <a href="https://github.com/16EAGLE/basemaps/actions" class="external-link"><img src="https://github.com/16EAGLE/basemaps/workflows/R-CMD-check/badge.svg" alt="R-CMD-check"></a> <a href="https://ci.appveyor.com/project/16EAGLE/basemaps" class="external-link"><img src="https://ci.appveyor.com/api/projects/status/github/16EAGLE/basemaps?branch=master&amp;svg=true" alt="AppVeyor build status"></a> <a href="https://app.codecov.io/gh/16EAGLE/basemaps" class="external-link"><img src="https://codecov.io/gh/16eagle/basemaps/branch/master/graph/badge.svg" alt="Coverage"></a> <a href="https://CRAN.R-project.org/package=basemaps" class="external-link"><img src="https://tinyverse.netlify.com/badge/basemaps" alt="Package dependencies"></a></p>
-<p><code>basemaps</code> is a lightweight <code>R</code> package to download and cache spatial basemaps from open sources such as <em>OpenStreetMap</em>, <em>Stamen/Stadia Maps</em>, <em>Thunderforest</em>, <em>Carto</em>, <em>Mapbox</em> and others. Retrieved basemaps are translated into and returned as classes of choice, such as <code>raster</code>, <code>stars</code>, <code>terra</code>, <code>ggplot</code>, <code>mapview</code>, <code>magick</code>, or as files, such as <code>png</code> or <code>geotif</code>. The package aims to ease the use of basemaps in different contexts by providing a function interface as minimalist as possible.</p>
+<p><code>basemaps</code> is a lightweight <code>R</code> package to download and cache spatial basemaps from open sources such as <em>OpenStreetMap</em>, <em>Stamen</em>, <em>Stadia</em>, <em>Thunderforest</em>, <em>Carto</em>, <em>Mapbox</em>, <em>Esri</em> and others. Retrieved basemaps are translated into and returned as classes of choice, such as <code>terra</code>, <code>stars</code>, <code>raster</code>, <code>ggplot</code>, <code>mapview</code>, <code>magick</code>, or as files, such as <code>png</code> or <code>geotif</code>. The package aims to ease the use of basemaps in different contexts by providing a function interface as minimalist as possible.</p>
 <div class="section level2">
 <h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
 </h2>
@@ -247,6 +247,11 @@
 </h2>
 <p>This table lists all currently implemented map services and map types and indicates whether they can be used without a map token (requiring registration at the respective service) or not.</p>
 <table class="table">
+<colgroup>
+<col width="33%">
+<col width="33%">
+<col width="33%">
+</colgroup>
 <thead><tr class="header">
 <th><code>map_service</code></th>
 <th><code>map_type</code></th>
@@ -272,77 +277,116 @@
 <tr class="even">
 <td><code>osm_stamen</code></td>
 <td><code>toner</code></td>
-<td>yes</td>
+<td>yes, register: <a href="https://stadiamaps.com/" class="external-link uri">https://stadiamaps.com/</a>
+</td>
 </tr>
 <tr class="odd">
 <td><code>osm_stamen</code></td>
 <td><code>toner_bg</code></td>
-<td>yes</td>
+<td>yes, register: <a href="https://stadiamaps.com/" class="external-link uri">https://stadiamaps.com/</a>
+</td>
 </tr>
 <tr class="even">
 <td><code>osm_stamen</code></td>
 <td><code>terrain</code></td>
-<td>yes</td>
+<td>yes, register: <a href="https://stadiamaps.com/" class="external-link uri">https://stadiamaps.com/</a>
+</td>
 </tr>
 <tr class="odd">
 <td><code>osm_stamen</code></td>
 <td><code>terrain_bg</code></td>
-<td>yes</td>
+<td>yes, register: <a href="https://stadiamaps.com/" class="external-link uri">https://stadiamaps.com/</a>
+</td>
 </tr>
 <tr class="even">
 <td><code>osm_stamen</code></td>
 <td><code>watercolor</code></td>
-<td>yes</td>
+<td>yes, register: <a href="https://stadiamaps.com/" class="external-link uri">https://stadiamaps.com/</a>
+</td>
+</tr>
+<tr class="odd">
+<td><code>osm_stadia</code></td>
+<td><code>alidade_smooth</code></td>
+<td>yes, register: <a href="https://stadiamaps.com/" class="external-link uri">https://stadiamaps.com/</a>
+</td>
+</tr>
+<tr class="even">
+<td><code>osm_stadia</code></td>
+<td><code>alidade_smooth_dark</code></td>
+<td>yes, register: <a href="https://stadiamaps.com/" class="external-link uri">https://stadiamaps.com/</a>
+</td>
+</tr>
+<tr class="odd">
+<td><code>osm_stadia</code></td>
+<td><code>outdoors</code></td>
+<td>yes, register: <a href="https://stadiamaps.com/" class="external-link uri">https://stadiamaps.com/</a>
+</td>
+</tr>
+<tr class="even">
+<td><code>osm_stadia</code></td>
+<td><code>osm_bright</code></td>
+<td>yes, register: <a href="https://stadiamaps.com/" class="external-link uri">https://stadiamaps.com/</a>
+</td>
 </tr>
 <tr class="odd">
 <td><code>osm_thunderforest</code></td>
 <td><code>cycle</code></td>
-<td>yes</td>
+<td>yes, register: <a href="https://www.thunderforest.com/" class="external-link uri">https://www.thunderforest.com/</a>
+</td>
 </tr>
 <tr class="even">
 <td><code>osm_thunderforest</code></td>
 <td><code>transport</code></td>
-<td>yes</td>
+<td>yes, register: <a href="https://www.thunderforest.com/" class="external-link uri">https://www.thunderforest.com/</a>
+</td>
 </tr>
 <tr class="odd">
 <td><code>osm_thunderforest</code></td>
 <td><code>landscape</code></td>
-<td>yes</td>
+<td>yes, register: <a href="https://www.thunderforest.com/" class="external-link uri">https://www.thunderforest.com/</a>
+</td>
 </tr>
 <tr class="even">
 <td><code>osm_thunderforest</code></td>
 <td><code>outdoors</code></td>
-<td>yes</td>
+<td>yes, register: <a href="https://www.thunderforest.com/" class="external-link uri">https://www.thunderforest.com/</a>
+</td>
 </tr>
 <tr class="odd">
 <td><code>osm_thunderforest</code></td>
 <td><code>transport_dark</code></td>
-<td>yes</td>
+<td>yes, register: <a href="https://www.thunderforest.com/" class="external-link uri">https://www.thunderforest.com/</a>
+</td>
 </tr>
 <tr class="even">
 <td><code>osm_thunderforest</code></td>
 <td><code>spinal</code></td>
-<td>yes</td>
+<td>yes, register: <a href="https://www.thunderforest.com/" class="external-link uri">https://www.thunderforest.com/</a>
+</td>
 </tr>
 <tr class="odd">
 <td><code>osm_thunderforest</code></td>
 <td><code>pioneer</code></td>
-<td>yes</td>
+<td>yes, register: <a href="https://www.thunderforest.com/" class="external-link uri">https://www.thunderforest.com/</a>
+</td>
 </tr>
 <tr class="even">
 <td><code>osm_thunderforest</code></td>
 <td><code>mobile_atlas</code></td>
-<td>yes</td>
+<td>yes, register: <a href="https://www.thunderforest.com/" class="external-link uri">https://www.thunderforest.com/</a>
+</td>
 </tr>
 <tr class="odd">
 <td><code>osm_thunderforest</code></td>
 <td><code>neighbourhood</code></td>
-<td>yes</td>
+<td>yes, register: <a href="https://www.thunderforest.com/" class="external-link uri">https://www.thunderforest.com/</a>
+</td>
 </tr>
 <tr class="even">
 <td><code>osm_thunderforest</code></td>
 <td><code>atlas</code></td>
-<td>yes</td>
+<td>yes, register: <a href="https://www.thunderforest.com/" class="external-link uri">https://www.thunderforest.com/</a>
+</td>
 </tr>
 <tr class="odd">
 <td><code>carto</code></td>
@@ -397,37 +441,44 @@
 <tr class="odd">
 <td><code>mapbox</code></td>
 <td><code>streets</code></td>
-<td>yes</td>
+<td>yes, register: <a href="https://mapbox.com" class="external-link uri">https://mapbox.com</a>
+</td>
 </tr>
 <tr class="even">
 <td><code>mapbox</code></td>
 <td><code>outdoors</code></td>
-<td>yes</td>
+<td>yes, register: <a href="https://mapbox.com" class="external-link uri">https://mapbox.com</a>
+</td>
 </tr>
 <tr class="odd">
 <td><code>mapbox</code></td>
 <td><code>light</code></td>
-<td>yes</td>
+<td>yes, register: <a href="https://mapbox.com" class="external-link uri">https://mapbox.com</a>
+</td>
 </tr>
 <tr class="even">
 <td><code>mapbox</code></td>
 <td><code>dark</code></td>
-<td>yes</td>
+<td>yes, register: <a href="https://mapbox.com" class="external-link uri">https://mapbox.com</a>
+</td>
 </tr>
 <tr class="odd">
 <td><code>mapbox</code></td>
 <td><code>satellite</code></td>
-<td>yes</td>
+<td>yes, register: <a href="https://mapbox.com" class="external-link uri">https://mapbox.com</a>
+</td>
 </tr>
 <tr class="even">
 <td><code>mapbox</code></td>
 <td><code>hybrid</code></td>
-<td>yes</td>
+<td>yes, register: <a href="https://mapbox.com" class="external-link uri">https://mapbox.com</a>
+</td>
 </tr>
 <tr class="odd">
 <td><code>mapbox</code></td>
 <td><code>terrain</code></td>
-<td>yes</td>
+<td>yes, register: <a href="https://mapbox.com" class="external-link uri">https://mapbox.com</a>
+</td>
 </tr>
 <tr class="even">
 <td><code>esri</code></td>

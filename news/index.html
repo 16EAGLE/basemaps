@@ -92,11 +92,16 @@
 
     <div class="section level2">
 <h2 class="page-header" data-toc-text="0.0.6" id="basemaps-006">basemaps 0.0.6<a class="anchor" aria-label="anchor" href="#basemaps-006"></a></h2>
-<p>Minor improvements</p>
+<p>Major improvements</p>
 <p><strong>Bugs:</strong></p>
-<ul><li>Fixed an issue with maps appearing blurred/of low resolution when using <code>basemap_ggplot</code> or <code>basemap_gglayer</code>. Maps should now show up with consistent resolutions across plot/viewing methods.</li></ul><p><strong>Changes:</strong></p>
+<ul><li>Fixing an issue with maps appearing blurred/of low resolution when using <code>basemap_ggplot</code> or <code>basemap_gglayer</code>. Maps should now show up with consistent resolutions across plot/viewing methods.</li>
+<li>Fixing a bug from upstream causing maps to not get mosaiced correctly</li>
+<li>Fixing <code>grDevices</code> display bug when <code>NA</code>s are in map imagery</li>
+</ul><p><strong>Changes:</strong></p>
 <ul><li>
-<code>gg_raster</code> now accepts <code>interpolate</code>, a logical argument to control smoothing of the plotted raster.</li></ul><p><br></p>
+<code>gg_raster</code> now accepts <code>interpolate</code>, a logical argument to control smoothing of the plotted raster.</li>
+<li>added Stadia Maps support for <code>osm_stamen</code> maps: Due to changes by Stamen, you now need a map token from stadiamaps.com (free registration) for Stamen maps.</li>
+</ul><p><br></p>
 <hr></div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="0.0.5" id="basemaps-005">basemaps 0.0.5<small>2022-09-26</small><a class="anchor" aria-label="anchor" href="#basemaps-005"></a></h2>
