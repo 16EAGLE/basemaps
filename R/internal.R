@@ -175,13 +175,14 @@ out <- function(input, type = 1, ll = NULL, msg = FALSE, sign = "", verbose = ge
             if(any(map_service != "mapbox", all(map_service == "mapbox", map_type == "terrain"))) ".png", # file suffix or not
             if(map_service == "mapbox") paste0("?access_token=", map_token), # token or not
             if(map_service == "osm_thunderforest") paste0("?apikey=", map_token), # token or not
-            if(map_service == "osm_stamen") paste0("?api_key=", map_token) # token or not
+            if(map_service == "osm_stamen") paste0("?api_key=", map_token), # token or not
+            if(map_service == "osm_stadia") paste0("?api_key=", map_token) # token or not
           )
           
           if(isTRUE(http_error(url))){
             resp <- GET(url)
             status <- resp$status_code
-            if(any(status == 401 & map_service == "mapbox", status == 401 & map_service == "osm_stamen")) out("Authentification failed. Is your map_token correct?", type = 3)
+            if(any(status == 401 & map_service == "mapbox", status == 401 & map_service == "osm_stamen", status == 401 & map_service == "osm_stadia")) out("Authentification failed. Is your map_token correct?", type = 3)
             if(status == 403 & map_service == "osm_thunderforest") out("Authentification failed. Is your map_token correct?", type = 3)
           }
           if(!file.exists(file)){
@@ -399,7 +400,14 @@ out <- function(input, type = 1, ll = NULL, msg = FALSE, sign = "", verbose = ge
 .md_maptypes_table <- function(maptypes){
   x <- paste0(lapply(names(maptypes), function(service){
     paste0(unlist(lapply(maptypes[[service]], function(x, s = service){
-      paste0("| `", s, "` | `", x, "` | ", if(any(grepl("mapbox", s), grepl("osm_thunderforest", s), grepl("osm_stamen", s))) "yes" else "no", " |")
+      token <- if(grepl("mapbox", s)){
+        "yes, register: https://mapbox.com"
+      } else if(grepl("osm_thunderforest", s)){
+        "yes, register: https://www.thunderforest.com/"
+      } else if(any(grepl("osm_stamen", s), grepl("osm_stadia", s))){
+        "yes, register: https://stadiamaps.com/"
+      } else "no"
+      paste0("| `", s, "` | `", x, "` | ", token,  " |")
     })), collapse = "\n")
   }), collapse = "\n")
   cat(paste0("| `map_service` | `map_type` | `map_token` required? |\n | ------ |  ------ | ------ |\n", x))
@@ -456,6 +464,12 @@ out <- function(input, type = 1, ll = NULL, msg = FALSE, sign = "", verbose = ge
       terrain = "https://tiles.stadiamaps.com/tiles/stamen_terrain/",
       terrain_bg = "https://tiles.stadiamaps.com/tiles/stamen_terrain_background/",
       watercolor = "https://tiles.stadiamaps.com/tiles/stamen_watercolor/"
+    ),
+    osm_stadia = c(
+      alidade_smooth = "https://tiles.stadiamaps.com/tiles/alidade_smooth/",
+      alidade_smooth_dark = "https://tiles.stadiamaps.com/tiles/alidade_smooth_dark/",
+      outdoors = "https://tiles.stadiamaps.com/tiles/outdoors/",
+      osm_bright = "https://tiles.stadiamaps.com/tiles/osm_bright/"
     ),
     osm_thunderforest = list(
       cycle = "https://tile.thunderforest.com/cycle/",
@@ -517,7 +531,8 @@ out <- function(input, type = 1, ll = NULL, msg = FALSE, sign = "", verbose = ge
       world_reference_overlay = "https://services.arcgisonline.com/arcgis/rest/services/Reference/World_Reference_Overlay/MapServer/tile/",
       world_transportation = "https://services.arcgisonline.com/arcgis/rest/services/Reference/World_Transportation/MapServer/tile/",
       delorme_world_base_map = "https://services.arcgisonline.com/arcgis/rest/services/Specialty/DeLorme_World_Base_Map/MapServer/tile/",
-      world_navigation_charts = "https://services.arcgisonline.com/arcgis/rest/services/Specialty/World_Navigation_Charts/MapServer/tile/")
+      world_navigation_charts = "https://services.arcgisonline.com/arcgis/rest/services/Specialty/World_Navigation_Charts/MapServer/tile/"
+    )
   ))
   if(!dir.exists(getOption("basemaps.defaults")$map_dir)) dir.create(getOption("basemaps.defaults")$map_dir)
   
