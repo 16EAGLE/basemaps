@@ -1,7 +1,7 @@
 ***
 
 ## basemaps 0.0.6
-Major improvements
+Major improvements, adding new map services
 
 **Bugs:**
 
@@ -12,7 +12,8 @@ Major improvements
 **Changes:**
 
 * `gg_raster` now accepts `interpolate`, a logical argument to control smoothing of the plotted raster.
-* added Stadia Maps support for `osm_stamen` maps: Due to changes by Stamen, you now need a map token from stadiamaps.com (free registration) for Stamen maps.
+* added Stadia Maps support for `osm_stamen` maps: Due to changes by Stamen, you now need a map token from https://stadiamaps.com (free registration) for Stamen maps.
+* added Stadia Maps as new map service `osm_stadia` (requires map token from https://stadiamaps.com)
 
 <br>
 
