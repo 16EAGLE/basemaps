@@ -116,7 +116,8 @@ out <- function(input, type = 1, ll = NULL, msg = FALSE, sign = "", verbose = ge
 #' @importFrom curl curl_download
 #' @importFrom httr http_error GET
 #' @importFrom sf st_transform st_bbox st_as_sfc st_crs st_crs<- st_crop
-#' @importFrom terra rast ext ext<- crs crs<- mosaic project crop writeRaster extend merge
+#' @importFrom stars read_stars st_set_bbox st_mosaic
+#' @importFrom terra rast ext ext<- mosaic project crop writeRaster extend merge RGB<-
 #' @keywords internal
 #' @noRd
 .get_map <- function(ext, map_service, map_type, map_token, map_dir, map_res, force, class, ...){
@@ -205,24 +206,38 @@ out <- function(input, type = 1, ll = NULL, msg = FALSE, sign = "", verbose = ge
       # create composite
       
       ## STARS VERSION
-      # r <- mapply(img = images, x = tg$tiles$x, y = tg$tiles$y, function(img, x, y){
-      #   box <- tile_bbox(x, y, tg$zoom)
-      #   img_st <- read_stars(img)
-      #   img_st <- st_set_bbox(img_st, box)
-      #   st_crs(img_st) <- tg$crs
-      #   return(img_st)
-      # }, SIMPLIFY = F)
-      
-      ## TERRA VERSION
       r <- mapply(img = images, x = tg$tiles$x, y = tg$tiles$y, function(img, x, y){
         box <- tile_bbox(x, y, tg$zoom)
-        img_rst <- quiet(terra::rast(img))
-        terra::ext(img_rst) <- terra::ext(box[c("xmin", "xmax", "ymin", "ymax")])
-        terra::crs(img_rst) <- as.character(tg$crs$wkt)
-        return(img_rst)
-      }, SIMPLIFY = F, USE.NAMES = F)
+        img_st <- read_stars(img)
+        img_st <- st_set_bbox(img_st, box)
+        st_crs(img_st) <- tg$crs
+        return(img_st)
+      }, SIMPLIFY = F)
+      r <- do.call(stars::st_mosaic, r)
+      r <- as(r, "SpatRaster")
+      RGB(r) <- 1:3
       
-      r <- do.call(terra::mosaic, r)
+      ## TERRA VERSION
+      # r <- mapply(img = images, x = tg$tiles$x, y = tg$tiles$y, function(img, x, y){
+      #   box <- tile_bbox(x, y, tg$zoom)
+      #   img_rst <- quiet(terra::rast(img))
+      #   terra::ext(img_rst) <- terra::ext(box[c("xmin", "xmax", "ymin", "ymax")])
+      #   terra::crs(img_rst) <- as.character(tg$crs$wkt)
+      #   return(img_rst)
+      # }, SIMPLIFY = F, USE.NAMES = F)
+      # 
+      # #r <- do.call(terra::mosaic, r) # BROKEN (https://github.com/rspatial/terra/issues/1262)
+      # #temp FIX
+      # while(length(r) > 1){
+      #   i_mosaic <- data.frame(from = seq(from = 1, to = length(r), by = 2))
+      #   i_mosaic$to <- c(tail(i_mosaic$from-1, n=-1), length(r))
+      #   r <- lapply(1:nrow(i_mosaic), function(i){
+      #     if(i_mosaic[i,1] == i_mosaic[i,2]) return(r[[i]]) else do.call(terra::mosaic, r[i_mosaic[i,1]:i_mosaic[i,2]])
+      #   })
+      # }
+      # r <- r[[1]]
+      # RGB(r) <- 1:3
+      # # end temp FIX
       
       if(isFALSE(no_transform)){ ## needed?
         if(as.numeric(tg$crs$epsg) != 3857){

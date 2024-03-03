@@ -16,6 +16,7 @@ Imports:
   httr,
   curl,
   terra,
+  stars,
   pbapply,
   magick,
   utils,
@@ -27,8 +28,7 @@ Suggests:
   mapview,
   mapedit,
   raster,
-  stars,
   testthat,
   covr
 BugReports: https://github.com/16eagle/basemaps/issues
-RoxygenNote: 7.2.1
+RoxygenNote: 7.2.3
