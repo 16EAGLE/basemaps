@@ -66,7 +66,7 @@ gg_raster <- function(r, r_type = "RGB", gglayer = F, ...){
     }
     
     # remove NAs
-    na.sel <- is.na(df$val1) & is.na(df$val2) & is.na(df$val3)
+    na.sel <- is.na(df$val1) | is.na(df$val2) | is.na(df$val3)
     if(any(na.sel)) df <- df[!na.sel,]
     
     df$fill <- grDevices::rgb(red = df$val1, green = df$val2, blue = df$val3, maxColorValue = maxColorValue)
