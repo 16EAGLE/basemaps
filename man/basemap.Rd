@@ -156,7 +156,7 @@ basemap_mapview(
 
 \item{map_res}{numeric, resolution of base map in range from 0 to 1.}
 
-\item{map_token}{character, authentification token for services that require registration, which are \code{"osm_thunderforest"} and \code{"mapbox"}. Register at \url{https://www.thunderforest.com/} and/or \url{https://www.mapbox.com/} to get tokens. Ignored for all other map services.}
+\item{map_token}{character, authentication token for services that require registration, which are \code{"osm_stamen"}, \code{"osm_thunderforest"} and \code{"mapbox"}. Register at \url{https://stadiamaps.com/} for stamen, \url{https://www.thunderforest.com/} and/or \url{https://www.mapbox.com/} to get tokens. Ignored for all other map services.}
 
 \item{map_dir}{character, cache directory where downloaded basemap tiles will be stored. By default, a temporary directory is used, which is destroyed when the session is terminated.}
 
@@ -195,8 +195,8 @@ get_maptypes()
 
 # set defaults for the basemap
 set_defaults(map_service = "osm", map_type = "terrain_bg")
-# for osm_thunderforest and mapbox maps, you need a API token. 
-# Register for free at thunderforest.com and mapbox.com to get a token
+# for osm_stamen, osm thunderforest and mapbox maps, you need a API token. 
+# Register for free at stadiamaps.com, thunderforest.com and mapbox.com to get tokens.
 
 \dontrun{
 # load and return basemap map as raster (default)

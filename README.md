@@ -8,7 +8,7 @@
 [![Coverage](https://codecov.io/gh/16eagle/basemaps/branch/master/graph/badge.svg)](https://app.codecov.io/gh/16EAGLE/basemaps)
 [![Package dependencies](https://tinyverse.netlify.com/badge/basemaps)](https://CRAN.R-project.org/package=basemaps)
 
-`basemaps` is a lightweight `R` package to download and cache spatial basemaps from open sources such as *OpenStreetMap*, *Stamen*, *Thunderforest*, *Carto*, *Mapbox* and others. Retrieved basemaps are translated into and returned as classes of choice, such as `raster`, `stars`, `terra`, `ggplot`, `mapview`, `magick`, or as files, such as `png` or `geotif`. The package aims to ease the use of basemaps in different contexts by providing a function interface as minimalist as possible.
+`basemaps` is a lightweight `R` package to download and cache spatial basemaps from open sources such as *OpenStreetMap*, *Stamen/Stadia Maps*, *Thunderforest*, *Carto*, *Mapbox* and others. Retrieved basemaps are translated into and returned as classes of choice, such as `raster`, `stars`, `terra`, `ggplot`, `mapview`, `magick`, or as files, such as `png` or `geotif`. The package aims to ease the use of basemaps in different contexts by providing a function interface as minimalist as possible.
 
 
 ## Installation
@@ -88,7 +88,7 @@ basemap_geotif(ext)
 
 # or png:
 basemap_png(ext)
-#> [1] "osm_stamen_terrain_bg_2022-09-22_12-00-00.png"
+#> [1] "osm_topographic_bg_2022-09-22_12-00-00.png"
 ```
 
 ## Map examples
@@ -199,16 +199,15 @@ basemap_magick(ext, map_service = "carto", map_type = "dark")
 This table lists all currently implemented map services and map types and indicates whether they can be used without a map token (requiring registration at the respective service) or not.
 
 | `map_service` | `map_type` | `map_token` required? |
-| ------ |  ------ | ------ |
+ | ------ |  ------ | ------ |
 | `osm` | `streets` | no |
 | `osm` | `streets_de` | no |
 | `osm` | `topographic` | no |
-| `osm_stamen` | `toner` | no |
-| `osm_stamen` | `toner_bg` | no |
-| `osm_stamen` | `toner_lite` | no |
-| `osm_stamen` | `terrain` | no |
-| `osm_stamen` | `terrain_bg` | no |
-| `osm_stamen` | `watercolor` | no |
+| `osm_stamen` | `toner` | yes |
+| `osm_stamen` | `toner_bg` | yes |
+| `osm_stamen` | `terrain` | yes |
+| `osm_stamen` | `terrain_bg` | yes |
+| `osm_stamen` | `watercolor` | yes |
 | `osm_thunderforest` | `cycle` | yes |
 | `osm_thunderforest` | `transport` | yes |
 | `osm_thunderforest` | `landscape` | yes |

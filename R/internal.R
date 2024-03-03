@@ -173,13 +173,14 @@ out <- function(input, type = 1, ll = NULL, msg = FALSE, sign = "", verbose = ge
             if(map_service == "esri") paste0(x[2], "/", x[1]) else paste0(x[1], "/", x[2]), # coordinate order
             if(any(map_service != "mapbox", all(map_service == "mapbox", map_type == "terrain"))) ".png", # file suffix or not
             if(map_service == "mapbox") paste0("?access_token=", map_token), # token or not
-            if(map_service == "osm_thunderforest") paste0("?apikey=", map_token) # token or not
+            if(map_service == "osm_thunderforest") paste0("?apikey=", map_token), # token or not
+            if(map_service == "osm_stamen") paste0("?api_key=", map_token) # token or not
           )
           
           if(isTRUE(http_error(url))){
             resp <- GET(url)
             status <- resp$status_code
-            if(status == 401 & map_service == "mapbox") out("Authentification failed. Is your map_token correct?", type = 3)
+            if(any(status == 401 & map_service == "mapbox", status == 401 & map_service == "osm_stamen")) out("Authentification failed. Is your map_token correct?", type = 3)
             if(status == 403 & map_service == "osm_thunderforest") out("Authentification failed. Is your map_token correct?", type = 3)
           }
           if(!file.exists(file)){
@@ -385,8 +386,8 @@ out <- function(input, type = 1, ll = NULL, msg = FALSE, sign = "", verbose = ge
 #' @keywords internal
 #' @noRd
 .defaults <- function(){
-  list(map_service = "osm_stamen",
-       map_type = "terrain",
+  list(map_service = "carto",
+       map_type = "voyager",
        map_res = 1,
        map_token = NA)
 }
@@ -397,7 +398,7 @@ out <- function(input, type = 1, ll = NULL, msg = FALSE, sign = "", verbose = ge
 .md_maptypes_table <- function(maptypes){
   x <- paste0(lapply(names(maptypes), function(service){
     paste0(unlist(lapply(maptypes[[service]], function(x, s = service){
-      paste0("| `", s, "` | `", x, "` | ", if(any(grepl("mapbox", s), grepl("osm_thunderforest", s))) "yes" else "no", " |")
+      paste0("| `", s, "` | `", x, "` | ", if(any(grepl("mapbox", s), grepl("osm_thunderforest", s), grepl("osm_stamen", s))) "yes" else "no", " |")
     })), collapse = "\n")
   }), collapse = "\n")
   cat(paste0("| `map_service` | `map_type` | `map_token` required? |\n | ------ |  ------ | ------ |\n", x))
@@ -448,14 +449,13 @@ out <- function(input, type = 1, ll = NULL, msg = FALSE, sign = "", verbose = ge
       #hydda = "https://a.tile.openstreetmap.se/hydda/full/", # unresponsive
       #hydda_base = "https://a.tile.openstreetmap.se/hydda/base/",), # unresponsive
     ),
-    # osm_stamen = list(
-    #   toner = "https://stamen-tiles-a.a.ssl.fastly.net/toner/",
-    #   toner_bg = "https://stamen-tiles-a.a.ssl.fastly.net/toner-background/",
-    #   toner_lite = "https://stamen-tiles-a.a.ssl.fastly.net/toner-lite/",
-    #   terrain = "http://tile.stamen.com/terrain/",
-    #   terrain_bg = "http://tile.stamen.com/terrain-background/",
-    #   watercolor = "http://tile.stamen.com/watercolor/"
-    # ),
+    osm_stamen = list(
+      toner = "https://tiles.stadiamaps.com/tiles/stamen_toner/",
+      toner_bg = "https://tiles.stadiamaps.com/tiles/stamen_toner_background/",
+      terrain = "https://tiles.stadiamaps.com/tiles/stamen_terrain/",
+      terrain_bg = "https://tiles.stadiamaps.com/tiles/stamen_terrain_background/",
+      watercolor = "https://tiles.stadiamaps.com/tiles/stamen_watercolor/"
+    ),
     osm_thunderforest = list(
       cycle = "https://tile.thunderforest.com/cycle/",
       transport = "https://tile.thunderforest.com/transport/",

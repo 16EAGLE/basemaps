@@ -6,7 +6,7 @@
 \source{
 \code{"osm"}: Open Street Map contributors (\url{https://www.openstreetmap.org/copyright}), Open Topo Map (\url{https://opentopomap.org/}), Martin Tesar (\url{http://mtbmap.cz/})
 
-\code{"osm_stamen"}: Stamen (\url{http://maps.stamen.com/}), Open Street Map contributors (\url{https://www.openstreetmap.org/copyright})
+\code{"osm_stamen"}: Stamen (\url{http://maps.stamen.com/}) via Stadia Maps (\url{https://stadiamaps.com/}), Open Street Map contributors (\url{https://www.openstreetmap.org/copyright})
 
 \code{"osm_thunderforest"}: Thunderforest (\url{https://www.thunderforest.com/}), Open Street Map contributors (\url{https://www.openstreetmap.org/copyright})
 
