@@ -118,6 +118,7 @@ out <- function(input, type = 1, ll = NULL, msg = FALSE, sign = "", verbose = ge
 #' @importFrom sf st_transform st_bbox st_as_sfc st_crs st_crs<- st_crop
 #' @importFrom stars read_stars st_set_bbox st_mosaic
 #' @importFrom terra rast ext ext<- mosaic project crop writeRaster extend merge RGB<-
+#' @importFrom methods as
 #' @keywords internal
 #' @noRd
 .get_map <- function(ext, map_service, map_type, map_token, map_dir, map_res, force, class, ...){

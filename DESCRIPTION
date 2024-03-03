@@ -1,10 +1,10 @@
 Package: basemaps
 Type: Package
 Title: Accessing Spatial Basemaps in R
-Version: 0.0.5
+Version: 0.0.6
 Depends:
   R (>= 3.5.0)
-Date: 2022-09-26
+Date: 2024-03-03
 Authors@R: person("Jakob", "Schwalb-Willmann", email = "dev@schwalb-willmann.de",
   role = c("aut", "cre"), comment = c(ORCID = "0000-0003-2665-1509"))
 Description: A lightweight package to access spatial basemaps from open sources such as 'OpenStreetMap', 'Carto', 'Mapbox' and others in R.
@@ -20,14 +20,14 @@ Imports:
   pbapply,
   magick,
   utils,
-  grDevices
+  grDevices,
+  methods
 Suggests:
-  rgdal,
+  raster,
   ggplot2,
   png,
   mapview,
   mapedit,
-  raster,
   testthat,
   covr
 BugReports: https://github.com/16eagle/basemaps/issues
