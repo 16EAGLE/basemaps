@@ -115,6 +115,7 @@ if(isTRUE(test$maps)){
   test_services <- names(get_maptypes())
   if(isFALSE(run_mapbox)) test_services <- test_services[test_services != "mapbox"]
   if(isFALSE(run_osmtf)) test_services <- test_services[test_services != "osm_thunderforest"]
+  if(isFALSE(run_osmstamen)) test_services <- test_services[test_services != "osm_stamen"]
   if(isFALSE(run_esri)) test_services <- test_services[test_services != "esri"]
   
   catch <- lapply(test_services, function(service) lapply(get_maptypes(service), function(x, s = service){
@@ -122,7 +123,9 @@ if(isTRUE(test$maps)){
       mapbox_token
     } else if(s == "osm_thunderforest"){
       osmtf_token
-    } else{
+    } else if(s == "osm_stamen"){
+      osmstamen_token
+    } else {
       NULL
     }
     

@@ -1,15 +1,18 @@
 ***
 
 ## basemaps 0.0.6
-Minor improvements
+Major improvements
 
 **Bugs:**
 
-* Fixed an issue with maps appearing blurred/of low resolution when using `basemap_ggplot` or `basemap_gglayer`. Maps should now show up with consistent resolutions across plot/viewing methods.
+* Fixing an issue with maps appearing blurred/of low resolution when using `basemap_ggplot` or `basemap_gglayer`. Maps should now show up with consistent resolutions across plot/viewing methods.
+* Fixing a bug from upstream causing maps to not get mosaiced correctly
+* Fixing `grDevices` display bug when `NA`s are in map imagery
 
 **Changes:**
 
 * `gg_raster` now accepts `interpolate`, a logical argument to control smoothing of the plotted raster.
+* added Stadia Maps support for `osm_stamen` maps: Due to changes by Stamen, you now need a map token from stadiamaps.com (free registration) for Stamen maps.
 
 <br>
 
