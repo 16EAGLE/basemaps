@@ -20,6 +20,8 @@
 #' 
 #' \code{"esri"}: Esri (\url{https://www.esri.com/en-us/home})
 #'
+#' \code{"usgs"}: USGS (\url{https://basemap.nationalmap.gov/arcgis/rest/services})
+#' 
 #' @examples 
 #' # for all services
 #' get_maptypes()

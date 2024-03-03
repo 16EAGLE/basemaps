@@ -171,8 +171,8 @@ out <- function(input, type = 1, ll = NULL, msg = FALSE, sign = "", verbose = ge
           # download tiles
           url <- paste0(
             getOption("basemaps.map_api")[[map_service]][[map_type]], tg$zoom, "/", # base URL
-            if(map_service == "esri") paste0(x[2], "/", x[1]) else paste0(x[1], "/", x[2]), # coordinate order
-            if(any(map_service != "mapbox", all(map_service == "mapbox", map_type == "terrain"))) ".png", # file suffix or not
+            if(map_service %in% list("esri", "usgs")) paste0(x[2], "/", x[1]) else paste0(x[1], "/", x[2]), # coordinate order
+            if(any(!(map_service %in% list("mapbox", "usgs")), all(map_service == "mapbox", map_type == "terrain"))) ".png", # file suffix or not
             if(map_service == "mapbox") paste0("?access_token=", map_token), # token or not
             if(map_service == "osm_thunderforest") paste0("?apikey=", map_token), # token or not
             if(map_service == "osm_stamen") paste0("?api_key=", map_token) # token or not
@@ -517,7 +517,15 @@ out <- function(input, type = 1, ll = NULL, msg = FALSE, sign = "", verbose = ge
       world_reference_overlay = "https://services.arcgisonline.com/arcgis/rest/services/Reference/World_Reference_Overlay/MapServer/tile/",
       world_transportation = "https://services.arcgisonline.com/arcgis/rest/services/Reference/World_Transportation/MapServer/tile/",
       delorme_world_base_map = "https://services.arcgisonline.com/arcgis/rest/services/Specialty/DeLorme_World_Base_Map/MapServer/tile/",
-      world_navigation_charts = "https://services.arcgisonline.com/arcgis/rest/services/Specialty/World_Navigation_Charts/MapServer/tile/")
+      world_navigation_charts = "https://services.arcgisonline.com/arcgis/rest/services/Specialty/World_Navigation_Charts/MapServer/tile/"
+    ),
+    usgs = list(
+      hydro_cached = "https://basemap.nationalmap.gov/arcgis/rest/services/USGSHydroCached/MapServer/tile/",
+      imagery_only = "https://basemap.nationalmap.gov/arcgis/rest/services/USGSImageryOnly/MapServer/tile/",
+      imagery_topo = "https://basemap.nationalmap.gov/arcgis/rest/services/USGSImageryTopo/MapServer/tile/",
+      shaded_relief = "https://basemap.nationalmap.gov/arcgis/rest/services/USGSShadedReliefOnly/MapServer/tile/",
+      topo = "https://basemap.nationalmap.gov/arcgis/rest/services/USGSTopo/MapServer/tile/"
+    )
   ))
   if(!dir.exists(getOption("basemaps.defaults")$map_dir)) dir.create(getOption("basemaps.defaults")$map_dir)
   
