@@ -33,7 +33,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">basemaps</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.5</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.6</span>
       </span>
     </div>
 
@@ -114,8 +114,8 @@
 <div class="page-header"><h1 id="basemaps">
 <code>basemaps</code><a class="anchor" aria-label="anchor" href="#basemaps"></a>
 </h1></div>
-
-<p><code>basemaps</code> is a lightweight <code>R</code> package to download and cache spatial basemaps from open sources such as <em>OpenStreetMap</em>, <em>Stamen</em>, <em>Thunderforest</em>, <em>Carto</em>, <em>Mapbox</em> and others. Retrieved basemaps are translated into and returned as classes of choice, such as <code>raster</code>, <code>stars</code>, <code>terra</code>, <code>ggplot</code>, <code>mapview</code>, <code>magick</code>, or as files, such as <code>png</code> or <code>geotif</code>. The package aims to ease the use of basemaps in different contexts by providing a function interface as minimalist as possible.</p>
+<p><a href="https://CRAN.R-project.org/package=basemaps" class="external-link"><img src="https://www.r-pkg.org/badges/version/basemaps" alt="CRAN version"></a> <a href="https://CRAN.R-project.org/package=basemaps" class="external-link"><img src="https://cranlogs.r-pkg.org/badges/last-month/basemaps?color=brightgreen" alt="CRAN downloads"></a> <a href="https://CRAN.R-project.org/package=basemaps" class="external-link"><img src="https://cranchecks.info/badges/summary/basemaps" alt="CRAN checks"></a> <a href="https://github.com/16EAGLE/basemaps/actions" class="external-link"><img src="https://github.com/16EAGLE/basemaps/workflows/R-CMD-check/badge.svg" alt="R-CMD-check"></a> <a href="https://ci.appveyor.com/project/16EAGLE/basemaps" class="external-link"><img src="https://ci.appveyor.com/api/projects/status/github/16EAGLE/basemaps?branch=master&amp;svg=true" alt="AppVeyor build status"></a> <a href="https://app.codecov.io/gh/16EAGLE/basemaps" class="external-link"><img src="https://codecov.io/gh/16eagle/basemaps/branch/master/graph/badge.svg" alt="Coverage"></a> <a href="https://CRAN.R-project.org/package=basemaps" class="external-link"><img src="https://tinyverse.netlify.com/badge/basemaps" alt="Package dependencies"></a></p>
+<p><code>basemaps</code> is a lightweight <code>R</code> package to download and cache spatial basemaps from open sources such as <em>OpenStreetMap</em>, <em>Stamen/Stadia Maps</em>, <em>Thunderforest</em>, <em>Carto</em>, <em>Mapbox</em> and others. Retrieved basemaps are translated into and returned as classes of choice, such as <code>raster</code>, <code>stars</code>, <code>terra</code>, <code>ggplot</code>, <code>mapview</code>, <code>magick</code>, or as files, such as <code>png</code> or <code>geotif</code>. The package aims to ease the use of basemaps in different contexts by providing a function interface as minimalist as possible.</p>
 <div class="section level2">
 <h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
 </h2>
@@ -179,7 +179,7 @@
 <span></span>
 <span><span class="co"># or png:</span></span>
 <span><span class="fu"><a href="reference/basemap.html">basemap_png</a></span><span class="op">(</span><span class="va">ext</span><span class="op">)</span></span>
-<span><span class="co">#&gt; [1] "osm_stamen_terrain_bg_2022-09-22_12-00-00.png"</span></span></code></pre></div>
+<span><span class="co">#&gt; [1] "osm_topographic_bg_2022-09-22_12-00-00.png"</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="map-examples">Map examples<a class="anchor" aria-label="anchor" href="#map-examples"></a>
@@ -272,294 +272,289 @@
 <tr class="even">
 <td><code>osm_stamen</code></td>
 <td><code>toner</code></td>
-<td>no</td>
+<td>yes</td>
 </tr>
 <tr class="odd">
 <td><code>osm_stamen</code></td>
 <td><code>toner_bg</code></td>
-<td>no</td>
+<td>yes</td>
 </tr>
 <tr class="even">
-<td><code>osm_stamen</code></td>
-<td><code>toner_lite</code></td>
-<td>no</td>
-</tr>
-<tr class="odd">
 <td><code>osm_stamen</code></td>
 <td><code>terrain</code></td>
-<td>no</td>
-</tr>
-<tr class="even">
-<td><code>osm_stamen</code></td>
-<td><code>terrain_bg</code></td>
-<td>no</td>
+<td>yes</td>
 </tr>
 <tr class="odd">
 <td><code>osm_stamen</code></td>
-<td><code>watercolor</code></td>
-<td>no</td>
+<td><code>terrain_bg</code></td>
+<td>yes</td>
 </tr>
 <tr class="even">
+<td><code>osm_stamen</code></td>
+<td><code>watercolor</code></td>
+<td>yes</td>
+</tr>
+<tr class="odd">
 <td><code>osm_thunderforest</code></td>
 <td><code>cycle</code></td>
 <td>yes</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td><code>osm_thunderforest</code></td>
 <td><code>transport</code></td>
 <td>yes</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td><code>osm_thunderforest</code></td>
 <td><code>landscape</code></td>
 <td>yes</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td><code>osm_thunderforest</code></td>
 <td><code>outdoors</code></td>
 <td>yes</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td><code>osm_thunderforest</code></td>
 <td><code>transport_dark</code></td>
 <td>yes</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td><code>osm_thunderforest</code></td>
 <td><code>spinal</code></td>
 <td>yes</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td><code>osm_thunderforest</code></td>
 <td><code>pioneer</code></td>
 <td>yes</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td><code>osm_thunderforest</code></td>
 <td><code>mobile_atlas</code></td>
 <td>yes</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td><code>osm_thunderforest</code></td>
 <td><code>neighbourhood</code></td>
 <td>yes</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td><code>osm_thunderforest</code></td>
 <td><code>atlas</code></td>
 <td>yes</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td><code>carto</code></td>
 <td><code>light</code></td>
 <td>no</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td><code>carto</code></td>
 <td><code>light_no_labels</code></td>
 <td>no</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td><code>carto</code></td>
 <td><code>light_only_labels</code></td>
 <td>no</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td><code>carto</code></td>
 <td><code>dark</code></td>
 <td>no</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td><code>carto</code></td>
 <td><code>dark_no_labels</code></td>
 <td>no</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td><code>carto</code></td>
 <td><code>dark_only_labels</code></td>
 <td>no</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td><code>carto</code></td>
 <td><code>voyager</code></td>
 <td>no</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td><code>carto</code></td>
 <td><code>voyager_no_labels</code></td>
 <td>no</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td><code>carto</code></td>
 <td><code>voyager_only_labels</code></td>
 <td>no</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td><code>carto</code></td>
 <td><code>voyager_labels_under</code></td>
 <td>no</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td><code>mapbox</code></td>
 <td><code>streets</code></td>
 <td>yes</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td><code>mapbox</code></td>
 <td><code>outdoors</code></td>
 <td>yes</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td><code>mapbox</code></td>
 <td><code>light</code></td>
 <td>yes</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td><code>mapbox</code></td>
 <td><code>dark</code></td>
 <td>yes</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td><code>mapbox</code></td>
 <td><code>satellite</code></td>
 <td>yes</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td><code>mapbox</code></td>
 <td><code>hybrid</code></td>
 <td>yes</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td><code>mapbox</code></td>
 <td><code>terrain</code></td>
 <td>yes</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td><code>esri</code></td>
 <td><code>natgeo_world_map</code></td>
 <td>no</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td><code>esri</code></td>
 <td><code>usa_topo_maps</code></td>
 <td>no</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td><code>esri</code></td>
 <td><code>world_imagery</code></td>
 <td>no</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td><code>esri</code></td>
 <td><code>world_physical_map</code></td>
 <td>no</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td><code>esri</code></td>
 <td><code>world_shaded_relief</code></td>
 <td>no</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td><code>esri</code></td>
 <td><code>world_street_map</code></td>
 <td>no</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td><code>esri</code></td>
 <td><code>world_terrain_base</code></td>
 <td>no</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td><code>esri</code></td>
 <td><code>world_topo_map</code></td>
 <td>no</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td><code>esri</code></td>
 <td><code>world_dark_gray_base</code></td>
 <td>no</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td><code>esri</code></td>
 <td><code>world_dark_gray_reference</code></td>
 <td>no</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td><code>esri</code></td>
 <td><code>world_light_gray_base</code></td>
 <td>no</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td><code>esri</code></td>
 <td><code>world_light_gray_reference</code></td>
 <td>no</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td><code>esri</code></td>
 <td><code>world_hillshade_dark</code></td>
 <td>no</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td><code>esri</code></td>
 <td><code>world_hillshade</code></td>
 <td>no</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td><code>esri</code></td>
 <td><code>world_ocean_base</code></td>
 <td>no</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td><code>esri</code></td>
 <td><code>world_ocean_reference</code></td>
 <td>no</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td><code>esri</code></td>
 <td><code>antarctic_imagery</code></td>
 <td>no</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td><code>esri</code></td>
 <td><code>arctic_imagery</code></td>
 <td>no</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td><code>esri</code></td>
 <td><code>arctic_ocean_base</code></td>
 <td>no</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td><code>esri</code></td>
 <td><code>arctic_ocean_reference</code></td>
 <td>no</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td><code>esri</code></td>
 <td><code>world_boundaries_and_places_alternate</code></td>
 <td>no</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td><code>esri</code></td>
 <td><code>world_boundaries_and_places</code></td>
 <td>no</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td><code>esri</code></td>
 <td><code>world_reference_overlay</code></td>
 <td>no</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td><code>esri</code></td>
 <td><code>world_transportation</code></td>
 <td>no</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td><code>esri</code></td>
 <td><code>delorme_world_base_map</code></td>
 <td>no</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td><code>esri</code></td>
 <td><code>world_navigation_charts</code></td>
 <td>no</td>
@@ -643,7 +638,7 @@
 
 <div class="pkgdown">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
 </div>
 
       </footer>

@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">basemaps</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.5</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.6</span>
       </span>
     </div>
 
@@ -249,7 +249,7 @@
 
 
 <dt>map_token</dt>
-<dd><p>character, authentification token for services that require registration, which are <code>"osm_thunderforest"</code> and <code>"mapbox"</code>. Register at <a href="https://www.thunderforest.com/" class="external-link">https://www.thunderforest.com/</a> and/or <a href="https://www.mapbox.com/" class="external-link">https://www.mapbox.com/</a> to get tokens. Ignored for all other map services.</p></dd>
+<dd><p>character, authentication token for services that require registration, which are <code>"osm_stamen"</code>, <code>"osm_thunderforest"</code> and <code>"mapbox"</code>. Register at <a href="https://stadiamaps.com/" class="external-link">https://stadiamaps.com/</a> for stamen, <a href="https://www.thunderforest.com/" class="external-link">https://www.thunderforest.com/</a> and/or <a href="https://www.mapbox.com/" class="external-link">https://www.mapbox.com/</a> to get tokens. Ignored for all other map services.</p></dd>
 
 
 <dt>map_dir</dt>
@@ -300,8 +300,7 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "streets"     "streets_de"  "topographic"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $osm_stamen</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "toner"      "toner_bg"   "toner_lite" "terrain"    "terrain_bg"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [6] "watercolor"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "toner"      "toner_bg"   "terrain"    "terrain_bg" "watercolor"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $osm_thunderforest</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  [1] "cycle"          "transport"      "landscape"      "outdoors"      </span>
@@ -349,8 +348,8 @@
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># set defaults for the basemap</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="defaults.html">set_defaults</a></span><span class="op">(</span>map_service <span class="op">=</span> <span class="st">"osm"</span>, map_type <span class="op">=</span> <span class="st">"terrain_bg"</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="co"># for osm_thunderforest and mapbox maps, you need a API token. </span></span></span>
-<span class="r-in"><span><span class="co"># Register for free at thunderforest.com and mapbox.com to get a token</span></span></span>
+<span class="r-in"><span><span class="co"># for osm_stamen, osm thunderforest and mapbox maps, you need a API token. </span></span></span>
+<span class="r-in"><span><span class="co"># Register for free at stadiamaps.com, thunderforest.com and mapbox.com to get tokens.</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span></span>
 <span class="r-in"><span><span class="co"># load and return basemap map as raster (default)</span></span></span>
@@ -404,7 +403,7 @@
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
 </div>
 
       </footer></div>
