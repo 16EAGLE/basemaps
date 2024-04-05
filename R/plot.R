@@ -7,7 +7,7 @@
 #' @param gglayer logical, if \code{FALSE} (default), a \code{ggplot2} plot is returned, if \code{TRUE}, a \code{ggplot2} layer is returned.
 #' @param ... additional arguments, including
 #' \itemize{
-#'    \item \code{maxpixels}, numeric, maximum number of pixels to be plotted (default: 500000)
+#'    \item \code{maxpixels}, numeric, maximum number of pixels to be plotted (default: number of pixels in r). Use a value lower then ncell(r) to lower resolution for faster plotting.
 #'    \item \code{alpha}, numeric between 0 and 1, alpha value of the plotted data (transparency).
 #'    \item \code{maxColorValue}, numeric, the value  to use as colour maximum.
 #'    \item \code{interpolate}, logical, whether to smooth the plot (default is \code{TRUE}).
@@ -34,12 +34,19 @@
 #' @export
 gg_raster <- function(r, r_type = "RGB", gglayer = F, ...){
   
+  if(!any(grepl("ggplot", rownames(installed.packages())))){
+    out(paste0("Package 'ggplot2' is not installed, but needed for class='", class, "'. Please install 'ggplot2' using install.packages('ggplot2')."), type = 3)
+  }
+  
   if(inherits(r, "Raster")){
     r <- rast(r)
   }
+  if(!inherits(r, "SpatRaster")){
+    out("Argument r needs to be a raster of class 'SpatRaster', 'RasterLayer', 'RasterBrick' or 'RasterStack'.", type = 3)
+  }
   
   extras <- list(...)
-  if(!is.null(extras$maxpixels)) maxpixels <- extras$maxpixels else maxpixels <- 500000
+  if(!is.null(extras$maxpixels)) maxpixels <- extras$maxpixels else maxpixels <- ncell(r)  #500000
   if(!is.null(extras$alpha)) alpha <- extras$alpha else alpha <- 1
   if(!is.null(extras$maxColorValue)) maxColorValue <- extras$maxColorValue else maxColorValue <- NA
   if(!is.null(extras$interpolate)) interpolate <- extras$interpolate else interpolate <- TRUE
@@ -49,7 +56,7 @@ gg_raster <- function(r, r_type = "RGB", gglayer = F, ...){
   if(maxpixels < ncell(r)) r <- aggregate(r, fact = ceiling(ncell(r)/maxpixels))
   
   # transform into data.frame
-  df <- data.frame(as.data.frame(r, xy = T))
+  df <- data.frame(as.data.frame(r, xy = T, na.rm = F))
   colnames(df) <- c("x", "y", paste0("val", 1:(ncol(df)-2)))
   
   # factor if discrete to show categrocial legend
@@ -77,11 +84,14 @@ gg_raster <- function(r, r_type = "RGB", gglayer = F, ...){
     if(any(na.sel)) df <- df[!na.sel,]
   }
   # if NA gaps are there, use geom_tile, otherwise make it fast using geom_raster
+  .data <- ggplot2::.data
   if(any(na.sel)){
     # remark: is this ever called?
-    gg <- ggplot2::geom_tile(ggplot2::aes_string(x = "x", y = "y", fill = "fill"), data = df, alpha = alpha)
+    out(paste0("Using geom_tile() with maxpixels = ", maxpixels, "."))
+    gg <- ggplot2::geom_tile(ggplot2::aes(x = .data$x, y = .data$y, fill = .data$fill), data = df, alpha = alpha)
   } else{
-    gg <- ggplot2::geom_raster(ggplot2::aes_string(x = "x", y = "y", fill = "fill"), data = df, alpha = alpha, interpolate = interpolate)
+    out(paste0("Using geom_raster() with maxpixels = ", maxpixels, "."))
+    gg <- ggplot2::geom_raster(ggplot2::aes(x = .data$x, y = .data$y, fill = .data$fill), data = df, alpha = alpha, interpolate = interpolate)
   }
   
   if(isFALSE(gglayer)){

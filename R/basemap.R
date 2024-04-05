@@ -15,6 +15,7 @@
 #'    \item \code{browse}, logical, for \code{class = "png"} and interactive sessions only. Whether to open the png file in the system's default PNG viewer or not. Default is \code{TRUE}.
 #'    \item \code{col}, character vector of colours for transforming single-layer basemaps into RGB, if \code{class = "png"} or \code{class = "magick"}. Default is \code{topo.colors(25)}.
 #'    \item \code{dpi},  numeric vector of length 1 or 2 specifying the resolution of the image in DPI (dots per inch) for x and y (in that order) - it is recycled to length 2.
+#'    \item etc. (see \code{?gg_raster} for valid arguments when using \code{class = "gglayer"} or \code{class = "ggplot"}, including \code{maxpixels} to control resolution of ggplot outputs
 #' }
 #' @param verbose logical, if \code{TRUE}, messages and progress information are displayed on the console (default).
 #' 

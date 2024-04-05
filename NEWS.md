@@ -1,6 +1,19 @@
 ***
 
 ## basemaps 0.0.6
+Minor improvements
+
+**Changes:**
+
+* maps rendered using `basemap_ggplot` or `basemap_gglayer` or objects plotted using `gg_raster` are now displayed with all pixels by default (full resolution, `maxpixels` argument) instead of rendering in a lower resolution (previous default: `500000`).
+* switched from using `aes_string` to `aes` in `gg_raster` due to deprectation of the function in `ggplot2`.
+
+<br>
+
+
+***
+
+## basemaps 0.0.6
 Major improvements, adding new map services
 
 **Bugs:**

@@ -16,7 +16,7 @@ gg_raster(r, r_type = "RGB", gglayer = F, ...)
 
 \item{...}{additional arguments, including
 \itemize{
-   \item \code{maxpixels}, numeric, maximum number of pixels to be plotted (default: 500000)
+   \item \code{maxpixels}, numeric, maximum number of pixels to be plotted (default: number of pixels in r). Use a value lower then ncell(r) to lower resolution for faster plotting.
    \item \code{alpha}, numeric between 0 and 1, alpha value of the plotted data (transparency).
    \item \code{maxColorValue}, numeric, the value  to use as colour maximum.
    \item \code{interpolate}, logical, whether to smooth the plot (default is \code{TRUE}).
