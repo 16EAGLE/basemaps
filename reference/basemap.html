@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">basemaps</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.6</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.7</span>
       </span>
     </div>
 
@@ -268,6 +268,7 @@
 <dd><p>additional arguments, including</p><ul><li><p><code>browse</code>, logical, for <code>class = "png"</code> and interactive sessions only. Whether to open the png file in the system's default PNG viewer or not. Default is <code>TRUE</code>.</p></li>
 <li><p><code>col</code>, character vector of colours for transforming single-layer basemaps into RGB, if <code>class = "png"</code> or <code>class = "magick"</code>. Default is <code>topo.colors(25)</code>.</p></li>
 <li><p><code>dpi</code>,  numeric vector of length 1 or 2 specifying the resolution of the image in DPI (dots per inch) for x and y (in that order) - it is recycled to length 2.</p></li>
+<li><p>etc. (see ?gg_raster for valid arguments when using <code>class = "gglayer"</code> or <code>class = "ggplot"</code>, incuding maxpixels to control resolution of ggplot outputs</p></li>
 </ul></dd>
 
 

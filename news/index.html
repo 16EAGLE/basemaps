@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">basemaps</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.6</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.7</span>
       </span>
     </div>
 
@@ -91,8 +91,16 @@
     </div>
 
     <div class="section level2">
-<h2 class="page-header" data-toc-text="0.0.6" id="basemaps-006">basemaps 0.0.6<a class="anchor" aria-label="anchor" href="#basemaps-006"></a></h2>
-<p>Major improvements</p>
+<h2 class="page-header" data-toc-text="0.0.6" id="basemaps-006">basemaps 0.0.6<small>2024-03-03</small><a class="anchor" aria-label="anchor" href="#basemaps-006"></a></h2>
+<p>Minor improvements</p>
+<p><strong>Changes:</strong></p>
+<ul><li>maps rendered using <code>basemap_ggplot</code> or <code>basemap_gglayer</code> or objects plotted using <code>gg_raster</code> are now displayed with all pixels by default (full resolution, <code>maxpixels</code> argument) instead of rendering in a lower resolution (previous default: <code>500000</code>).</li>
+<li>switched from using <code>aes_string</code> to <code>aes</code> in <code>gg_raster</code> due to deprectation of the function in <code>ggplot2</code>.</li>
+</ul><p><br></p>
+<hr></div>
+    <div class="section level2">
+<h2 class="page-header" data-toc-text="0.0.6" id="basemaps-006-1">basemaps 0.0.6<small>2024-03-03</small><a class="anchor" aria-label="anchor" href="#basemaps-006-1"></a></h2>
+<p>Major improvements, adding new map services</p>
 <p><strong>Bugs:</strong></p>
 <ul><li>Fixing an issue with maps appearing blurred/of low resolution when using <code>basemap_ggplot</code> or <code>basemap_gglayer</code>. Maps should now show up with consistent resolutions across plot/viewing methods.</li>
 <li>Fixing a bug from upstream causing maps to not get mosaiced correctly</li>
@@ -100,7 +108,8 @@
 </ul><p><strong>Changes:</strong></p>
 <ul><li>
 <code>gg_raster</code> now accepts <code>interpolate</code>, a logical argument to control smoothing of the plotted raster.</li>
-<li>added Stadia Maps support for <code>osm_stamen</code> maps: Due to changes by Stamen, you now need a map token from stadiamaps.com (free registration) for Stamen maps.</li>
+<li>added Stadia Maps support for <code>osm_stamen</code> maps: Due to changes by Stamen, you now need a map token from <a href="https://stadiamaps.com" class="external-link uri">https://stadiamaps.com</a> (free registration) for Stamen maps.</li>
+<li>added Stadia Maps as new map service <code>osm_stadia</code> (requires map token from <a href="https://stadiamaps.com" class="external-link uri">https://stadiamaps.com</a>)</li>
 </ul><p><br></p>
 <hr></div>
     <div class="section level2">
