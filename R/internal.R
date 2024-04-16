@@ -127,6 +127,7 @@ out <- function(input, type = 1, ll = NULL, msg = FALSE, sign = "", verbose = ge
   if(!is.null(extras$no_transform)) no_transform <- extras$no_transform else no_transform <- FALSE
   if(!is.null(extras$no_crop)) no_crop <- extras$no_crop else no_crop <- FALSE
   if(!is.null(extras$custom_crs)) custom_crs <- extras$custom_crs else custom_crs <- NA
+  if(!is.null(extras$debug_client)) debug_client <- extras$debug_client else debug_client <- FALSE
   
   # Allow the user to specify a custom tile zoom level, to be provided to bbox_to_tile_grid()
   if(!is.null(extras$custom_zoom)) custom_zoom <- extras$custom_zoom else custom_zoom <- NULL
@@ -178,6 +179,8 @@ out <- function(input, type = 1, ll = NULL, msg = FALSE, sign = "", verbose = ge
             if(map_service == "osm_stamen") paste0("?api_key=", map_token), # token or not
             if(map_service == "osm_stadia") paste0("?api_key=", map_token) # token or not
           )
+          
+          if(isTRUE(debug_client)) out(paste0("[DEBUG CLIENT] ", url, " ---> ", file), msg = T)
           
           if(isTRUE(http_error(url))){
             resp <- GET(url)

@@ -4,7 +4,7 @@
 \alias{get_maptypes}
 \title{Get all supported map types}
 \source{
-\code{"osm"}: Open Street Map contributors (\url{https://www.openstreetmap.org/copyright}), Open Topo Map (\url{https://opentopomap.org/}), Martin Tesar (\url{http://mtbmap.cz/})
+\code{"osm"}: Open Street Map contributors (\url{https://www.openstreetmap.org/copyright}), Open Topo Map (\url{https://opentopomap.org/})
 
 \code{"osm_stamen"}: Stamen (\url{https://maps.stamen.com/}) via Stadia Maps (\url{https://stadiamaps.com/}), Open Street Map contributors (\url{https://www.openstreetmap.org/copyright})
 
