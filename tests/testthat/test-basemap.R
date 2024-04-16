@@ -17,12 +17,23 @@ test_that("basemap()", {
   
   # test hiddena arguments
   expect_is(basemap(ext, no_transform = T, no_crop = T, verbose = F, class = "terra"), "SpatRaster")
+  expect_is(basemap(ext, no_transform = T, no_crop = T, verbose = F, class = "terra", col = topo.colors(22)), "SpatRaster")
+  expect_is(basemap(ext, no_transform = T, no_crop = T, verbose = F, class = "png", dpi = 100, browse = F), "character")
   
   # test warning with false map_dir
   expect_warning(basemap_plot(ext, map_dir = "/this/is/nonsense/", verbose = F))
   
   # test ext error
   expect_error(basemap())
+  
+  # test no map_token error mapbox
+  expect_error(basemap(ext, map_service = "mapbox", map_type = "streets", verbose = F))
+  expect_error(basemap(ext, map_service = "osm_thunderforest", map_type = "cycle", verbose = F))
+  expect_error(basemap(ext, map_service = "osm_stamen", map_type = "toner", verbose = F))
+  expect_error(basemap(ext, map_service = "osm_stadia", map_type = "alidade_smooth", verbose = F))
+  
+  # test false map_token error mapbox
+  expect_error(basemap(ext, map_service = "mapbox", map_type = "streets", map_token = "this_is_nonsense", verbose = F))
   
   # test ext warning on different CRS
   expect_warning(basemap(ext_eur, map_dir = map_dir, verbose = T))
