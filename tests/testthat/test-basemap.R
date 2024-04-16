@@ -26,6 +26,9 @@ test_that("basemap()", {
   # test ext error
   expect_error(basemap())
   
+  # test debug
+  expect_message(basemap(ext, debug_client = T, class = "png"))
+  
   # test no map_token error mapbox
   expect_error(basemap(ext, map_service = "mapbox", map_type = "streets", verbose = F))
   expect_error(basemap(ext, map_service = "osm_thunderforest", map_type = "cycle", verbose = F))
@@ -126,23 +129,30 @@ if(isTRUE(test$maps)){
   test_services <- names(get_maptypes())
   if(isFALSE(run_mapbox)) test_services <- test_services[test_services != "mapbox"]
   if(isFALSE(run_osmtf)) test_services <- test_services[test_services != "osm_thunderforest"]
-  if(isFALSE(run_osmstamen)) test_services <- test_services[test_services != "osm_stamen"]
+  if(isFALSE(run_stamen)) test_services <- test_services[test_services != "osm_stamen"]
+  if(isFALSE(run_stadia)) test_services <- test_services[test_services != "osm_stadia"]
   if(isFALSE(run_esri)) test_services <- test_services[test_services != "esri"]
   
-  catch <- lapply(test_services, function(service) lapply(get_maptypes(service), function(x, s = service){
-    map_token <- if(s == "mapbox"){
-      mapbox_token
-    } else if(s == "osm_thunderforest"){
-      osmtf_token
-    } else if(s == "osm_stamen"){
-      osmstamen_token
-    } else {
-      NULL
+  # s <- service <- test_services[1]
+  # x <- get_maptypes(service)[3]
+  # 
+  for(s in test_services){
+    for(x in get_maptypes(s)){
+      map_token <- if(s == "mapbox"){
+        mapbox_token
+      } else if(s == "osm_thunderforest"){
+        osmtf_token
+      } else if(s == "osm_stamen"){
+        osmstamen_token
+      } else if(s == "osm_stadia"){
+        osmstadia_token
+      } else {
+        NULL
+      }
+      
+      test_that(paste0("basemap (", s, ": ", x, ")"), {
+        expect_is(basemap_png(ext, map_service = s, map_type = x, map_token = map_token, verbose = F, browse = F), "character")
+      })
     }
-    
-    test_that(paste0("basemap (", s, ": ", x, ")"), {
-      expect_is(basemap(ext, map_service = s, map_type = x, map_token = map_token, verbose = F), "SpatRaster")
-    })
-    return(NULL)
-  }))
+  }
 }
