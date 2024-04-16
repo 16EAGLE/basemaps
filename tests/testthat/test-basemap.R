@@ -2,6 +2,9 @@ skip_on_cran()
 context("basemap")
 
 test_that("basemap()", {
+  # test debug
+  expect_message(basemap(ext, debug_client = T, verbose = T, class = "png"))
+  
   # test nominal
   map <- expect_output(expect_is(basemap(ext, map_dir = map_dir, verbose = T, class = "terra"), "SpatRaster"))
   expect_equal(dim(map), c(869, 986, 3))
@@ -25,9 +28,6 @@ test_that("basemap()", {
   
   # test ext error
   expect_error(basemap())
-  
-  # test debug
-  expect_message(basemap(ext, debug_client = T, class = "png"))
   
   # test no map_token error mapbox
   expect_error(basemap(ext, map_service = "mapbox", map_type = "streets", verbose = F))
