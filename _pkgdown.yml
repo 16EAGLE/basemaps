@@ -1,5 +1,8 @@
 url: https://jakob.schwalb-willmann.de/basemaps
 
+template:
+  bootstrap: 5
+
 development:
   mode: release
 
