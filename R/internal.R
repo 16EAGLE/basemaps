@@ -173,8 +173,9 @@ out <- function(input, type = 1, ll = NULL, msg = FALSE, sign = "", verbose = ge
         url <- paste0(
           getOption("basemaps.map_api")[[map_service]][[map_type]], tg$zoom, "/", # base URL
           if(map_service == "esri") paste0(x[2], "/", x[1]) else paste0(x[1], "/", x[2]), # coordinate order
-          if(all(map_service == "osm_stamen", map_type == "watercolor")) ".jpg" else # add jpg for watercolor
-            if(any(map_service != "mapbox", map_type != "watercolor", all(map_service == "mapbox", map_type == "terrain"))) ".png", # png file suffix or not
+          if(any(map_service != "mapbox", all(map_service == "mapbox", map_type == "terrain"))){
+            if(all(map_service == "osm_stamen", map_type == "watercolor")) ".jpg" else ".png" # jpg or png
+          }, # suffix or not
           if(map_service == "mapbox") paste0("?access_token=", map_token), # token or not
           if(map_service == "osm_thunderforest") paste0("?apikey=", map_token), # token or not
           if(map_service == "osm_stamen") paste0("?api_key=", map_token), # token or not
