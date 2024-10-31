@@ -174,12 +174,18 @@ out <- function(input, type = 1, ll = NULL, msg = FALSE, sign = "", verbose = ge
           getOption("basemaps.map_api")[[map_service]][[map_type]], tg$zoom, "/", # base URL
           if(map_service == "esri") paste0(x[2], "/", x[1]) else paste0(x[1], "/", x[2]), # coordinate order
           if(any(map_service != "mapbox", all(map_service == "mapbox", map_type == "terrain"))){
-            if(all(map_service == "osm_stamen", map_type == "watercolor")) ".jpg" else ".png" # jpg or png
+            if(any(
+              all(map_service == "osm_stamen", map_type == "watercolor"), 
+              all(map_service == "maptiler", map_type == "satellite"))
+            ) ".jpg" else if(
+              all(map_service == "maptiler", map_type == "aquarelle")
+            ) ".webp" else ".png" # jpg or png
           }, # suffix or not
           if(map_service == "mapbox") paste0("?access_token=", map_token), # token or not
           if(map_service == "osm_thunderforest") paste0("?apikey=", map_token), # token or not
           if(map_service == "osm_stamen") paste0("?api_key=", map_token), # token or not
-          if(map_service == "osm_stadia") paste0("?api_key=", map_token) # token or not
+          if(map_service == "osm_stadia") paste0("?api_key=", map_token), # token or not
+          if(map_service == "maptiler") paste0("?key=", map_token) # token or not
         )
           
           if(isTRUE(debug_client)) out(paste0("[DEBUG CLIENT] ", url, " ---> ", file), msg = T)
@@ -187,8 +193,8 @@ out <- function(input, type = 1, ll = NULL, msg = FALSE, sign = "", verbose = ge
           if(isTRUE(http_error(url))){
             resp <- GET(url)
             status <- resp$status_code
-            if(any(status == 401 & map_service == "mapbox", status == 401 & map_service == "osm_stamen", status == 401 & map_service == "osm_stadia")) out("Authentification failed. Is your map_token correct?", type = 3)
-            if(status == 403 & map_service == "osm_thunderforest") out("Authentification failed. Is your map_token correct?", type = 3)
+            if(all(status == 401, any(map_service == "mapbox", map_service == "osm_stamen", map_service == "osm_stadia"))) out("Authentification failed. Is your map_token correct?", type = 3)
+            if(all(status == 403, any(map_service == "osm_thunderforest", map_service == "maptiler"))) out("Authentification failed. Is your map_token correct?", type = 3)
           }
           if(!file.exists(file)){
             tryCatch(curl_download(url = url, destfile = file), error = function(e) out(paste0("Tile download failed: ", e$message), type = 3))
@@ -411,6 +417,8 @@ out <- function(input, type = 1, ll = NULL, msg = FALSE, sign = "", verbose = ge
         "yes, register: https://www.thunderforest.com/"
       } else if(any(grepl("osm_stamen", s), grepl("osm_stadia", s))){
         "yes, register: https://stadiamaps.com/"
+      } else if(grepl("maptiler", s)){
+        "yes, register: https://www.maptiler.com"
       } else "no"
       paste0("| `", s, "` | `", x, "` | ", token,  " |")
     })), collapse = "\n")
@@ -537,6 +545,23 @@ out <- function(input, type = 1, ll = NULL, msg = FALSE, sign = "", verbose = ge
       world_transportation = "https://services.arcgisonline.com/arcgis/rest/services/Reference/World_Transportation/MapServer/tile/",
       delorme_world_base_map = "https://services.arcgisonline.com/arcgis/rest/services/Specialty/DeLorme_World_Base_Map/MapServer/tile/",
       world_navigation_charts = "https://services.arcgisonline.com/arcgis/rest/services/Specialty/World_Navigation_Charts/MapServer/tile/"
+    ),
+    maptiler = lapply(c(
+      aquarelle = "aquarelle", #webp
+      backdrop = "backdrop",
+      basic = "basic-v2",
+      bright = "bright-v2",
+      dataviz = "dataviz",
+      landscape = "landscape",
+      ocean = "ocean",
+      outdoor = "outdoor-v2",
+      satellite = "satellite",
+      streets = "streets-v2",
+      toner = "toner-v2",
+      topo = "topo-v2",
+      winter = "winter-v2"
+      ),
+      function(x) paste0("https://api.maptiler.com/maps/", x, "/")
     )
   ))
   if(!dir.exists(getOption("basemaps.defaults")$map_dir)) dir.create(getOption("basemaps.defaults")$map_dir)

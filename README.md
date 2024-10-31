@@ -8,7 +8,7 @@
 [![Coverage](https://codecov.io/gh/16eagle/basemaps/branch/master/graph/badge.svg)](https://app.codecov.io/gh/16EAGLE/basemaps)
 [![Package dependencies](https://tinyverse.netlify.com/badge/basemaps)](https://CRAN.R-project.org/package=basemaps)
 
-`basemaps` is a lightweight `R` package to download and cache spatial basemaps from open sources such as *OpenStreetMap*, *Stamen*, *Stadia*, *Thunderforest*, *Carto*, *Mapbox*, *Esri* and others. Retrieved basemaps are translated into and returned as classes of choice, such as `terra`, `stars`, `raster`, `ggplot`, `mapview`, `magick`, or as files, such as `png` or `geotif`. The package aims to ease the use of basemaps in different contexts by providing a function interface as minimalist as possible.
+`basemaps` is a lightweight `R` package to download and cache spatial basemaps from open sources such as *OpenStreetMap*, *Stamen*, *Stadia*, *Thunderforest*, *Carto*, *Mapbox*, *Esri*, *Maptiler* and others. Retrieved basemaps are translated into and returned as classes of choice, such as `terra`, `stars`, `raster`, `ggplot`, `mapview`, `magick`, or as files, such as `png` or `geotif`. The package aims to ease the use of basemaps in different contexts by providing a function interface as minimalist as possible.
 
 
 ## Installation
@@ -96,103 +96,118 @@ basemap_png(ext)
 `basemaps` supports a variety of map services and types (which can be printed using `get_maptypes()`). A selection of available map types is shown below. For a complete table of available map types, see [supported services and maps](#supported-services-and-maps).
 
 ``` r
-basemap_magick(ext, map_service = "osm", map_type = "streets")
+basemap(ext, map_service = "osm", map_type = "streets")
 #> Loading basemap 'streets' from map service 'osm'...
 ```
 
 <img src="https://i.imgur.com/zT5m4Ne.png" width="623" />
 
 ``` r
-basemap_magick(ext, map_service = "mapbox", map_type = "satellite")
+basemap(ext, map_service = "mapbox", map_type = "satellite")
 #> Loading basemap 'satellite' from map service 'mapbox'...
 ```
 
 <img src="https://i.imgur.com/rM4VtoO.jpg" width="623" />
 
 ``` r
-basemap_magick(ext, map_service = "mapbox", map_type = "hybrid")
+basemap(ext, map_service = "mapbox", map_type = "hybrid")
 #> Loading basemap 'hybrid' from map service 'mapbox'...
 ```
 
 <img src="https://i.imgur.com/F7fU32T.png" width="623" />
 
 ``` r
-basemap_magick(ext, map_service = "mapbox", map_type = "streets")
+basemap(ext, map_service = "mapbox", map_type = "streets")
 #> Loading basemap 'streets' from map service 'mapbox'...
 ```
 
 <img src="https://i.imgur.com/a0FUoau.png" width="623" />
 
 ``` r
-basemap_magick(ext, map_service = "mapbox", map_type = "terrain")
+basemap(ext, map_service = "mapbox", map_type = "terrain")
 #> Loading basemap 'terrain' from map service 'mapbox'...
 ```
 
 <img src="https://i.imgur.com/HfaZvBk.png" width="623" />
 
 ``` r
-basemap_magick(ext, map_service = "osm_stamen", map_type = "terrain_bg")
+basemap(ext, map_service = "osm_stamen", map_type = "terrain_bg")
 #> Loading basemap 'terrain_bg' from map service 'osm_stamen'...
 ```
 
 <img src="https://i.imgur.com/WKwOIlW.png" width="623" />
 
 ``` r
-basemap_magick(ext, map_service = "osm_stamen", map_type = "toner")
+basemap(ext, map_service = "osm_stamen", map_type = "toner")
 #> Loading basemap 'toner' from map service 'osm_stamen'...
 ```
 
 <img src="https://i.imgur.com/b7me3PP.png" width="623" />
 
 ``` r
-basemap_magick(ext, map_service = "osm_stamen", map_type = "watercolor")
+basemap(ext, map_service = "osm_stamen", map_type = "watercolor")
 #> Loading basemap 'watercolor' from map service 'osm_stamen'...
 ```
 
 <img src="https://i.imgur.com/U9tCTkQ.png" width="623" />
 
 ``` r
-basemap_magick(ext, map_service = "osm_thunderforest", map_type = "transport")
+basemap(ext, map_service = "osm_thunderforest", map_type = "transport")
 #> Loading basemap 'transport' from map service 'osm_thunderforest'...
 ```
 
 <img src="https://i.imgur.com/urteXlA.png" width="623" />
 
 ``` r
-basemap_magick(ext, map_service = "osm_thunderforest", map_type = "landscape")
+basemap(ext, map_service = "osm_thunderforest", map_type = "landscape")
 #> Loading basemap 'landscape' from map service 'osm_thunderforest'...
 ```
 
 <img src="https://i.imgur.com/V6oB4jP.png" width="623" />
 
 ``` r
-basemap_magick(ext, map_service = "osm_thunderforest", map_type = "outdoors")
+basemap(ext, map_service = "osm_thunderforest", map_type = "outdoors")
 #> Loading basemap 'outdoors' from map service 'osm_thunderforest'...
 ```
 
 <img src="https://i.imgur.com/e6wWgLQ.png" width="623" />
 
 ``` r
-basemap_magick(ext, map_service = "osm_thunderforest", map_type = "atlas")
+basemap(ext, map_service = "osm_thunderforest", map_type = "atlas")
 #> Loading basemap 'atlas' from map service 'osm_thunderforest'...
 ```
 
 <img src="https://i.imgur.com/xXNSYOI.png" width="623" />
 
 ``` r
-basemap_magick(ext, map_service = "carto", map_type = "light")
+basemap(ext, map_service = "carto", map_type = "light")
 #> Loading basemap 'light' from map service 'carto'...
 ```
 
 <img src="https://i.imgur.com/OBMrcWi.png" width="623" />
 
 ``` r
-basemap_magick(ext, map_service = "carto", map_type = "dark")
+basemap(ext, map_service = "carto", map_type = "dark")
 #> Loading basemap 'dark' from map service 'carto'...
 ```
 
 <img src="https://i.imgur.com/c0hlnYP.png" width="623" />
 
+
+``` r
+basemap(ext, map_service = "maptiler", map_type = "satellite")
+#> Loading basemap 'satellite' from map service 'maptiler'...
+```
+
+<img src="https://i.imgur.com/8zOeGCn.jpeg" width="623" />
+
+
+``` r
+basemap(ext, map_service = "maptiler", map_type = "backdrop")
+#> Loading basemap 'backdrop' from map service 'maptiler'...
+```
+
+<img src="https://i.imgur.com/EbfkM8w.png" width="623" />
 
 ## Supported services and maps
 
@@ -265,6 +280,19 @@ This table lists all currently implemented map services and map types and indica
 | `esri` | `world_transportation` | no |
 | `esri` | `delorme_world_base_map` | no |
 | `esri` | `world_navigation_charts` | no |
+| `maptiler` | `aquarelle` | yes, register: https://www.maptiler.com |
+| `maptiler` | `backdrop` | yes, register: https://www.maptiler.com |
+| `maptiler` | `basic` | yes, register: https://www.maptiler.com |
+| `maptiler` | `bright` | yes, register: https://www.maptiler.com |
+| `maptiler` | `dataviz` | yes, register: https://www.maptiler.com |
+| `maptiler` | `landscape` | yes, register: https://www.maptiler.com |
+| `maptiler` | `ocean` | yes, register: https://www.maptiler.com |
+| `maptiler` | `outdoor` | yes, register: https://www.maptiler.com |
+| `maptiler` | `satellite` | yes, register: https://www.maptiler.com |
+| `maptiler` | `streets` | yes, register: https://www.maptiler.com |
+| `maptiler` | `toner` | yes, register: https://www.maptiler.com |
+| `maptiler` | `topo` | yes, register: https://www.maptiler.com |
+| `maptiler` | `winter` | yes, register: https://www.maptiler.com |
 
 ## Available functions
 

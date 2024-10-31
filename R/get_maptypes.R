@@ -2,7 +2,7 @@
 #'
 #' This function returns every supported map type that can be used as input to the \code{map_type} argument of \code{\link{set_defaults}}, \code{\link{basemap}} or associated functions.
 #'
-#' @param map_service character, optional, either \code{"osm"}, \code{"osm_stamen"}, \code{"osm_stadia"}, \code{"osm_thunderforest"},  \code{"carto"}, \code{"mapbox"} or \code{"esri"}. Otherwise, a list of map types for both services is returned.
+#' @param map_service character, optional, either \code{"osm"}, \code{"osm_stamen"}, \code{"osm_stadia"}, \code{"osm_thunderforest"},  \code{"carto"}, \code{"mapbox"}, \code{"esri"} or \code{"maptiler"}. Otherwise, a list of map types for both services is returned.
 #' @return A character vector of supported map types
 #' 
 #' 
@@ -21,6 +21,8 @@
 #' \code{"mapbox"}: Mapbox (\url{https://www.mapbox.com})
 #' 
 #' \code{"esri"}: Esri (\url{https://www.esri.com/en-us/home})
+#' 
+#' \code{"maptiler"}: Esri (\url{https://www.maptiler.com})
 #'
 #' @examples 
 #' # for all services

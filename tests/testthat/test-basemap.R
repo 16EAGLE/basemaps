@@ -29,11 +29,12 @@ test_that("basemap()", {
   # test ext error
   expect_error(basemap())
   
-  # test no map_token error mapbox
+  # test no map_token error
   expect_error(basemap(ext, map_service = "mapbox", map_type = "streets", verbose = F))
   expect_error(basemap(ext, map_service = "osm_thunderforest", map_type = "cycle", verbose = F))
   expect_error(basemap(ext, map_service = "osm_stamen", map_type = "toner", verbose = F))
   expect_error(basemap(ext, map_service = "osm_stadia", map_type = "alidade_smooth", verbose = F))
+  expect_error(basemap(ext, map_service = "maptiler", map_type = "basic", verbose = F))
   
   # test false map_token error mapbox
   expect_error(basemap(ext, map_service = "mapbox", map_type = "streets", map_token = "this_is_nonsense", verbose = F))
@@ -131,6 +132,7 @@ if(isTRUE(test$maps)){
   if(isFALSE(run_osmtf)) test_services <- test_services[test_services != "osm_thunderforest"]
   if(isFALSE(run_stamen)) test_services <- test_services[test_services != "osm_stamen"]
   if(isFALSE(run_stadia)) test_services <- test_services[test_services != "osm_stadia"]
+  if(isFALSE(run_maptiler)) test_services <- test_services[test_services != "maptiler"]
   if(isFALSE(run_esri)) test_services <- test_services[test_services != "esri"]
   
   # s <- service <- test_services[1]
@@ -146,6 +148,8 @@ if(isTRUE(test$maps)){
         osmstamen_token
       } else if(s == "osm_stadia"){
         osmstadia_token
+      } else if(s == "maptiler"){
+        maptiler_token
       } else {
         NULL
       }

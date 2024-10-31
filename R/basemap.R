@@ -5,7 +5,7 @@
 #' @param ext extent to be covered by the basemap as any spatial class supported by \code{st_bbox}.
 #' @param map_service character, a map service, either \code{"osm"}, \code{"carto"} or \code{"mapbox"}. Default is \code{"osm"}.
 #' @param map_type character, a map type, e.g. \code{"streets"}. For a full list of available map types, see \code{\link{get_maptypes}}.
-#' @param map_token character, authentication token for services that require registration, which are \code{"osm_stamen"}, \code{"osm_stadia"}, \code{"osm_thunderforest"} and \code{"mapbox"}. Register at \url{https://stadiamaps.com/} (for stamen and stadia), \url{https://www.thunderforest.com/} and/or \url{https://www.mapbox.com/} to get tokens. Ignored for all other map services.
+#' @param map_token character, authentication token for services that require registration, which are \code{"osm_stamen"}, \code{"osm_stadia"}, \code{"osm_thunderforest"}, \code{"maptiler"} and \code{"mapbox"}. Register at \url{https://stadiamaps.com/} (for stamen and stadia), \url{https://www.thunderforest.com/}, \url{https://www.maptiler.com/} and/or \url{https://www.mapbox.com/} to get tokens. Ignored for all other map services.
 #' @param map_res numeric, resolution of base map in range from 0 to 1.
 #' @param map_dir character, cache directory where downloaded basemap tiles will be stored. By default, a temporary directory is used, which is destroyed when the session is terminated.
 #' @param class character, output class, either either \code{plot} (default), \code{magick}, \code{png}, \code{geotif} or if suggested packages are installed, \code{terra}, \code{raster}, \code{stars}, \code{ggplot}, \code{gglayer} or \code{mapview}.
@@ -39,8 +39,8 @@
 #' 
 #' # set defaults for the basemap
 #' set_defaults(map_service = "osm", map_type = "terrain_bg")
-#' # for "osm_stamen", "osm_stadia", osm "thunderforest" and "mapbox" maps, you need a API token. 
-#' # Register for free at stadiamaps.com, thunderforest.com and mapbox.com to get tokens.
+#' # for "osm_stamen", "osm_stadia", osm "thunderforest", "maptiler" and "mapbox" maps, you need a API token. 
+#' # Register for free at stadiamaps.com, thunderforest.com, maptiler.com and mapbox.com to get tokens.
 #' 
 #' \dontrun{
 #' # load and return basemap map as raster (default)
@@ -108,6 +108,7 @@ basemap <- function(ext = NULL, map_service = NULL, map_type = NULL, map_res = N
   if(map_service == "osm_thunderforest" & is.na(map_token)) out("You need to define 'map_token' to use map_service 'osm_thunderforest'. Register at https://thunderforest.com to obtain a token.", type = 3)
   if(map_service == "osm_stamen" & is.na(map_token)) out("You need to define 'map_token' to use map_service 'osm_stamen'. Register at https://stadiamaps.com to obtain a token.", type = 3)
   if(map_service == "osm_stadia" & is.na(map_token)) out("You need to define 'map_token' to use map_service 'osm_stadia'. Register at https://stadiamaps.com to obtain a token.", type = 3)
+  if(map_service == "maptiler" & is.na(map_token)) out("You need to define 'map_token' to use map_service 'maptiler'. Register at https://maptiler.com to obtain a token.", type = 3)
 
   extras <- list(...)
   if(!is.null(extras$browse)) browse <- extras$browse else browse <- TRUE

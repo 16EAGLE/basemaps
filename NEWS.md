@@ -1,7 +1,11 @@
 ***
 
 ## basemaps 0.0.8
-Minor improvements
+New map service *Maptiler*, minor improvements
+
+**Features:**
+
+* added Maptiler support (`map_service=maptiler`) for many new map types from https://maptiler.com (free token required), including `aquarelle`, `backdrop`, `basic`, `bright`, `dataviz`, `landscape`, `ocean`, `outdoor`, `satellite`, `streets`, `toner`, `topo` and `winter` (see `get_maptypes`)
 
 **Bugs:**
 
