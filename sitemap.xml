@@ -1,42 +1,16 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url>
-    <loc>https://jakob.schwalb-willmann.de/basemaps/404.html</loc>
-  </url>
-  <url>
-    <loc>https://jakob.schwalb-willmann.de/basemaps/LICENSE-text.html</loc>
-  </url>
-  <url>
-    <loc>https://jakob.schwalb-willmann.de/basemaps/authors.html</loc>
-  </url>
-  <url>
-    <loc>https://jakob.schwalb-willmann.de/basemaps/index.html</loc>
-  </url>
-  <url>
-    <loc>https://jakob.schwalb-willmann.de/basemaps/news/index.html</loc>
-  </url>
-  <url>
-    <loc>https://jakob.schwalb-willmann.de/basemaps/reference/basemap.html</loc>
-  </url>
-  <url>
-    <loc>https://jakob.schwalb-willmann.de/basemaps/reference/cache.html</loc>
-  </url>
-  <url>
-    <loc>https://jakob.schwalb-willmann.de/basemaps/reference/data.html</loc>
-  </url>
-  <url>
-    <loc>https://jakob.schwalb-willmann.de/basemaps/reference/defaults.html</loc>
-  </url>
-  <url>
-    <loc>https://jakob.schwalb-willmann.de/basemaps/reference/draw_ext.html</loc>
-  </url>
-  <url>
-    <loc>https://jakob.schwalb-willmann.de/basemaps/reference/get_maptypes.html</loc>
-  </url>
-  <url>
-    <loc>https://jakob.schwalb-willmann.de/basemaps/reference/index.html</loc>
-  </url>
-  <url>
-    <loc>https://jakob.schwalb-willmann.de/basemaps/reference/plot.html</loc>
-  </url>
+<urlset xmlns = 'http://www.sitemaps.org/schemas/sitemap/0.9'>
+<url><loc>https://jakob.schwalb-willmann.de/basemaps/404.html</loc></url>
+<url><loc>https://jakob.schwalb-willmann.de/basemaps/LICENSE-text.html</loc></url>
+<url><loc>https://jakob.schwalb-willmann.de/basemaps/authors.html</loc></url>
+<url><loc>https://jakob.schwalb-willmann.de/basemaps/index.html</loc></url>
+<url><loc>https://jakob.schwalb-willmann.de/basemaps/news/index.html</loc></url>
+<url><loc>https://jakob.schwalb-willmann.de/basemaps/reference/basemap.html</loc></url>
+<url><loc>https://jakob.schwalb-willmann.de/basemaps/reference/cache.html</loc></url>
+<url><loc>https://jakob.schwalb-willmann.de/basemaps/reference/data.html</loc></url>
+<url><loc>https://jakob.schwalb-willmann.de/basemaps/reference/defaults.html</loc></url>
+<url><loc>https://jakob.schwalb-willmann.de/basemaps/reference/draw_ext.html</loc></url>
+<url><loc>https://jakob.schwalb-willmann.de/basemaps/reference/get_maptypes.html</loc></url>
+<url><loc>https://jakob.schwalb-willmann.de/basemaps/reference/index.html</loc></url>
+<url><loc>https://jakob.schwalb-willmann.de/basemaps/reference/plot.html</loc></url>
 </urlset>
+
