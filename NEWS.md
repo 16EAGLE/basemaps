@@ -1,5 +1,18 @@
 ***
 
+## basemaps 0.0.8
+Minor improvements
+
+**Bugs:**
+
+* Resolves 404 HTTP error when using `map_service="osm_stamen"`, `map_type="watercolor"` (#31, #30, thanks to @pushing-boulders for the PR)
+* fixes an issue remarked in #29 that produces to much verbosity
+
+<br>
+
+
+***
+
 ## basemaps 0.0.7
 Minor improvements
 

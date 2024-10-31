@@ -87,10 +87,10 @@ gg_raster <- function(r, r_type = "RGB", gglayer = F, ...){
   .data <- ggplot2::.data
   if(any(na.sel)){
     # remark: is this ever called?
-    out(paste0("Using geom_tile() with maxpixels = ", maxpixels, "."))
+    #out(paste0("Using geom_tile() with maxpixels = ", maxpixels, "."))
     gg <- ggplot2::geom_tile(ggplot2::aes(x = .data$x, y = .data$y, fill = .data$fill), data = df, alpha = alpha)
   } else{
-    out(paste0("Using geom_raster() with maxpixels = ", maxpixels, "."))
+    #out(paste0("Using geom_raster() with maxpixels = ", maxpixels, "."))
     gg <- ggplot2::geom_raster(ggplot2::aes(x = .data$x, y = .data$y, fill = .data$fill), data = df, alpha = alpha, interpolate = interpolate)
   }
   
