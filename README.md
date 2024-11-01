@@ -77,7 +77,7 @@ basemap_mapview(ext)
 basemap_raster(ext)
 
 # or terra:
-basemap_raster(ext)
+basemap_terra(ext)
 
 # or stars:
 basemap_stars(ext)
@@ -211,7 +211,7 @@ basemap(ext, map_service = "maptiler", map_type = "backdrop")
 
 ## Supported services and maps
 
-This table lists all currently implemented map services and map types and indicates whether they can be used without a map token (requiring registration at the respective service) or not.
+This table lists all currently implemented map services and map types and indicates whether they can be used without a map token (requiring registration at the respective service) or not. As of the date of implementation, all map services requiring registration offer their maps for free (please refer to the respective services' terms of use for details).
 
 | `map_service` | `map_type` | `map_token` required? |
  | ------ |  ------ | ------ |
@@ -313,4 +313,4 @@ The underpinning code of `basemaps` was originally developed for [`moveVis`](htt
 
 ***
 
-<sup>&copy; Mapbox &copy; Thunderforest &copy; Stamen &copy; Carto &copy; Esri. Many thanks to the creators of [reprex v2.0.2](https://reprex.tidyverse.org) which this README was compiled with.</sup>
+Some maps shown in this file may be protected: <sup>&copy; Mapbox &copy; Thunderforest &copy; Stamen &copy; Carto &copy; Esri &copy; Maptiler. Please refer to teir Terms of Use. Many thanks to the creators of [reprex v2.0.2](https://reprex.tidyverse.org) which this README was partly compiled with.</sup>
