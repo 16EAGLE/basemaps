@@ -313,4 +313,4 @@ The underpinning code of `basemaps` was originally developed for [`moveVis`](htt
 
 ***
 
-Some maps shown in this file may be protected: <sup>&copy; Mapbox &copy; Thunderforest &copy; Stamen &copy; Carto &copy; Esri &copy; Maptiler. Please refer to teir Terms of Use. Many thanks to the creators of [reprex v2.0.2](https://reprex.tidyverse.org) which this README was partly compiled with.</sup>
+<sup>Some content of this file may be protected (brand names, map imagery etc.), &copy; Mapbox &copy; Thunderforest &copy; Stamen &copy; Carto &copy; Esri &copy; Maptiler. Many thanks to the creators of [reprex v2.0.2](https://reprex.tidyverse.org) which this README was partly compiled with.</sup>
