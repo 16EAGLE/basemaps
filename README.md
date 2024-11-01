@@ -8,6 +8,8 @@
 [![Coverage](https://codecov.io/gh/16eagle/basemaps/branch/master/graph/badge.svg)](https://app.codecov.io/gh/16EAGLE/basemaps)
 [![Package dependencies](https://tinyverse.netlify.app/badge/basemaps)](https://CRAN.R-project.org/package=basemaps)
 
+<img src="https://i.imgur.com/A2seuLt.gif" alt="A slideshow of map types supported by basemaps for R" width="100%">
+
 `basemaps` is a lightweight `R` package to download and cache spatial basemaps from open sources such as *OpenStreetMap*, *Stamen*, *Stadia*, *Thunderforest*, *Carto*, *Mapbox*, *Esri*, *Maptiler* and others. Retrieved basemaps are translated into and returned as classes of choice, such as `terra`, `stars`, `raster`, `ggplot`, `mapview`, `magick`, or as files, such as `png` or `geotif`. The package aims to ease the use of basemaps in different contexts by providing a function interface as minimalist as possible.
 
 
@@ -313,4 +315,4 @@ The underpinning code of `basemaps` was originally developed for [`moveVis`](htt
 
 ***
 
-Some maps shown in this file may be protected: <sup>&copy; Mapbox &copy; Thunderforest &copy; Stamen &copy; Carto &copy; Esri &copy; Maptiler. Please refer to teir Terms of Use. Many thanks to the creators of [reprex v2.0.2](https://reprex.tidyverse.org) which this README was partly compiled with.</sup>
+<sup>Some content of this file may be protected (brand names, map imagery etc.), &copy; Mapbox &copy; Thunderforest &copy; Stamen &copy; Carto &copy; Esri &copy; Maptiler. Many thanks to the creators of [reprex v2.0.2](https://reprex.tidyverse.org) which this README was partly compiled with.</sup>
