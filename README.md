@@ -6,7 +6,7 @@
 [![R-CMD-check](https://github.com/16EAGLE/basemaps/workflows/R-CMD-check/badge.svg)](https://github.com/16EAGLE/basemaps/actions)
 [![AppVeyor build status](https://ci.appveyor.com/api/projects/status/github/16EAGLE/basemaps?branch=master&svg=true)](https://ci.appveyor.com/project/16EAGLE/basemaps)
 [![Coverage](https://codecov.io/gh/16eagle/basemaps/branch/master/graph/badge.svg)](https://app.codecov.io/gh/16EAGLE/basemaps)
-[![Package dependencies](https://tinyverse.netlify.com/badge/basemaps)](https://CRAN.R-project.org/package=basemaps)
+[![Package dependencies](https://tinyverse.netlify.app/badge/basemaps)](https://CRAN.R-project.org/package=basemaps)
 
 `basemaps` is a lightweight `R` package to download and cache spatial basemaps from open sources such as *OpenStreetMap*, *Stamen*, *Stadia*, *Thunderforest*, *Carto*, *Mapbox*, *Esri*, *Maptiler* and others. Retrieved basemaps are translated into and returned as classes of choice, such as `terra`, `stars`, `raster`, `ggplot`, `mapview`, `magick`, or as files, such as `png` or `geotif`. The package aims to ease the use of basemaps in different contexts by providing a function interface as minimalist as possible.
 
