@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">basemaps</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.0.8</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.1.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -204,7 +204,7 @@
 
 
 <dt id="arg-map-token">map_token<a class="anchor" aria-label="anchor" href="#arg-map-token"></a></dt>
-<dd><p>character, authentication token for services that require registration, which are <code>"osm_stamen"</code>, <code>"osm_stadia"</code>, <code>"osm_thunderforest"</code> and <code>"mapbox"</code>. Register at <a href="https://stadiamaps.com/" class="external-link">https://stadiamaps.com/</a> (for stamen and stadia), <a href="https://www.thunderforest.com/" class="external-link">https://www.thunderforest.com/</a> and/or <a href="https://www.mapbox.com/" class="external-link">https://www.mapbox.com/</a> to get tokens. Ignored for all other map services.</p></dd>
+<dd><p>character, authentication token for services that require registration, which are <code>"osm_stamen"</code>, <code>"osm_stadia"</code>, <code>"osm_thunderforest"</code>, <code>"maptiler"</code> and <code>"mapbox"</code>. Register at <a href="https://stadiamaps.com/" class="external-link">https://stadiamaps.com/</a> (for stamen and stadia), <a href="https://www.thunderforest.com/" class="external-link">https://www.thunderforest.com/</a>, <a href="https://www.maptiler.com/" class="external-link">https://www.maptiler.com/</a> and/or <a href="https://www.mapbox.com/" class="external-link">https://www.mapbox.com/</a> to get tokens. Ignored for all other map services.</p></dd>
 
 
 <dt id="arg-map-dir">map_dir<a class="anchor" aria-label="anchor" href="#arg-map-dir"></a></dt>
@@ -243,7 +243,7 @@
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">basemaps</span><span class="op">)</span></span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://jakob.schwalb-willmann.de/basemaps/">basemaps</a></span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># example extent</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="data.html">data</a></span><span class="op">(</span><span class="va">ext</span><span class="op">)</span></span></span>
@@ -311,34 +311,35 @@
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># set defaults for the basemap</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="defaults.html">set_defaults</a></span><span class="op">(</span>map_service <span class="op">=</span> <span class="st">"osm"</span>, map_type <span class="op">=</span> <span class="st">"terrain_bg"</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="co"># for "osm_stamen", "osm_stadia", osm "thunderforest" and "mapbox" maps, you need a API token. </span></span></span>
-<span class="r-in"><span><span class="co"># Register for free at stadiamaps.com, thunderforest.com and mapbox.com to get tokens.</span></span></span>
+<span class="r-in"><span><span class="co"># for "osm_stamen", "osm_stadia", osm "thunderforest", "maptiler" and "mapbox" maps, </span></span></span>
+<span class="r-in"><span><span class="co"># you need a API token. Register for free at stadiamaps.com, thunderforest.com, </span></span></span>
+<span class="r-in"><span><span class="co"># maptiler.com and mapbox.com to get tokens.</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span> <span class="co"># \dontrun{</span></span></span>
-<span class="r-in"><span><span class="co"># load and return basemap map as raster (default)</span></span></span>
+<span class="r-in"><span><span class="co"># load and plot basemap (default)</span></span></span>
 <span class="r-in"><span><span class="va">map</span> <span class="op">&lt;-</span> <span class="fu">basemap</span><span class="op">(</span><span class="va">ext</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># or explicitely as different classes such as:</span></span></span>
 <span class="r-in"><span><span class="fu">basemap_magick</span><span class="op">(</span><span class="va">ext</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="fu">basemap_raster</span><span class="op">(</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="fu">basemap_stars</span><span class="op">(</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">basemap_raster</span><span class="op">(</span><span class="va">ext</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">basemap_stars</span><span class="op">(</span><span class="va">ext</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># or as files:</span></span></span>
-<span class="r-in"><span><span class="fu">basemap_geotif</span><span class="op">(</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="fu">basemap_png</span><span class="op">(</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">basemap_geotif</span><span class="op">(</span><span class="va">ext</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">basemap_png</span><span class="op">(</span><span class="va">ext</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># or as plots:</span></span></span>
 <span class="r-in"><span><span class="fu">basemap_plot</span><span class="op">(</span><span class="va">ext</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="fu">basemap_mapview</span><span class="op">(</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">basemap_mapview</span><span class="op">(</span><span class="va">ext</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># including ggplot2:</span></span></span>
 <span class="r-in"><span><span class="fu">basemap_ggplot</span><span class="op">(</span><span class="va">ext</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># or as ggplot2 layer:</span></span></span>
 <span class="r-in"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org" class="external-link">ggplot2</a></span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> </span></span>
-<span class="r-in"><span>  <span class="fu">basemap_gglayer</span><span class="op">(</span><span class="va">ext</span><span class="op">)</span> <span class="op">+</span></span></span>
-<span class="r-in"><span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_identity.html" class="external-link">scale_fill_identity</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> </span></span>
+<span class="r-in"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span></span>
+<span class="r-in"><span><span class="fu">basemap_gglayer</span><span class="op">(</span><span class="va">ext</span><span class="op">)</span> <span class="op">+</span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_identity.html" class="external-link">scale_fill_identity</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span></span>
 <span class="r-in"><span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggsf.html" class="external-link">coord_sf</a></span><span class="op">(</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># or, when combined with an sf vector object,</span></span></span>
@@ -346,12 +347,13 @@
 <span class="r-in"><span><span class="co"># the CRS in which all basemaps are returned (see "Value"):</span></span></span>
 <span class="r-in"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://r-spatial.github.io/sf/" class="external-link">sf</a></span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">ext</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_transform.html" class="external-link">st_transform</a></span><span class="op">(</span><span class="va">ext</span>,  crs <span class="op">=</span> <span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_crs.html" class="external-link">st_crs</a></span><span class="op">(</span><span class="fl">3857</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> </span></span>
-<span class="r-in"><span>  <span class="fu">basemap_gglayer</span><span class="op">(</span><span class="va">ext</span><span class="op">)</span> <span class="op">+</span> </span></span>
+<span class="r-in"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span></span>
+<span class="r-in"><span>  <span class="fu">basemap_gglayer</span><span class="op">(</span><span class="va">ext</span><span class="op">)</span> <span class="op">+</span></span></span>
 <span class="r-in"><span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggsf.html" class="external-link">geom_sf</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">ext</span>, color <span class="op">=</span> <span class="st">"red"</span>, fill <span class="op">=</span> <span class="st">"transparent"</span><span class="op">)</span> <span class="op">+</span></span></span>
 <span class="r-in"><span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggsf.html" class="external-link">coord_sf</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span></span>
 <span class="r-in"><span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_identity.html" class="external-link">scale_fill_identity</a></span><span class="op">(</span><span class="op">)</span></span></span>
-<span class="r-in"><span> <span class="op">}</span> <span class="co"># }</span></span></span>
+<span class="r-in"><span><span class="op">}</span> <span class="co"># }</span></span></span>
+<span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
