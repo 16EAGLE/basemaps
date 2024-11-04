@@ -112,20 +112,34 @@
 <span><span class="fu"><a href="reference/basemap.html">basemap_mapview</a></span><span class="op">(</span><span class="va">ext</span><span class="op">)</span></span></code></pre></div>
 <p><img src="https://i.imgur.com/0L6G37X.png" width="623"></p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># or as spatial classes, such as raster:</span></span>
-<span><span class="fu"><a href="reference/basemap.html">basemap_raster</a></span><span class="op">(</span><span class="va">ext</span><span class="op">)</span></span>
-<span></span>
-<span><span class="co"># or terra:</span></span>
+<code class="sourceCode R"><span><span class="co"># or as spatial classes, such as terra:</span></span>
 <span><span class="fu"><a href="reference/basemap.html">basemap_terra</a></span><span class="op">(</span><span class="va">ext</span><span class="op">)</span></span>
+<span><span class="co">#&gt; class       : SpatRaster </span></span>
+<span><span class="co">#&gt; dimensions  : 614, 669, 3  (nrow, ncol, nlyr)</span></span>
+<span><span class="co">#&gt; resolution  : 19.10926, 19.10926  (x, y)</span></span>
+<span><span class="co">#&gt; extent      : 1224617, 1237401, 6032659, 6044392  (xmin, xmax, ymin, ymax)</span></span>
+<span><span class="co">#&gt; coord. ref. : WGS 84 / Pseudo-Mercator (EPSG:3857) </span></span>
+<span><span class="co">#&gt; colors RGB  : 1, 2, 3 </span></span>
+<span><span class="co">#&gt; names       : red, green, blue </span></span>
+<span><span class="co">#&gt; min values  :   0,     0,    0 </span></span>
+<span><span class="co">#&gt; max values  : 253,   254,  255</span></span>
 <span></span>
 <span><span class="co"># or stars:</span></span>
-<span><span class="fu"><a href="reference/basemap.html">basemap_stars</a></span><span class="op">(</span><span class="va">ext</span><span class="op">)</span></span>
+<span><span class="co">#&gt; stars object with 3 dimensions and 1 attribute</span></span>
+<span><span class="co">#&gt; attribute(s), summary of first 1e+05 cells:</span></span>
+<span><span class="co">#&gt; Min. 1st Qu. Median     Mean 3rd Qu. Max.</span></span>
+<span><span class="co">#&gt; 0     183    213 201.3209     234  253</span></span>
+<span><span class="co">#&gt; dimension(s):</span></span>
+<span><span class="co">#&gt;      from  to  offset  delta                   refsys</span></span>
+<span><span class="co">#&gt; x       1 669 1224617  19.11 WGS 84 / Pseudo-Mercator </span></span>
+<span><span class="co">#&gt; y       1 614 6044392 -19.11 WGS 84 / Pseudo-Mercator</span></span>
+<span><span class="co">#&gt; ...</span></span>
 <span></span>
-<span><span class="co"># or return files, e.g. geotif</span></span>
+<span><span class="co"># or return as file(s), e.g. GeoTif</span></span>
 <span><span class="fu"><a href="reference/basemap.html">basemap_geotif</a></span><span class="op">(</span><span class="va">ext</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] "basemap_20220922214954.tif"</span></span>
 <span></span>
-<span><span class="co"># or png:</span></span>
+<span><span class="co"># or PNG:</span></span>
 <span><span class="fu"><a href="reference/basemap.html">basemap_png</a></span><span class="op">(</span><span class="va">ext</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] "osm_topographic_bg_2022-09-22_12-00-00.png"</span></span></code></pre></div>
 </div>
