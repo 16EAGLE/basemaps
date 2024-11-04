@@ -75,20 +75,34 @@ basemap_mapview(ext)
 <img src="https://i.imgur.com/0L6G37X.png" width="623" />
 
 ``` r
-# or as spatial classes, such as raster:
-basemap_raster(ext)
-
-# or terra:
+# or as spatial classes, such as terra:
 basemap_terra(ext)
+#> class       : SpatRaster 
+#> dimensions  : 614, 669, 3  (nrow, ncol, nlyr)
+#> resolution  : 19.10926, 19.10926  (x, y)
+#> extent      : 1224617, 1237401, 6032659, 6044392  (xmin, xmax, ymin, ymax)
+#> coord. ref. : WGS 84 / Pseudo-Mercator (EPSG:3857) 
+#> colors RGB  : 1, 2, 3 
+#> names       : red, green, blue 
+#> min values  :   0,     0,    0 
+#> max values  : 253,   254,  255
 
 # or stars:
-basemap_stars(ext)
+#> stars object with 3 dimensions and 1 attribute
+#> attribute(s), summary of first 1e+05 cells:
+#> Min. 1st Qu. Median     Mean 3rd Qu. Max.
+#> 0     183    213 201.3209     234  253
+#> dimension(s):
+#>      from  to  offset  delta                   refsys
+#> x       1 669 1224617  19.11 WGS 84 / Pseudo-Mercator 
+#> y       1 614 6044392 -19.11 WGS 84 / Pseudo-Mercator
+#> ...
 
-# or return files, e.g. geotif
+# or return as file(s), e.g. GeoTif
 basemap_geotif(ext)
 #> [1] "basemap_20220922214954.tif"
 
-# or png:
+# or PNG:
 basemap_png(ext)
 #> [1] "osm_topographic_bg_2022-09-22_12-00-00.png"
 ```
