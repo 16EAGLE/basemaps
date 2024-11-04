@@ -1,7 +1,7 @@
 Package: basemaps
 Type: Package
 Title: Accessing Spatial Basemaps in R
-Version: 0.0.8
+Version: 0.1.0
 Depends:
   R (>= 3.5.0)
 Date: 2024-10-31
@@ -14,15 +14,14 @@ Imports:
   sf,
   slippymath,
   httr,
-  curl,
-  terra,
-  stars,
-  pbapply,
   magick,
+  terra,
+  pbapply,
   utils,
   grDevices,
   methods
 Suggests:
+  stars,
   raster,
   ggplot2,
   png,
@@ -31,4 +30,5 @@ Suggests:
   testthat,
   covr
 BugReports: https://github.com/16eagle/basemaps/issues
-RoxygenNote: 7.3.1
+URL: https://jakob.schwalb-willmann.de/basemaps/
+RoxygenNote: 7.3.2

@@ -1,8 +1,12 @@
 #' Suppress messages and warnings
 #' @keywords internal
 #' @noRd 
-quiet <- function(expr){
+quiet <- function(expr, no_cat = FALSE){
   #return(expr)
+  if(no_cat){
+    sink(tempfile(), type = "out")
+    on.exit(sink())
+  }
   return(suppressWarnings(suppressMessages(expr)))
 }
 
@@ -112,12 +116,11 @@ out <- function(input, type = 1, ll = NULL, msg = FALSE, sign = "", verbose = ge
 
 #' get map
 #' @importFrom slippymath bbox_to_tile_grid tile_bbox
-#' @importFrom magick image_read image_write image_convert
-#' @importFrom curl curl_download
-#' @importFrom httr http_error GET
-#' @importFrom sf st_transform st_bbox st_as_sfc st_crs st_crs<- st_crop
-#' @importFrom stars read_stars st_set_bbox st_mosaic
-#' @importFrom terra rast ext ext<- mosaic project crop writeRaster extend merge RGB<-
+#' @importFrom magick image_read image_write image_convert image_info
+#' @importFrom httr http_error GET write_disk stop_for_status
+#' @importFrom sf st_transform st_bbox st_as_sfc st_crs st_crs<- st_crop gdal_utils
+#' @importFrom terra rast ext ext<- mosaic project crop writeRaster extend merge RGB<- as.raster
+#' @importFrom grDevices col2rgb
 #' @importFrom methods as
 #' @keywords internal
 #' @noRd
@@ -197,7 +200,11 @@ out <- function(input, type = 1, ll = NULL, msg = FALSE, sign = "", verbose = ge
             if(all(status == 403, any(map_service == "osm_thunderforest", map_service == "maptiler"))) out("Authentification failed. Is your map_token correct?", type = 3)
           }
           if(!file.exists(file)){
-            tryCatch(curl_download(url = url, destfile = file), error = function(e) out(paste0("Tile download failed: ", e$message), type = 3))
+            #tryCatch(curl_download(url = url, destfile = file), error = function(e) out(paste0("Tile download failed: ", e$message), type = 3))
+            tryCatch({
+              result <- GET(url = url,  write_disk(file, overwrite=TRUE))
+              httr::stop_for_status(result)
+            }, error = function(e) out(paste0("Tile download failed: ", e$message), type = 3))
           }#utils::download.file(url = url, destfile = file, quiet = T) 
           
           # test if file can be loaded
@@ -217,19 +224,19 @@ out <- function(input, type = 1, ll = NULL, msg = FALSE, sign = "", verbose = ge
         return(file)
       })
       
-      # create composite
+      # spatialize PNG and create TIF composite
       
-      ## STARS VERSION
-      r <- mapply(img = images, x = tg$tiles$x, y = tg$tiles$y, function(img, x, y){
-        box <- tile_bbox(x, y, tg$zoom)
-        img_st <- read_stars(img)
-        img_st <- st_set_bbox(img_st, box)
-        st_crs(img_st) <- tg$crs
-        return(img_st)
-      }, SIMPLIFY = F)
-      r <- do.call(stars::st_mosaic, r)
-      r <- as(r, "SpatRaster")
-      RGB(r) <- 1:3
+      ## STARS VERSION -- works, but dependencies
+      # r <- mapply(img = images, x = tg$tiles$x, y = tg$tiles$y, function(img, x, y){
+      #   box <- tile_bbox(x, y, tg$zoom)
+      #   img_st <- read_stars(img)
+      #   img_st <- st_set_bbox(img_st, box)
+      #   st_crs(img_st) <- tg$crs
+      #   return(img_st)
+      # }, SIMPLIFY = F)
+      # r <- do.call(stars::st_mosaic, r)
+      # r <- as(r, "SpatRaster")
+      # RGB(r) <- 1:3
       
       ## TERRA VERSION
       # r <- mapply(img = images, x = tg$tiles$x, y = tg$tiles$y, function(img, x, y){
@@ -252,6 +259,23 @@ out <- function(input, type = 1, ll = NULL, msg = FALSE, sign = "", verbose = ge
       # r <- r[[1]]
       # RGB(r) <- 1:3
       # # end temp FIX
+      
+      ## TERRA VERSION
+      images_tif <- mapply(img = images, x = tg$tiles$x, y = tg$tiles$y, function(img, x, y){
+        box <- tile_bbox(x, y, tg$zoom)
+        img_mgc <- magick::image_read(img)
+        img_inf <- magick::image_info(img_mgc)
+        img_rst <- terra::rast(aperm(array(grDevices::col2rgb(terra::as.raster(img_mgc)), c(3,as.numeric(img_inf["width"]),as.numeric(img_inf["height"]))), c(3,2,1)))
+        terra::crs(img_rst) <- as.character(tg$crs$wkt)
+        terra::ext(img_rst) <- c(box[c("xmin", "xmax", "ymin", "ymax")])
+        
+        img_tif <- gsub(".png", ".tif", img)
+        terra::writeRaster(img_rst, filename = img_tif, overwrite = T, datatype = "INT1U") #0-255
+        return(img_tif)
+      }, SIMPLIFY = F, USE.NAMES = F)
+      
+      gdal_utils("buildvrt", unlist(images_tif), file_comp, options = c("-vrtnodata", "-9999", "-srcnodata", "nan"),)
+      r <- terra::rast(file_comp)
       
       if(isFALSE(no_transform)){ ## needed?
         if(as.numeric(tg$crs$epsg) != 3857){

@@ -1,5 +1,20 @@
 ***
 
+## basemaps 0.1.0
+Decreasing dependencies, minor improvements 
+
+**Changes:**
+
+* updated partly outdated documentation examples
+* updated `README` to include an animated map type preview
+* changed the way raster tiles are geo-located and mosaiced
+* tidied up the dependency tree, removed two dependencies
+
+<br>
+
+
+***
+
 ## basemaps 0.0.8
 New map service *Maptiler*, minor improvements
 
