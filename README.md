@@ -88,6 +88,7 @@ basemap_terra(ext)
 #> max values  : 253,   254,  255
 
 # or stars:
+basemap_stars(ext)
 #> stars object with 3 dimensions and 1 attribute
 #> attribute(s), summary of first 1e+05 cells:
 #> Min. 1st Qu. Median     Mean 3rd Qu. Max.
