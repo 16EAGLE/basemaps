@@ -22,11 +22,14 @@
 #' data(ext)
 #' 
 #' \dontrun{
-#' # raster object: Brick
-#' map <- basemap_raster(ext)
+#' # terra raster object
+#' map <- basemap_terra(ext)
 #' 
-#' # plotting RasterBrick
+#' # plotting raster as ggplot using the with fill aesthetic
 #' gg_raster(map, r_type = "RGB")
+#' 
+#' # or as gg layer using the with fill aesthetic
+#' ggplot() + gg_raster(map, r_type = "RGB", gglayer = T) + scale_fill_identity()
 #' }
 #' 
 #' @importFrom terra rast ncell aggregate aggregate

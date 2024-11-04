@@ -156,7 +156,7 @@ basemap_mapview(
 
 \item{map_res}{numeric, resolution of base map in range from 0 to 1.}
 
-\item{map_token}{character, authentication token for services that require registration, which are \code{"osm_stamen"}, \code{"osm_stadia"}, \code{"osm_thunderforest"} and \code{"mapbox"}. Register at \url{https://stadiamaps.com/} (for stamen and stadia), \url{https://www.thunderforest.com/} and/or \url{https://www.mapbox.com/} to get tokens. Ignored for all other map services.}
+\item{map_token}{character, authentication token for services that require registration, which are \code{"osm_stamen"}, \code{"osm_stadia"}, \code{"osm_thunderforest"}, \code{"maptiler"} and \code{"mapbox"}. Register at \url{https://stadiamaps.com/} (for stamen and stadia), \url{https://www.thunderforest.com/}, \url{https://www.maptiler.com/} and/or \url{https://www.mapbox.com/} to get tokens. Ignored for all other map services.}
 
 \item{map_dir}{character, cache directory where downloaded basemap tiles will be stored. By default, a temporary directory is used, which is destroyed when the session is terminated.}
 
@@ -196,34 +196,35 @@ get_maptypes()
 
 # set defaults for the basemap
 set_defaults(map_service = "osm", map_type = "terrain_bg")
-# for "osm_stamen", "osm_stadia", osm "thunderforest" and "mapbox" maps, you need a API token. 
-# Register for free at stadiamaps.com, thunderforest.com and mapbox.com to get tokens.
+# for "osm_stamen", "osm_stadia", osm "thunderforest", "maptiler" and "mapbox" maps, 
+# you need a API token. Register for free at stadiamaps.com, thunderforest.com, 
+# maptiler.com and mapbox.com to get tokens.
 
 \dontrun{
-# load and return basemap map as raster (default)
+# load and plot basemap (default)
 map <- basemap(ext)
 
 # or explicitely as different classes such as:
 basemap_magick(ext)
-basemap_raster()
-basemap_stars()
+basemap_raster(ext)
+basemap_stars(ext)
 
 # or as files:
-basemap_geotif()
-basemap_png()
+basemap_geotif(ext)
+basemap_png(ext)
 
 # or as plots:
 basemap_plot(ext)
-basemap_mapview()
+basemap_mapview(ext)
 
 # including ggplot2:
 basemap_ggplot(ext)
 
 # or as ggplot2 layer:
 library(ggplot2)
-ggplot() + 
-  basemap_gglayer(ext) +
-  scale_fill_identity() + 
+ggplot() +
+basemap_gglayer(ext) +
+  scale_fill_identity() +
   coord_sf()
 
 # or, when combined with an sf vector object,
@@ -231,10 +232,11 @@ ggplot() +
 # the CRS in which all basemaps are returned (see "Value"):
 library(sf)
 ext <- st_transform(ext,  crs = st_crs(3857))
-ggplot() + 
-  basemap_gglayer(ext) + 
+ggplot() +
+  basemap_gglayer(ext) +
   geom_sf(data = ext, color = "red", fill = "transparent") +
   coord_sf() +
   scale_fill_identity()
- }
+}
+
 }

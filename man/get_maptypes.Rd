@@ -17,12 +17,14 @@
 \code{"mapbox"}: Mapbox (\url{https://www.mapbox.com})
 
 \code{"esri"}: Esri (\url{https://www.esri.com/en-us/home})
+
+\code{"maptiler"}: Esri (\url{https://www.maptiler.com})
 }
 \usage{
 get_maptypes(map_service = NULL)
 }
 \arguments{
-\item{map_service}{character, optional, either \code{"osm"}, \code{"osm_stamen"}, \code{"osm_stadia"}, \code{"osm_thunderforest"},  \code{"carto"}, \code{"mapbox"} or \code{"esri"}. Otherwise, a list of map types for both services is returned.}
+\item{map_service}{character, optional, either \code{"osm"}, \code{"osm_stamen"}, \code{"osm_stadia"}, \code{"osm_thunderforest"},  \code{"carto"}, \code{"mapbox"}, \code{"esri"} or \code{"maptiler"}. Otherwise, a list of map types for both services is returned.}
 }
 \value{
 A character vector of supported map types

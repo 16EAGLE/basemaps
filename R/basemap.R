@@ -39,34 +39,35 @@
 #' 
 #' # set defaults for the basemap
 #' set_defaults(map_service = "osm", map_type = "terrain_bg")
-#' # for "osm_stamen", "osm_stadia", osm "thunderforest", "maptiler" and "mapbox" maps, you need a API token. 
-#' # Register for free at stadiamaps.com, thunderforest.com, maptiler.com and mapbox.com to get tokens.
+#' # for "osm_stamen", "osm_stadia", osm "thunderforest", "maptiler" and "mapbox" maps, 
+#' # you need a API token. Register for free at stadiamaps.com, thunderforest.com, 
+#' # maptiler.com and mapbox.com to get tokens.
 #' 
 #' \dontrun{
-#' # load and return basemap map as raster (default)
+#' # load and plot basemap (default)
 #' map <- basemap(ext)
 #' 
 #' # or explicitely as different classes such as:
 #' basemap_magick(ext)
-#' basemap_raster()
-#' basemap_stars()
+#' basemap_raster(ext)
+#' basemap_stars(ext)
 #' 
 #' # or as files:
-#' basemap_geotif()
-#' basemap_png()
+#' basemap_geotif(ext)
+#' basemap_png(ext)
 #' 
 #' # or as plots:
 #' basemap_plot(ext)
-#' basemap_mapview()
+#' basemap_mapview(ext)
 #' 
 #' # including ggplot2:
 #' basemap_ggplot(ext)
 #' 
 #' # or as ggplot2 layer:
 #' library(ggplot2)
-#' ggplot() + 
-#'   basemap_gglayer(ext) +
-#'   scale_fill_identity() + 
+#' ggplot() +
+#' basemap_gglayer(ext) +
+#'   scale_fill_identity() +
 #'   coord_sf()
 #' 
 #' # or, when combined with an sf vector object,
@@ -74,12 +75,13 @@
 #' # the CRS in which all basemaps are returned (see "Value"):
 #' library(sf)
 #' ext <- st_transform(ext,  crs = st_crs(3857))
-#' ggplot() + 
-#'   basemap_gglayer(ext) + 
+#' ggplot() +
+#'   basemap_gglayer(ext) +
 #'   geom_sf(data = ext, color = "red", fill = "transparent") +
 #'   coord_sf() +
 #'   scale_fill_identity()
-#'  }
+#' }
+#' 
 #' @importFrom sf st_bbox 
 #' @importFrom terra rast plotRGB plot as.array nlyr
 #' @importFrom graphics plot
