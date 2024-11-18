@@ -262,11 +262,11 @@ This table lists all currently implemented map services and map types and indica
 | `esri` | `world_transportation` | no |
 | `esri` | `delorme_world_base_map` | no |
 | `esri` | `world_navigation_charts` | no |
-| `usgs` | `hydro_cached` | no |
-| `usgs` | `imagery_only` | no |
-| `usgs` | `imagery_topo` | no |
-| `usgs` | `shaded_relief` | no |
-| `usgs` | `topo` | no |
+| `usgs` | `hydro_cached` (max zoom: 16) | no |
+| `usgs` | `imagery_only` (max zoom: 16) | no |
+| `usgs` | `imagery_topo` (max zoom: 16) | no |
+| `usgs` | `shaded_relief` (max zoom: 16) | no |
+| `usgs` | `topo` (max zoom: 16) | no |
 
 ## Available functions
 
