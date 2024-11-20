@@ -180,9 +180,10 @@ out <- function(input, type = 1, ll = NULL, msg = FALSE, sign = "", verbose = ge
             if(any(
               all(map_service == "osm_stamen", map_type == "watercolor"), 
               all(map_service == "maptiler", map_type == "satellite"))
-            ) ".jpg" else if(
-              all(map_service == "maptiler", map_type == "aquarelle")
-            ) ".webp" else ".png" # jpg or png
+            ) ".jpg" else ".png" # jpg or png
+            #else if(
+            #  all(map_service == "maptiler", map_type == "aquarelle")
+            #) ".webp" else ".png" # jpg or png
           }, # suffix or not
           if(map_service == "mapbox") paste0("?access_token=", map_token), # token or not
           if(map_service == "osm_thunderforest") paste0("?apikey=", map_token), # token or not

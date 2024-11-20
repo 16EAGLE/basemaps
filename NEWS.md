@@ -3,6 +3,10 @@
 ## basemaps 0.1.0
 Decreasing dependencies, minor improvements 
 
+**Bugs:**
+
+* fixed request format error for `map_service = "maptiler"`, `map_type = "aquarelle"`, resulting in a `404` error (issue #32)
+
 **Changes:**
 
 * updated partly outdated documentation examples
