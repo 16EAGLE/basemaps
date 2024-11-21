@@ -298,6 +298,8 @@ This table lists all currently implemented map services and map types and indica
 | `esri` | `delorme_world_base_map` | no |
 | `esri` | `world_navigation_charts` | no |
 | `maptiler` | `aquarelle` | yes, register: https://www.maptiler.com |
+| `maptiler` | `aquarelle_dark` | yes, register: https://www.maptiler.com |
+| `maptiler` | `aquarelle_vivid` | yes, register: https://www.maptiler.com |
 | `maptiler` | `backdrop` | yes, register: https://www.maptiler.com |
 | `maptiler` | `basic` | yes, register: https://www.maptiler.com |
 | `maptiler` | `bright` | yes, register: https://www.maptiler.com |
