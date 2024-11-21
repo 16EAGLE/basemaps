@@ -3,9 +3,13 @@
 ## basemaps 0.1.0
 Decreasing dependencies, minor improvements 
 
+**Features:**
+
+* added additional map types `aquarelle_dark` and `aquarelle_vivid` for `map_service="maptiler"` (#32)
+
 **Bugs:**
 
-* fixed request format error for `map_service = "maptiler"`, `map_type = "aquarelle"`, resulting in a `404` error (issue #32)
+* fixed faulty request format resulting in 404 error for `map_service = "maptiler"`, `map_type = "aquarelle"` (issue #32)
 
 **Changes:**
 

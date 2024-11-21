@@ -573,6 +573,8 @@ out <- function(input, type = 1, ll = NULL, msg = FALSE, sign = "", verbose = ge
     ),
     maptiler = lapply(c(
       aquarelle = "aquarelle", #webp
+      aquarelle_dark = "aquarelle-dark",
+      aquarelle_vivid = "aquarelle-vivid",
       backdrop = "backdrop",
       basic = "basic-v2",
       bright = "bright-v2",
