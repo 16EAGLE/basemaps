@@ -65,8 +65,8 @@ reset_defaults <- function(){
 #' 
 #' @param map_service character. 
 #' \itemize{
-#'  \item{for \code{get_maptypes()}:}{ optional, either \code{"osm"}, \code{"osm_stamen"}, \code{"osm_stadia"}, \code{"osm_thunderforest"},  \code{"carto"}, \code{"mapbox"}, \code{"esri"} or \code{"maptiler"}. Otherwise, a list of map types for both services is returned.}
-#'  \item{for \code{add_maptypes()}:}{ character, name of map service the map type to add belongs to}
+#'  \item for \code{get_maptypes()}: optional, either \code{"osm"}, \code{"osm_stamen"}, \code{"osm_stadia"}, \code{"osm_thunderforest"},  \code{"carto"}, \code{"mapbox"}, \code{"esri"} or \code{"maptiler"}. Otherwise, a list of map types for both services is returned.
+#'  \item for \code{add_maptypes()}: character, name of map service the map type to add belongs to
 #' }
 #'  
 #' @param as_df logical, whether to return a data.frame instead of a list (defaults to \code{FALSE})
@@ -124,14 +124,17 @@ reset_defaults <- function(){
 #' get_maptypes(as_df = TRUE, url_cols = TRUE)
 #' 
 #' # add a custom map service and type yourself:
-#' add_maptypes(map_service = "someservice", map_type = "terrain", url_endpoint = "https://tile.someservice.org")
+#' add_maptypes(
+#'    map_service = "someservice", map_type = "terrain", 
+#'    url_endpoint = "https://tile.someservice.org")
 #' 
 #' # control further aspects of a custom map service and type:
 #' add_maptypes(
-#'    map_service = "someservice", map_type = "terrain", url_endpoint = "https://tile.someservice.org", 
-#'    url_xy = "xy", # defining the order in which this service expects tile x and y subscripts
+#'    map_service = "someservice", map_type = "terrain", 
+#'    url_endpoint = "https://tile.someservice.org", 
+#'    url_xy = "xy", #  order in which this service expects tile x and y id
 #'    url_file_format = ".png", 
-#'    url_map_token = "?authtoken=", # some services expect query parameters for transmitting an auth token
+#'    url_map_token = "?authtoken=", # query params for auth token
 #'    auth_error_code = 401, 
 #'    url_website = "https://someservice.org"
 #' )
@@ -207,6 +210,7 @@ add_maptypes <- function(map_service, map_type, url_endpoint, url_xy = "xy", url
 }
 
 #' @rdname maptypes
+#' @importFrom utils write.csv
 #' @export
 save_maptypes <- function(file){
   mt <- get_maptypes(as_df = T, url_cols = T)
@@ -216,6 +220,7 @@ save_maptypes <- function(file){
 
 
 #' @rdname maptypes
+#' @importFrom utils read.csv
 #' @export
 load_maptypes <- function(file){
   mt <- read.csv(file)
