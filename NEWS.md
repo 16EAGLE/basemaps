@@ -6,6 +6,8 @@ Decreasing dependencies, minor improvements
 **Features:**
 
 * added additional map types `aquarelle_dark` and `aquarelle_vivid` for `map_service="maptiler"` (#32)
+* added the function `add_maptypes` allowing the user to add map types on their own (see `?add_maptypes` for details)
+* added the functions `save_maptypes` and `load_maptypes` to save and load map types (see `?save_maptypes` for details)
 
 **Bugs:**
 

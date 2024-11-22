@@ -106,12 +106,15 @@ basemap <- function(ext = NULL, map_service = NULL, map_type = NULL, map_res = N
   if(is.null(map_res)) map_res <- getOption("basemaps.defaults")$map_res
   
   if(is.null(map_token)) map_token <- getOption("basemaps.defaults")$map_token
-  if(map_service == "mapbox" & is.na(map_token)) out("You need to define 'map_token' to use map_service 'mapbox'. Register at https://www.mapbox.com/ to obtain a token.", type = 3)
-  if(map_service == "osm_thunderforest" & is.na(map_token)) out("You need to define 'map_token' to use map_service 'osm_thunderforest'. Register at https://thunderforest.com to obtain a token.", type = 3)
-  if(map_service == "osm_stamen" & is.na(map_token)) out("You need to define 'map_token' to use map_service 'osm_stamen'. Register at https://stadiamaps.com to obtain a token.", type = 3)
-  if(map_service == "osm_stadia" & is.na(map_token)) out("You need to define 'map_token' to use map_service 'osm_stadia'. Register at https://stadiamaps.com to obtain a token.", type = 3)
-  if(map_service == "maptiler" & is.na(map_token)) out("You need to define 'map_token' to use map_service 'maptiler'. Register at https://maptiler.com to obtain a token.", type = 3)
-
+  
+  mt <- get_maptypes(as_df = T, url_cols = T)
+  if(!any(mt$map_service == map_service & mt$map_type == map_type)){
+    out(paste0("The defined map type '", map_type, "' is not supported by map service '", map_service, "'. Use get_maptypes() to print all implemented map types and services or use add_maptypes() to add custom map types."), type = 3)
+  }
+  if(!is.na(mt$url_map_token[mt$map_service == map_service & mt$map_type == map_type]) & is.na(map_token)){
+    out(paste0("You need to define 'map_token' to use map service '", map_service, "'. Register at ", mt$url_website[mt$map_service == map_service & mt$map_type == map_type], " to obtain a token."), type = 3)
+  }
+  
   extras <- list(...)
   if(!is.null(extras$browse)) browse <- extras$browse else browse <- TRUE
   if(!is.null(extras$col)) col <- extras$col else col <- topo.colors(25)

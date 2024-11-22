@@ -21,7 +21,7 @@ test_that("onLoad", {
 })
 
 test_that(".md_maptypes_table", {
-  expect_output(basemaps:::.md_maptypes_table(get_maptypes()))
+  expect_output(basemaps:::.md_maptypes_table(get_maptypes(as_df = T)))
 })
 
 test_that("string manipulation", {
