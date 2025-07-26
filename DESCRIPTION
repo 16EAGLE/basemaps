@@ -1,10 +1,10 @@
 Package: basemaps
 Type: Package
 Title: Accessing Spatial Basemaps in R
-Version: 0.1.0
+Version: 0.1.1
 Depends:
   R (>= 3.5.0)
-Date: 2024-10-31
+Date: 2025-05-09
 Authors@R: person("Jakob", "Schwalb-Willmann", email = "dev@schwalb-willmann.de",
   role = c("aut", "cre"), comment = c(ORCID = "0000-0003-2665-1509"))
 Description: A lightweight package to access spatial basemaps from open sources such as 'OpenStreetMap', 'Carto', 'Mapbox' and others in R.
