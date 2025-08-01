@@ -3,7 +3,7 @@
 [![CRAN version](https://www.r-pkg.org/badges/version/basemaps)](https://CRAN.R-project.org/package=basemaps)
 [![CRAN downloads](https://cranlogs.r-pkg.org/badges/last-month/basemaps?color=brightgreen)](https://CRAN.R-project.org/package=basemaps)
 [![CRAN checks](https://badges.cranchecks.info/summary/basemaps.svg)](https://CRAN.R-project.org/package=basemaps)
-[![R-CMD-check](https://github.com/16EAGLE/basemaps/workflows/R-CMD-check/badge.svg)](https://github.com/16EAGLE/basemaps/actions)
+[![R-CMD-check](https://github.com/16EAGLE/basemaps/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/16EAGLE/basemaps/actions/workflows/R-CMD-check.yaml)
 [![AppVeyor build status](https://ci.appveyor.com/api/projects/status/github/16EAGLE/basemaps?branch=master&svg=true)](https://ci.appveyor.com/project/16EAGLE/basemaps)
 [![Coverage](https://codecov.io/gh/16eagle/basemaps/branch/master/graph/badge.svg)](https://app.codecov.io/gh/16EAGLE/basemaps)
 [![Package dependencies](https://tinyverse.netlify.app/badge/basemaps)](https://CRAN.R-project.org/package=basemaps)
