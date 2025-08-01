@@ -24,10 +24,10 @@
 <li class="nav-item dropdown">
   <button class="nav-link dropdown-toggle" type="button" id="dropdown-other-packages" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Other packages</button>
   <ul class="dropdown-menu" aria-labelledby="dropdown-other-packages"><li><a class="external-link dropdown-item" href="https://movevis.org">moveVis</a></li>
-    <li><a class="external-link dropdown-item" href="http://jakob.schwalb-willmann.de/getSpatialData">getSpatialData</a></li>
     <li><a class="external-link dropdown-item" href="https://bleutner.github.io/RStoolbox/">RStoolbox</a></li>
+    <li><a class="external-link dropdown-item" href="https://jakob.schwalb-willmann.de/getSpatialData">getSpatialData</a></li>
   </ul></li>
-      </ul><ul class="navbar-nav"><li class="nav-item"><a class="external-link nav-link" href="http://www.twitter.com/schwalbwillmann"><span class="fa fa-twitter fa-lg fab"></span></a></li>
+      </ul><ul class="navbar-nav"><li class="nav-item"><a class="external-link nav-link" href="https://bsky.app/profile/schwalb-willmann.de"><span class="fa fa-brands fa-bluesky fa-lg"></span></a></li>
 <li class="nav-item"><a class="external-link nav-link" href="http://www.github.com/16eagle"><span class="fa fa-github fa-lg fab"></span></a></li>
 <li class="nav-item"><a class="external-link nav-link" href="http://jakob.schwalb-willmann.de"><span class="fa fa-globe fa-lg"></span></a></li>
       </ul></div>
@@ -50,7 +50,8 @@
 <li>added the function <code>add_maptypes</code> allowing the user to add map types on their own (see <code><a href="../reference/maptypes.html">?add_maptypes</a></code> for details)</li>
 <li>added the functions <code>save_maptypes</code> and <code>load_maptypes</code> to save and load map types (see <code><a href="../reference/maptypes.html">?save_maptypes</a></code> for details)</li>
 </ul><p><strong>Bugs:</strong></p>
-<ul><li>fixed faulty request format resulting in 404 error for <code>map_service = "maptiler"</code>, <code>map_type = "aquarelle"</code> (issue <a href="https://github.com/16eagle/basemaps/issues/32" class="external-link">#32</a>)</li></ul><p><strong>Changes:</strong></p>
+<ul><li>fixed faulty request format resulting in 404 error for <code>map_service = "maptiler"</code>, <code>map_type = "aquarelle"</code> (issue <a href="https://github.com/16eagle/basemaps/issues/32" class="external-link">#32</a>)</li>
+</ul><p><strong>Changes:</strong></p>
 <ul><li>updated partly outdated documentation examples</li>
 <li>updated <code>README</code> to include an animated map type preview</li>
 <li>changed the way raster tiles are geo-located and mosaiced</li>
@@ -61,7 +62,8 @@
 <h2 class="pkg-version" data-toc-text="0.0.8" id="basemaps-008">basemaps 0.0.8<a class="anchor" aria-label="anchor" href="#basemaps-008"></a></h2><p class="text-muted">CRAN release: 2024-11-01</p>
 <p>New map service <em>Maptiler</em>, minor improvements</p>
 <p><strong>Features:</strong></p>
-<ul><li>added Maptiler support (<code>map_service="maptiler"</code>) for many new map types from <a href="https://maptiler.com" class="external-link uri">https://maptiler.com</a> (free token required), including <code>"aquarelle"</code>, <code>"backdrop"</code>, <code>"basic"</code>, <code>"bright"</code>, <code>"dataviz"</code>, <code>"landscape"</code>, <code>"ocean"</code>, <code>"outdoor"</code>, <code>"satellite"</code>, <code>"streets"</code>, <code>"toner"</code>, <code>"topo"</code> and <code>"winter"</code> (see <code><a href="../reference/maptypes.html">get_maptypes()</a></code>)</li></ul><p><strong>Bugs:</strong></p>
+<ul><li>added Maptiler support (<code>map_service="maptiler"</code>) for many new map types from <a href="https://maptiler.com" class="external-link uri">https://maptiler.com</a> (free token required), including <code>"aquarelle"</code>, <code>"backdrop"</code>, <code>"basic"</code>, <code>"bright"</code>, <code>"dataviz"</code>, <code>"landscape"</code>, <code>"ocean"</code>, <code>"outdoor"</code>, <code>"satellite"</code>, <code>"streets"</code>, <code>"toner"</code>, <code>"topo"</code> and <code>"winter"</code> (see <code><a href="../reference/maptypes.html">get_maptypes()</a></code>)</li>
+</ul><p><strong>Bugs:</strong></p>
 <ul><li>Resolves 404 HTTP error when using <code>map_service="osm_stamen"</code>, <code>map_type="watercolor"</code> (<a href="https://github.com/16eagle/basemaps/issues/31" class="external-link">#31</a>, <a href="https://github.com/16eagle/basemaps/issues/30" class="external-link">#30</a>, thanks to <a href="https://github.com/pushing-boulders" class="external-link">@pushing-boulders</a> for the PR)</li>
 <li>fixes an issue remarked in <a href="https://github.com/16eagle/basemaps/issues/29" class="external-link">#29</a> that produces to much verbosity</li>
 </ul><p><br></p>
@@ -118,7 +120,8 @@
 <li>fixed a bug placing cached maps in the wrong directory when <code>map_dir</code> is defined by the user (<a href="https://github.com/16EAGLE/basemaps/issues/11" class="external-link">#11</a>)</li>
 <li>cached maps stored in other directories than the currently set <code>map_dir</code> are now disregarded to avoid path errors when switching map directories during a session (<a href="https://github.com/16EAGLE/basemaps/issues/11" class="external-link">#11</a>)</li>
 </ul><p><strong>Features:</strong></p>
-<ul><li>added <code>flush_cache</code>, a function that flushes the cache and thereby removes all previously queried and/or composited products from the map directories (temporary or user-defined using the argument <code>map_dir</code>) used during the current session.</li></ul><p><br></p>
+<ul><li>added <code>flush_cache</code>, a function that flushes the cache and thereby removes all previously queried and/or composited products from the map directories (temporary or user-defined using the argument <code>map_dir</code>) used during the current session.</li>
+</ul><p><br></p>
 <hr></div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.0.3" id="basemaps-003">basemaps 0.0.3<a class="anchor" aria-label="anchor" href="#basemaps-003"></a></h2>
@@ -132,7 +135,8 @@
 <h2 class="pkg-version" data-toc-text="0.0.2" id="basemaps-002">basemaps 0.0.2<a class="anchor" aria-label="anchor" href="#basemaps-002"></a></h2>
 <p>Bug fixes.</p>
 <p><strong>Fixed bugs:</strong></p>
-<ul><li>added minimum version requirement for dependency <code>stars</code> (&gt;= 0.5.0) to make sure that <code>st_set_bbox</code> is exported (see issue <a href="https://github.com/16eagle/basemaps/issues/3" class="external-link">#3</a>)</li></ul><p><br></p>
+<ul><li>added minimum version requirement for dependency <code>stars</code> (&gt;= 0.5.0) to make sure that <code>st_set_bbox</code> is exported (see issue <a href="https://github.com/16eagle/basemaps/issues/3" class="external-link">#3</a>)</li>
+</ul><p><br></p>
 <hr></div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.0.1" id="basemaps-001">basemaps 0.0.1<a class="anchor" aria-label="anchor" href="#basemaps-001"></a></h2><p class="text-muted">CRAN release: 2021-05-19</p>
@@ -147,7 +151,8 @@
 <li>
 <code><a href="../reference/basemap.html">basemap()</a></code> and its aliases <code><a href="../reference/basemap.html">basemap_raster()</a></code>, <code><a href="../reference/basemap.html">basemap_stars()</a></code>, <code><a href="../reference/basemap.html">basemap_mapview()</a></code>, <code><a href="../reference/basemap.html">basemap_plot()</a></code>, <code><a href="../reference/basemap.html">basemap_ggplot()</a></code>, <code><a href="../reference/basemap.html">basemap_gglayer()</a></code>, <code><a href="../reference/basemap.html">basemap_magick()</a></code>, <code><a href="../reference/basemap.html">basemap_png()</a></code> and <code><a href="../reference/basemap.html">basemap_geotif()</a></code> (down)load and cache a basemap of a defined extent <code>ext</code>, <code>map_service</code> and <code>map_type</code> and return it as an object of the defined class.</li>
 </ul><p><strong>New features:</strong></p>
-<ul><li>Everything.</li></ul><p><br></p>
+<ul><li>Everything.</li>
+</ul><p><br></p>
 <hr><p>This document should provide a broad overview on changes that are applied to the basemaps R package. There is no warranty for completeness, since minor changes might not be included. All improvement and feature descriptions are bundled per release version. The document is currently maintained by Jakob Schwalb-Willmann.</p>
 </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
@@ -159,7 +164,7 @@
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.3.</p>
 </div>
 
     </footer></div>
