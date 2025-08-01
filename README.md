@@ -25,7 +25,7 @@ install.packages("basemaps")
 Install the latest development version of `basemaps` from GitHub:
 
 ```r
-devtools::install_github("16EAGLE/basemaps")
+remotes::install_github("16EAGLE/basemaps")
 ```
 
 ## Get started
