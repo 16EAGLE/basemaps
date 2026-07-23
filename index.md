@@ -1,0 +1,416 @@
+# `basemaps`
+
+[![CRAN
+version](https://www.r-pkg.org/badges/version/basemaps)](https://CRAN.R-project.org/package=basemaps)
+[![CRAN
+downloads](https://cranlogs.r-pkg.org/badges/last-month/basemaps?color=brightgreen)](https://CRAN.R-project.org/package=basemaps)
+[![CRAN
+checks](https://badges.cranchecks.info/summary/basemaps.svg)](https://CRAN.R-project.org/package=basemaps)
+[![R-CMD-check](https://github.com/16EAGLE/basemaps/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/16EAGLE/basemaps/actions/workflows/R-CMD-check.yaml)
+[![AppVeyor build
+status](https://ci.appveyor.com/api/projects/status/github/16EAGLE/basemaps?branch=master&svg=true)](https://ci.appveyor.com/project/16EAGLE/basemaps)
+[![Coverage](https://codecov.io/gh/16eagle/basemaps/branch/master/graph/badge.svg)](https://app.codecov.io/gh/16EAGLE/basemaps)
+[![Package
+dependencies](https://tinyverse.netlify.app/badge/basemaps)](https://CRAN.R-project.org/package=basemaps)
+
+![A preview of map types supported by basemaps for
+R](https://i.imgur.com/wgYcDAA.gif)
+
+`basemaps` is a lightweight `R` package to download and cache spatial
+basemaps from open sources such as *OpenStreetMap*, *Stamen*, *Stadia*,
+*Thunderforest*, *Carto*, *Mapbox*, *Esri*, *Maptiler* and others.
+Retrieved basemaps are translated into and returned as classes of
+choice, such as `terra`, `stars`, `raster`, `ggplot`, `mapview`,
+`magick`, or as files, such as `png` or `geotif`. The package aims to
+ease the use of basemaps in different contexts by providing a function
+interface as minimalist as possible.
+
+## Installation
+
+Install the latest stable release of `basemaps` from CRAN:
+
+``` r
+
+install.packages("basemaps")
+```
+
+Install the latest development version of `basemaps` from GitHub:
+
+``` r
+
+remotes::install_github("16EAGLE/basemaps")
+```
+
+## Get started
+
+All available map services and map types can be printed using
+[`get_maptypes()`](https://jakob.schwalb-willmann.de/basemaps/reference/maptypes.md).
+The
+[`basemap()`](https://jakob.schwalb-willmann.de/basemaps/reference/basemap.md)
+function and its class-specific aliases facilitate (down)loading a
+basemap and returning it as a class of choice. Map preferences that
+should be used during a session can be set as defaults using
+[`set_defaults()`](https://jakob.schwalb-willmann.de/basemaps/reference/defaults.md).
+
+``` r
+
+library(basemaps)
+data(ext)
+# or use draw_ext() to interactively draw an extent yourself
+
+# view all available maps
+get_maptypes()
+
+# set defaults for the basemap
+set_defaults(map_service = "osm", map_type = "topographic")
+
+# load and return basemap map as class of choice, e.g. as image using magick:
+basemap_magick(ext)
+#> Loading basemap 'topographic' from map service 'osm'...
+```
+
+![](https://i.imgur.com/uVbyyXb.png)
+
+``` r
+
+# or as plot:
+basemap_plot(ext)
+
+# or as ggplot2:
+basemap_ggplot(ext)
+
+# or as ggplot2 layer:
+library(ggplot2)
+ggplot() + 
+  basemap_gglayer(ext) +
+  scale_fill_identity() + 
+  coord_sf()
+```
+
+![](https://i.imgur.com/3BzQEkx.png)
+
+``` r
+
+# or as mapview:
+basemap_mapview(ext)
+```
+
+![](https://i.imgur.com/0L6G37X.png)
+
+``` r
+
+# or as spatial classes, such as terra:
+basemap_terra(ext)
+#> class       : SpatRaster 
+#> dimensions  : 614, 669, 3  (nrow, ncol, nlyr)
+#> resolution  : 19.10926, 19.10926  (x, y)
+#> extent      : 1224617, 1237401, 6032659, 6044392  (xmin, xmax, ymin, ymax)
+#> coord. ref. : WGS 84 / Pseudo-Mercator (EPSG:3857) 
+#> colors RGB  : 1, 2, 3 
+#> names       : red, green, blue 
+#> min values  :   0,     0,    0 
+#> max values  : 253,   254,  255
+
+# or stars:
+basemap_stars(ext)
+#> stars object with 3 dimensions and 1 attribute
+#> attribute(s), summary of first 1e+05 cells:
+#> Min. 1st Qu. Median     Mean 3rd Qu. Max.
+#> 0     183    213 201.3209     234  253
+#> dimension(s):
+#>      from  to  offset  delta                   refsys
+#> x       1 669 1224617  19.11 WGS 84 / Pseudo-Mercator 
+#> y       1 614 6044392 -19.11 WGS 84 / Pseudo-Mercator
+#> ...
+
+# or return as file(s), e.g. GeoTif
+basemap_geotif(ext)
+#> [1] "basemap_20220922214954.tif"
+
+# or PNG:
+basemap_png(ext)
+#> [1] "osm_topographic_bg_2022-09-22_12-00-00.png"
+```
+
+## Map examples
+
+`basemaps` supports a variety of map services and types (which can be
+printed using
+[`get_maptypes()`](https://jakob.schwalb-willmann.de/basemaps/reference/maptypes.md)).
+A selection of available map types is shown below. For a complete table
+of available map types, see [supported services and
+maps](#supported-services-and-maps).
+
+``` r
+
+basemap(ext, map_service = "osm", map_type = "streets")
+#> Loading basemap 'streets' from map service 'osm'...
+```
+
+![](https://i.imgur.com/zT5m4Ne.png)
+
+``` r
+
+basemap(ext, map_service = "mapbox", map_type = "satellite")
+#> Loading basemap 'satellite' from map service 'mapbox'...
+```
+
+![](https://i.imgur.com/rM4VtoO.jpg)
+
+``` r
+
+basemap(ext, map_service = "mapbox", map_type = "hybrid")
+#> Loading basemap 'hybrid' from map service 'mapbox'...
+```
+
+![](https://i.imgur.com/F7fU32T.png)
+
+``` r
+
+basemap(ext, map_service = "mapbox", map_type = "streets")
+#> Loading basemap 'streets' from map service 'mapbox'...
+```
+
+![](https://i.imgur.com/a0FUoau.png)
+
+``` r
+
+basemap(ext, map_service = "mapbox", map_type = "terrain")
+#> Loading basemap 'terrain' from map service 'mapbox'...
+```
+
+![](https://i.imgur.com/HfaZvBk.png)
+
+``` r
+
+basemap(ext, map_service = "osm_stamen", map_type = "terrain_bg")
+#> Loading basemap 'terrain_bg' from map service 'osm_stamen'...
+```
+
+![](https://i.imgur.com/WKwOIlW.png)
+
+``` r
+
+basemap(ext, map_service = "osm_stamen", map_type = "toner")
+#> Loading basemap 'toner' from map service 'osm_stamen'...
+```
+
+![](https://i.imgur.com/b7me3PP.png)
+
+``` r
+
+basemap(ext, map_service = "osm_stamen", map_type = "watercolor")
+#> Loading basemap 'watercolor' from map service 'osm_stamen'...
+```
+
+![](https://i.imgur.com/U9tCTkQ.png)
+
+``` r
+
+basemap(ext, map_service = "osm_thunderforest", map_type = "transport")
+#> Loading basemap 'transport' from map service 'osm_thunderforest'...
+```
+
+![](https://i.imgur.com/urteXlA.png)
+
+``` r
+
+basemap(ext, map_service = "osm_thunderforest", map_type = "landscape")
+#> Loading basemap 'landscape' from map service 'osm_thunderforest'...
+```
+
+![](https://i.imgur.com/V6oB4jP.png)
+
+``` r
+
+basemap(ext, map_service = "osm_thunderforest", map_type = "outdoors")
+#> Loading basemap 'outdoors' from map service 'osm_thunderforest'...
+```
+
+![](https://i.imgur.com/e6wWgLQ.png)
+
+``` r
+
+basemap(ext, map_service = "osm_thunderforest", map_type = "atlas")
+#> Loading basemap 'atlas' from map service 'osm_thunderforest'...
+```
+
+![](https://i.imgur.com/xXNSYOI.png)
+
+``` r
+
+basemap(ext, map_service = "carto", map_type = "light")
+#> Loading basemap 'light' from map service 'carto'...
+```
+
+![](https://i.imgur.com/OBMrcWi.png)
+
+``` r
+
+basemap(ext, map_service = "carto", map_type = "dark")
+#> Loading basemap 'dark' from map service 'carto'...
+```
+
+![](https://i.imgur.com/c0hlnYP.png)
+
+``` r
+
+basemap(ext, map_service = "maptiler", map_type = "satellite")
+#> Loading basemap 'satellite' from map service 'maptiler'...
+```
+
+![](https://i.imgur.com/8zOeGCn.jpeg)
+
+``` r
+
+basemap(ext, map_service = "maptiler", map_type = "backdrop")
+#> Loading basemap 'backdrop' from map service 'maptiler'...
+```
+
+![](https://i.imgur.com/EbfkM8w.png)
+
+## Supported services and maps
+
+This table lists all currently implemented map services and map types
+and indicates whether they can be used without a map token (requiring
+registration at the respective service) or not. As of the date of
+implementation, all map services requiring registration offer their maps
+for free (please refer to the respective services’ terms of use for
+details).
+
+| `map_service` | `map_type` | `map_token` required? |
+|----|----|----|
+| `osm` | `streets` | no |
+| `osm` | `streets_de` | no |
+| `osm` | `topographic` | no |
+| `osm_stamen` | `toner` | yes, register: <https://stadiamaps.com/> |
+| `osm_stamen` | `toner_bg` | yes, register: <https://stadiamaps.com/> |
+| `osm_stamen` | `terrain` | yes, register: <https://stadiamaps.com/> |
+| `osm_stamen` | `terrain_bg` | yes, register: <https://stadiamaps.com/> |
+| `osm_stamen` | `watercolor` | yes, register: <https://stadiamaps.com/> |
+| `osm_stadia` | `alidade_smooth` | yes, register: <https://stadiamaps.com/> |
+| `osm_stadia` | `alidade_smooth_dark` | yes, register: <https://stadiamaps.com/> |
+| `osm_stadia` | `outdoors` | yes, register: <https://stadiamaps.com/> |
+| `osm_stadia` | `osm_bright` | yes, register: <https://stadiamaps.com/> |
+| `osm_thunderforest` | `cycle` | yes, register: <https://www.thunderforest.com/> |
+| `osm_thunderforest` | `transport` | yes, register: <https://www.thunderforest.com/> |
+| `osm_thunderforest` | `landscape` | yes, register: <https://www.thunderforest.com/> |
+| `osm_thunderforest` | `outdoors` | yes, register: <https://www.thunderforest.com/> |
+| `osm_thunderforest` | `transport_dark` | yes, register: <https://www.thunderforest.com/> |
+| `osm_thunderforest` | `spinal` | yes, register: <https://www.thunderforest.com/> |
+| `osm_thunderforest` | `pioneer` | yes, register: <https://www.thunderforest.com/> |
+| `osm_thunderforest` | `mobile_atlas` | yes, register: <https://www.thunderforest.com/> |
+| `osm_thunderforest` | `neighbourhood` | yes, register: <https://www.thunderforest.com/> |
+| `osm_thunderforest` | `atlas` | yes, register: <https://www.thunderforest.com/> |
+| `carto` | `light` | no |
+| `carto` | `light_no_labels` | no |
+| `carto` | `light_only_labels` | no |
+| `carto` | `dark` | no |
+| `carto` | `dark_no_labels` | no |
+| `carto` | `dark_only_labels` | no |
+| `carto` | `voyager` | no |
+| `carto` | `voyager_no_labels` | no |
+| `carto` | `voyager_only_labels` | no |
+| `carto` | `voyager_labels_under` | no |
+| `mapbox` | `streets` | yes, register: <https://mapbox.com> |
+| `mapbox` | `outdoors` | yes, register: <https://mapbox.com> |
+| `mapbox` | `light` | yes, register: <https://mapbox.com> |
+| `mapbox` | `dark` | yes, register: <https://mapbox.com> |
+| `mapbox` | `satellite` | yes, register: <https://mapbox.com> |
+| `mapbox` | `hybrid` | yes, register: <https://mapbox.com> |
+| `mapbox` | `terrain` | yes, register: <https://mapbox.com> |
+| `esri` | `natgeo_world_map` | no |
+| `esri` | `usa_topo_maps` | no |
+| `esri` | `world_imagery` | no |
+| `esri` | `world_physical_map` | no |
+| `esri` | `world_shaded_relief` | no |
+| `esri` | `world_street_map` | no |
+| `esri` | `world_terrain_base` | no |
+| `esri` | `world_topo_map` | no |
+| `esri` | `world_dark_gray_base` | no |
+| `esri` | `world_dark_gray_reference` | no |
+| `esri` | `world_light_gray_base` | no |
+| `esri` | `world_light_gray_reference` | no |
+| `esri` | `world_hillshade_dark` | no |
+| `esri` | `world_hillshade` | no |
+| `esri` | `world_ocean_base` | no |
+| `esri` | `world_ocean_reference` | no |
+| `esri` | `antarctic_imagery` | no |
+| `esri` | `arctic_imagery` | no |
+| `esri` | `arctic_ocean_base` | no |
+| `esri` | `arctic_ocean_reference` | no |
+| `esri` | `world_boundaries_and_places_alternate` | no |
+| `esri` | `world_boundaries_and_places` | no |
+| `esri` | `world_reference_overlay` | no |
+| `esri` | `world_transportation` | no |
+| `esri` | `delorme_world_base_map` | no |
+| `esri` | `world_navigation_charts` | no |
+| `maptiler` | `aquarelle` | yes, register: <https://www.maptiler.com> |
+| `maptiler` | `aquarelle_dark` | yes, register: <https://www.maptiler.com> |
+| `maptiler` | `aquarelle_vivid` | yes, register: <https://www.maptiler.com> |
+| `maptiler` | `backdrop` | yes, register: <https://www.maptiler.com> |
+| `maptiler` | `basic` | yes, register: <https://www.maptiler.com> |
+| `maptiler` | `bright` | yes, register: <https://www.maptiler.com> |
+| `maptiler` | `dataviz` | yes, register: <https://www.maptiler.com> |
+| `maptiler` | `landscape` | yes, register: <https://www.maptiler.com> |
+| `maptiler` | `ocean` | yes, register: <https://www.maptiler.com> |
+| `maptiler` | `outdoor` | yes, register: <https://www.maptiler.com> |
+| `maptiler` | `satellite` | yes, register: <https://www.maptiler.com> |
+| `maptiler` | `streets` | yes, register: <https://www.maptiler.com> |
+| `maptiler` | `toner` | yes, register: <https://www.maptiler.com> |
+| `maptiler` | `topo` | yes, register: <https://www.maptiler.com> |
+| `maptiler` | `winter` | yes, register: <https://www.maptiler.com> |
+
+## Available functions
+
+- [`get_maptypes()`](https://jakob.schwalb-willmann.de/basemaps/reference/maptypes.md)
+  returns every supported map service and map type that can be used as
+  input to the `map_service` and `map_type` arguments of
+  [`set_defaults()`](https://jakob.schwalb-willmann.de/basemaps/reference/defaults.md),
+  [`basemap()`](https://jakob.schwalb-willmann.de/basemaps/reference/basemap.md)
+  or associated functions.
+- [`draw_ext()`](https://jakob.schwalb-willmann.de/basemaps/reference/draw_ext.md)
+  lets you draw an extent on an interactive map.
+- [`set_defaults()`](https://jakob.schwalb-willmann.de/basemaps/reference/defaults.md),
+  [`get_defaults()`](https://jakob.schwalb-willmann.de/basemaps/reference/defaults.md)
+  and
+  [`reset_defaults()`](https://jakob.schwalb-willmann.de/basemaps/reference/defaults.md)
+  set, get or reset the defaults of all map arguments passed to
+  [`basemap()`](https://jakob.schwalb-willmann.de/basemaps/reference/basemap.md)
+  or associated functions.
+- [`basemap()`](https://jakob.schwalb-willmann.de/basemaps/reference/basemap.md)
+  and its aliases
+  [`basemap_raster()`](https://jakob.schwalb-willmann.de/basemaps/reference/basemap.md),
+  [`basemap_stars()`](https://jakob.schwalb-willmann.de/basemaps/reference/basemap.md),
+  [`basemap_mapview()`](https://jakob.schwalb-willmann.de/basemaps/reference/basemap.md),
+  [`basemap_plot()`](https://jakob.schwalb-willmann.de/basemaps/reference/basemap.md),
+  [`basemap_ggplot()`](https://jakob.schwalb-willmann.de/basemaps/reference/basemap.md),
+  [`basemap_gglayer()`](https://jakob.schwalb-willmann.de/basemaps/reference/basemap.md),
+  [`basemap_magick()`](https://jakob.schwalb-willmann.de/basemaps/reference/basemap.md),
+  [`basemap_png()`](https://jakob.schwalb-willmann.de/basemaps/reference/basemap.md)
+  and
+  [`basemap_geotif()`](https://jakob.schwalb-willmann.de/basemaps/reference/basemap.md)
+  (down)load and cache a basemap of a defined extent `ext`,
+  `map_service` and `map_type` and return it as an object of the defined
+  class.
+- [`gg_raster()`](https://jakob.schwalb-willmann.de/basemaps/reference/plot.md)
+  plots objects of class `SpatRaster`, `RasterLayer`, `RasterBrick` or
+  `RasterStack` as `ggplot2`.
+- [`flush_cache()`](https://jakob.schwalb-willmann.de/basemaps/reference/cache.md)
+  deletes all cached map tiles and basemaps.
+
+## Related packages
+
+If you are interested in obtaining basemaps, you also may want to have a
+look at [`ceramic`](https://github.com/hypertidy/ceramic), an R package
+developed by Michael Sumner with a similar goal.
+
+The underpinning code of `basemaps` was originally developed for
+[`moveVis`](https://movevis.org) and has been detached to allow its
+general use.
+
+  
+
+------------------------------------------------------------------------
+
+^(Some content of this file may be protected (brand names, map imagery etc.), © Mapbox © Thunderforest © Stamen © Carto © Esri © Maptiler. Many thanks to the creators of [reprex](https://reprex.tidyverse.org) which was used to compile parts of this README.)
