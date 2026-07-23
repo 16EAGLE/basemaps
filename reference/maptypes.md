@@ -546,92 +546,93 @@ get_maptypes(as_df = TRUE, url_cols = TRUE)
 #> 78     xy            .png          ?key=             403
 #> 79     xy            .png          ?key=             403
 #> 80     xy            .png          ?key=             403
-#>                       url_website
-#> 1  https://www.openstreetmap.org/
-#> 2  https://www.openstreetmap.org/
-#> 3  https://www.openstreetmap.org/
-#> 4          https://stadiamaps.com
-#> 5          https://stadiamaps.com
-#> 6          https://stadiamaps.com
-#> 7          https://stadiamaps.com
-#> 8          https://stadiamaps.com
-#> 9          https://stadiamaps.com
-#> 10         https://stadiamaps.com
-#> 11         https://stadiamaps.com
-#> 12         https://stadiamaps.com
-#> 13      https://thunderforest.com
-#> 14      https://thunderforest.com
-#> 15      https://thunderforest.com
-#> 16      https://thunderforest.com
-#> 17      https://thunderforest.com
-#> 18      https://thunderforest.com
-#> 19      https://thunderforest.com
-#> 20      https://thunderforest.com
-#> 21      https://thunderforest.com
-#> 22      https://thunderforest.com
-#> 23                           <NA>
-#> 24                           <NA>
-#> 25                           <NA>
-#> 26                           <NA>
-#> 27                           <NA>
-#> 28                           <NA>
-#> 29                           <NA>
-#> 30                           <NA>
-#> 31                           <NA>
-#> 32                           <NA>
-#> 33        https://www.mapbox.com/
-#> 34        https://www.mapbox.com/
-#> 35        https://www.mapbox.com/
-#> 36        https://www.mapbox.com/
-#> 37        https://www.mapbox.com/
-#> 38        https://www.mapbox.com/
-#> 39        https://www.mapbox.com/
-#> 40                           <NA>
-#> 41                           <NA>
-#> 42                           <NA>
-#> 43                           <NA>
-#> 44                           <NA>
-#> 45                           <NA>
-#> 46                           <NA>
-#> 47                           <NA>
-#> 48                           <NA>
-#> 49                           <NA>
-#> 50                           <NA>
-#> 51                           <NA>
-#> 52                           <NA>
-#> 53                           <NA>
-#> 54                           <NA>
-#> 55                           <NA>
-#> 56                           <NA>
-#> 57                           <NA>
-#> 58                           <NA>
-#> 59                           <NA>
-#> 60                           <NA>
-#> 61                           <NA>
-#> 62                           <NA>
-#> 63                           <NA>
-#> 64                           <NA>
-#> 65                           <NA>
-#> 66           https://maptiler.com
-#> 67           https://maptiler.com
-#> 68           https://maptiler.com
-#> 69           https://maptiler.com
-#> 70           https://maptiler.com
-#> 71           https://maptiler.com
-#> 72           https://maptiler.com
-#> 73           https://maptiler.com
-#> 74           https://maptiler.com
-#> 75           https://maptiler.com
-#> 76           https://maptiler.com
-#> 77           https://maptiler.com
-#> 78           https://maptiler.com
-#> 79           https://maptiler.com
-#> 80           https://maptiler.com
+#>                       url_website http_version
+#> 1  https://www.openstreetmap.org/            0
+#> 2  https://www.openstreetmap.org/            0
+#> 3  https://www.openstreetmap.org/            2
+#> 4          https://stadiamaps.com            0
+#> 5          https://stadiamaps.com            0
+#> 6          https://stadiamaps.com            0
+#> 7          https://stadiamaps.com            0
+#> 8          https://stadiamaps.com            0
+#> 9          https://stadiamaps.com            0
+#> 10         https://stadiamaps.com            0
+#> 11         https://stadiamaps.com            0
+#> 12         https://stadiamaps.com            0
+#> 13      https://thunderforest.com            0
+#> 14      https://thunderforest.com            0
+#> 15      https://thunderforest.com            0
+#> 16      https://thunderforest.com            0
+#> 17      https://thunderforest.com            0
+#> 18      https://thunderforest.com            0
+#> 19      https://thunderforest.com            0
+#> 20      https://thunderforest.com            0
+#> 21      https://thunderforest.com            0
+#> 22      https://thunderforest.com            0
+#> 23                           <NA>            0
+#> 24                           <NA>            0
+#> 25                           <NA>            0
+#> 26                           <NA>            0
+#> 27                           <NA>            0
+#> 28                           <NA>            0
+#> 29                           <NA>            0
+#> 30                           <NA>            0
+#> 31                           <NA>            0
+#> 32                           <NA>            0
+#> 33        https://www.mapbox.com/            0
+#> 34        https://www.mapbox.com/            0
+#> 35        https://www.mapbox.com/            0
+#> 36        https://www.mapbox.com/            0
+#> 37        https://www.mapbox.com/            0
+#> 38        https://www.mapbox.com/            0
+#> 39        https://www.mapbox.com/            0
+#> 40                           <NA>            0
+#> 41                           <NA>            0
+#> 42                           <NA>            0
+#> 43                           <NA>            0
+#> 44                           <NA>            0
+#> 45                           <NA>            0
+#> 46                           <NA>            0
+#> 47                           <NA>            0
+#> 48                           <NA>            0
+#> 49                           <NA>            0
+#> 50                           <NA>            0
+#> 51                           <NA>            0
+#> 52                           <NA>            0
+#> 53                           <NA>            0
+#> 54                           <NA>            0
+#> 55                           <NA>            0
+#> 56                           <NA>            0
+#> 57                           <NA>            0
+#> 58                           <NA>            0
+#> 59                           <NA>            0
+#> 60                           <NA>            0
+#> 61                           <NA>            0
+#> 62                           <NA>            0
+#> 63                           <NA>            0
+#> 64                           <NA>            0
+#> 65                           <NA>            0
+#> 66           https://maptiler.com            0
+#> 67           https://maptiler.com            0
+#> 68           https://maptiler.com            0
+#> 69           https://maptiler.com            0
+#> 70           https://maptiler.com            0
+#> 71           https://maptiler.com            0
+#> 72           https://maptiler.com            0
+#> 73           https://maptiler.com            0
+#> 74           https://maptiler.com            0
+#> 75           https://maptiler.com            0
+#> 76           https://maptiler.com            0
+#> 77           https://maptiler.com            0
+#> 78           https://maptiler.com            0
+#> 79           https://maptiler.com            0
+#> 80           https://maptiler.com            0
 
 # add a custom map service and type yourself:
 add_maptypes(
    map_service = "someservice", map_type = "terrain", 
    url_endpoint = "https://tile.someservice.org")
+#> Error in rbind(deparse.level, ...): numbers of columns of arguments do not match
 
 # control further aspects of a custom map service and type:
 add_maptypes(
@@ -643,4 +644,5 @@ add_maptypes(
    auth_error_code = 401, 
    url_website = "https://someservice.org"
 )
+#> Error in rbind(deparse.level, ...): numbers of columns of arguments do not match
 ```
