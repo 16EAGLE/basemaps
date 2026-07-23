@@ -59,6 +59,7 @@
 <span>  url_file_format <span class="op">=</span> <span class="st">".png"</span>,</span>
 <span>  url_map_token <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/character.html" class="external-link">as.character</a></span><span class="op">(</span><span class="cn">NA</span><span class="op">)</span>,</span>
 <span>  auth_error_code <span class="op">=</span> <span class="fl">401</span>,</span>
+<span>  http_version <span class="op">=</span> <span class="fl">0</span>,</span>
 <span>  url_website <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/character.html" class="external-link">as.character</a></span><span class="op">(</span><span class="cn">NA</span><span class="op">)</span></span>
 <span><span class="op">)</span></span>
 <span></span>
@@ -89,23 +90,23 @@
 
 
 <dt id="arg-as-df">as_df<a class="anchor" aria-label="anchor" href="#arg-as-df"></a></dt>
-<dd><p>logical, whether to return a data.frame instead of a list (defaults to <code>FALSE</code>)</p></dd>
+<dd><p>logical, whether to return a data.frame instead of a list (defaults to <code>FALSE</code>).</p></dd>
 
 
 <dt id="arg-url-cols">url_cols<a class="anchor" aria-label="anchor" href="#arg-url-cols"></a></dt>
-<dd><p>logical, whether to include the endpoint URL and auxiliary URL columns (defults to <code>FALSE</code>). Ignored, if <code>as_df = FALSE</code></p></dd>
+<dd><p>logical, whether to include the endpoint URL and auxiliary URL columns (defults to <code>FALSE</code>). Ignored, if <code>as_df = FALSE</code>.</p></dd>
 
 
 <dt id="arg-map-type">map_type<a class="anchor" aria-label="anchor" href="#arg-map-type"></a></dt>
-<dd><p>character, name of map type to add</p></dd>
+<dd><p>character, name of map type to add.</p></dd>
 
 
 <dt id="arg-url-endpoint">url_endpoint<a class="anchor" aria-label="anchor" href="#arg-url-endpoint"></a></dt>
-<dd><p>character, endpoint URL for map service and type to add</p></dd>
+<dd><p>character, endpoint URL for map service and type to add.</p></dd>
 
 
 <dt id="arg-url-xy">url_xy<a class="anchor" aria-label="anchor" href="#arg-url-xy"></a></dt>
-<dd><p>character, either "xy" or "yx" defining the order the map service to add is expecting tile subscripts in (defaults to "xy")</p></dd>
+<dd><p>character, either "xy" or "yx" defining the order the map service to add is expecting tile subscripts in (defaults to "xy").</p></dd>
 
 
 <dt id="arg-url-file-format">url_file_format<a class="anchor" aria-label="anchor" href="#arg-url-file-format"></a></dt>
@@ -117,7 +118,11 @@
 
 
 <dt id="arg-auth-error-code">auth_error_code<a class="anchor" aria-label="anchor" href="#arg-auth-error-code"></a></dt>
-<dd><p>numeric, http error code the endpoint to add uses if authentification failed (defaults to 401)</p></dd>
+<dd><p>numeric, http error code the endpoint to add uses if authentification failed (defaults to 401).</p></dd>
+
+
+<dt id="arg-http-version">http_version<a class="anchor" aria-label="anchor" href="#arg-http-version"></a></dt>
+<dd><p>numeric, optional, HTTP version used by the map service (defaults to 0 for auto setting).</p></dd>
 
 
 <dt id="arg-url-website">url_website<a class="anchor" aria-label="anchor" href="#arg-url-website"></a></dt>
@@ -474,174 +479,173 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> 78                                                                                https://api.maptiler.com/maps/toner-v2/</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 79                                                                                 https://api.maptiler.com/maps/topo-v2/</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 80                                                                               https://api.maptiler.com/maps/winter-v2/</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    url_xy url_file_format  url_map_token auth_error_code</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1      xy            .png           &lt;NA&gt;             401</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2      xy            .png           &lt;NA&gt;             401</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3      xy            .png           &lt;NA&gt;             401</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4      xy            .png      ?api_key=             401</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5      xy            .png      ?api_key=             401</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6      xy            .png      ?api_key=             401</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 7      xy            .png      ?api_key=             401</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 8      xy            .jpg      ?api_key=             401</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 9      xy            .png      ?api_key=             401</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 10     xy            .png      ?api_key=             401</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 11     xy            .png      ?api_key=             401</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 12     xy            .png      ?api_key=             401</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 13     xy            .png       ?apikey=             403</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 14     xy            .png       ?apikey=             403</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 15     xy            .png       ?apikey=             403</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 16     xy            .png       ?apikey=             403</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 17     xy            .png       ?apikey=             403</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 18     xy            .png       ?apikey=             403</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 19     xy            .png       ?apikey=             403</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 20     xy            .png       ?apikey=             403</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 21     xy            .png       ?apikey=             403</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 22     xy            .png       ?apikey=             403</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 23     xy            .png           &lt;NA&gt;             401</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 24     xy            .png           &lt;NA&gt;             401</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 25     xy            .png           &lt;NA&gt;             401</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 26     xy            .png           &lt;NA&gt;             401</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 27     xy            .png           &lt;NA&gt;             401</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 28     xy            .png           &lt;NA&gt;             401</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 29     xy            .png           &lt;NA&gt;             401</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 30     xy            .png           &lt;NA&gt;             401</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 31     xy            .png           &lt;NA&gt;             401</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 32     xy            .png           &lt;NA&gt;             401</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 33     xy                 ?access_token=             401</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 34     xy                 ?access_token=             401</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 35     xy                 ?access_token=             401</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 36     xy                 ?access_token=             401</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 37     xy                 ?access_token=             401</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 38     xy                 ?access_token=             401</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 39     xy            .png ?access_token=             401</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 40     yx            .png           &lt;NA&gt;             401</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 41     yx            .png           &lt;NA&gt;             401</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 42     yx            .png           &lt;NA&gt;             401</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 43     yx            .png           &lt;NA&gt;             401</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 44     yx            .png           &lt;NA&gt;             401</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 45     yx            .png           &lt;NA&gt;             401</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 46     yx            .png           &lt;NA&gt;             401</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 47     yx            .png           &lt;NA&gt;             401</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 48     yx            .png           &lt;NA&gt;             401</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 49     yx            .png           &lt;NA&gt;             401</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 50     yx            .png           &lt;NA&gt;             401</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 51     yx            .png           &lt;NA&gt;             401</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 52     yx            .png           &lt;NA&gt;             401</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 53     yx            .png           &lt;NA&gt;             401</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 54     yx            .png           &lt;NA&gt;             401</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 55     yx            .png           &lt;NA&gt;             401</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 56     yx            .png           &lt;NA&gt;             401</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 57     yx            .png           &lt;NA&gt;             401</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 58     yx            .png           &lt;NA&gt;             401</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 59     yx            .png           &lt;NA&gt;             401</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 60     yx            .png           &lt;NA&gt;             401</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 61     yx            .png           &lt;NA&gt;             401</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 62     yx            .png           &lt;NA&gt;             401</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 63     yx            .png           &lt;NA&gt;             401</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 64     yx            .png           &lt;NA&gt;             401</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 65     yx            .png           &lt;NA&gt;             401</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 66     xy            .png          ?key=             403</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 67     xy            .png          ?key=             403</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 68     xy            .png          ?key=             403</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 69     xy            .png          ?key=             403</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 70     xy            .png          ?key=             403</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 71     xy            .png          ?key=             403</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 72     xy            .png          ?key=             403</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 73     xy            .png          ?key=             403</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 74     xy            .png          ?key=             403</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 75     xy            .png          ?key=             403</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 76     xy            .jpg          ?key=             403</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 77     xy            .png          ?key=             403</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 78     xy            .png          ?key=             403</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 79     xy            .png          ?key=             403</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 80     xy            .png          ?key=             403</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                       url_website http_version</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1  https://www.openstreetmap.org/            0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2  https://www.openstreetmap.org/            0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3  https://www.openstreetmap.org/            2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4          https://stadiamaps.com            0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5          https://stadiamaps.com            0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6          https://stadiamaps.com            0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 7          https://stadiamaps.com            0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 8          https://stadiamaps.com            0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 9          https://stadiamaps.com            0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 10         https://stadiamaps.com            0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 11         https://stadiamaps.com            0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 12         https://stadiamaps.com            0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 13      https://thunderforest.com            0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 14      https://thunderforest.com            0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 15      https://thunderforest.com            0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 16      https://thunderforest.com            0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 17      https://thunderforest.com            0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 18      https://thunderforest.com            0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 19      https://thunderforest.com            0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 20      https://thunderforest.com            0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 21      https://thunderforest.com            0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 22      https://thunderforest.com            0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 23                           &lt;NA&gt;            0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 24                           &lt;NA&gt;            0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 25                           &lt;NA&gt;            0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 26                           &lt;NA&gt;            0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 27                           &lt;NA&gt;            0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 28                           &lt;NA&gt;            0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 29                           &lt;NA&gt;            0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 30                           &lt;NA&gt;            0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 31                           &lt;NA&gt;            0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 32                           &lt;NA&gt;            0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 33        https://www.mapbox.com/            0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 34        https://www.mapbox.com/            0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 35        https://www.mapbox.com/            0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 36        https://www.mapbox.com/            0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 37        https://www.mapbox.com/            0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 38        https://www.mapbox.com/            0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 39        https://www.mapbox.com/            0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 40                           &lt;NA&gt;            0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 41                           &lt;NA&gt;            0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 42                           &lt;NA&gt;            0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 43                           &lt;NA&gt;            0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 44                           &lt;NA&gt;            0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 45                           &lt;NA&gt;            0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 46                           &lt;NA&gt;            0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 47                           &lt;NA&gt;            0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 48                           &lt;NA&gt;            0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 49                           &lt;NA&gt;            0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 50                           &lt;NA&gt;            0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 51                           &lt;NA&gt;            0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 52                           &lt;NA&gt;            0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 53                           &lt;NA&gt;            0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 54                           &lt;NA&gt;            0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 55                           &lt;NA&gt;            0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 56                           &lt;NA&gt;            0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 57                           &lt;NA&gt;            0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 58                           &lt;NA&gt;            0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 59                           &lt;NA&gt;            0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 60                           &lt;NA&gt;            0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 61                           &lt;NA&gt;            0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 62                           &lt;NA&gt;            0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 63                           &lt;NA&gt;            0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 64                           &lt;NA&gt;            0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 65                           &lt;NA&gt;            0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 66           https://maptiler.com            0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 67           https://maptiler.com            0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 68           https://maptiler.com            0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 69           https://maptiler.com            0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 70           https://maptiler.com            0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 71           https://maptiler.com            0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 72           https://maptiler.com            0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 73           https://maptiler.com            0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 74           https://maptiler.com            0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 75           https://maptiler.com            0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 76           https://maptiler.com            0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 77           https://maptiler.com            0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 78           https://maptiler.com            0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 79           https://maptiler.com            0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 80           https://maptiler.com            0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    url_xy url_file_format  url_map_token auth_error_code http_version</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1      xy            .png           &lt;NA&gt;             401            0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2      xy            .png           &lt;NA&gt;             401            0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3      xy            .png           &lt;NA&gt;             401            2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4      xy            .png      ?api_key=             401            0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5      xy            .png      ?api_key=             401            0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6      xy            .png      ?api_key=             401            0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7      xy            .png      ?api_key=             401            0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8      xy            .jpg      ?api_key=             401            0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 9      xy            .png      ?api_key=             401            0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10     xy            .png      ?api_key=             401            0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 11     xy            .png      ?api_key=             401            0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 12     xy            .png      ?api_key=             401            0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 13     xy            .png       ?apikey=             403            0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 14     xy            .png       ?apikey=             403            0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 15     xy            .png       ?apikey=             403            0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 16     xy            .png       ?apikey=             403            0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 17     xy            .png       ?apikey=             403            0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 18     xy            .png       ?apikey=             403            0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 19     xy            .png       ?apikey=             403            0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 20     xy            .png       ?apikey=             403            0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 21     xy            .png       ?apikey=             403            0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 22     xy            .png       ?apikey=             403            0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 23     xy            .png           &lt;NA&gt;             401            0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 24     xy            .png           &lt;NA&gt;             401            0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 25     xy            .png           &lt;NA&gt;             401            0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 26     xy            .png           &lt;NA&gt;             401            0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 27     xy            .png           &lt;NA&gt;             401            0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 28     xy            .png           &lt;NA&gt;             401            0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 29     xy            .png           &lt;NA&gt;             401            0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 30     xy            .png           &lt;NA&gt;             401            0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 31     xy            .png           &lt;NA&gt;             401            0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 32     xy            .png           &lt;NA&gt;             401            0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 33     xy                 ?access_token=             401            0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 34     xy                 ?access_token=             401            0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 35     xy                 ?access_token=             401            0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 36     xy                 ?access_token=             401            0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 37     xy                 ?access_token=             401            0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 38     xy                 ?access_token=             401            0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 39     xy            .png ?access_token=             401            0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 40     yx            .png           &lt;NA&gt;             401            0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 41     yx            .png           &lt;NA&gt;             401            0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 42     yx            .png           &lt;NA&gt;             401            0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 43     yx            .png           &lt;NA&gt;             401            0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 44     yx            .png           &lt;NA&gt;             401            0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 45     yx            .png           &lt;NA&gt;             401            0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 46     yx            .png           &lt;NA&gt;             401            0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 47     yx            .png           &lt;NA&gt;             401            0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 48     yx            .png           &lt;NA&gt;             401            0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 49     yx            .png           &lt;NA&gt;             401            0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 50     yx            .png           &lt;NA&gt;             401            0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 51     yx            .png           &lt;NA&gt;             401            0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 52     yx            .png           &lt;NA&gt;             401            0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 53     yx            .png           &lt;NA&gt;             401            0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 54     yx            .png           &lt;NA&gt;             401            0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 55     yx            .png           &lt;NA&gt;             401            0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 56     yx            .png           &lt;NA&gt;             401            0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 57     yx            .png           &lt;NA&gt;             401            0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 58     yx            .png           &lt;NA&gt;             401            0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 59     yx            .png           &lt;NA&gt;             401            0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 60     yx            .png           &lt;NA&gt;             401            0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 61     yx            .png           &lt;NA&gt;             401            0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 62     yx            .png           &lt;NA&gt;             401            0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 63     yx            .png           &lt;NA&gt;             401            0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 64     yx            .png           &lt;NA&gt;             401            0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 65     yx            .png           &lt;NA&gt;             401            0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 66     xy            .png          ?key=             403            0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 67     xy            .png          ?key=             403            0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 68     xy            .png          ?key=             403            0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 69     xy            .png          ?key=             403            0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 70     xy            .png          ?key=             403            0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 71     xy            .png          ?key=             403            0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 72     xy            .png          ?key=             403            0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 73     xy            .png          ?key=             403            0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 74     xy            .png          ?key=             403            0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 75     xy            .png          ?key=             403            0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 76     xy            .jpg          ?key=             403            0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 77     xy            .png          ?key=             403            0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 78     xy            .png          ?key=             403            0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 79     xy            .png          ?key=             403            0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 80     xy            .png          ?key=             403            0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                       url_website</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1  https://www.openstreetmap.org/</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2  https://www.openstreetmap.org/</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3  https://www.openstreetmap.org/</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4          https://stadiamaps.com</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5          https://stadiamaps.com</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6          https://stadiamaps.com</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7          https://stadiamaps.com</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8          https://stadiamaps.com</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 9          https://stadiamaps.com</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10         https://stadiamaps.com</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 11         https://stadiamaps.com</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 12         https://stadiamaps.com</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 13      https://thunderforest.com</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 14      https://thunderforest.com</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 15      https://thunderforest.com</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 16      https://thunderforest.com</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 17      https://thunderforest.com</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 18      https://thunderforest.com</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 19      https://thunderforest.com</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 20      https://thunderforest.com</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 21      https://thunderforest.com</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 22      https://thunderforest.com</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 23                           &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 24                           &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 25                           &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 26                           &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 27                           &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 28                           &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 29                           &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 30                           &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 31                           &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 32                           &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 33        https://www.mapbox.com/</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 34        https://www.mapbox.com/</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 35        https://www.mapbox.com/</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 36        https://www.mapbox.com/</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 37        https://www.mapbox.com/</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 38        https://www.mapbox.com/</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 39        https://www.mapbox.com/</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 40                           &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 41                           &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 42                           &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 43                           &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 44                           &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 45                           &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 46                           &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 47                           &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 48                           &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 49                           &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 50                           &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 51                           &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 52                           &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 53                           &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 54                           &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 55                           &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 56                           &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 57                           &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 58                           &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 59                           &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 60                           &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 61                           &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 62                           &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 63                           &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 64                           &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 65                           &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 66           https://maptiler.com</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 67           https://maptiler.com</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 68           https://maptiler.com</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 69           https://maptiler.com</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 70           https://maptiler.com</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 71           https://maptiler.com</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 72           https://maptiler.com</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 73           https://maptiler.com</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 74           https://maptiler.com</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 75           https://maptiler.com</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 76           https://maptiler.com</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 77           https://maptiler.com</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 78           https://maptiler.com</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 79           https://maptiler.com</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 80           https://maptiler.com</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># add a custom map service and type yourself:</span></span></span>
 <span class="r-in"><span><span class="fu">add_maptypes</span><span class="op">(</span></span></span>
 <span class="r-in"><span>   map_service <span class="op">=</span> <span class="st">"someservice"</span>, map_type <span class="op">=</span> <span class="st">"terrain"</span>, </span></span>
 <span class="r-in"><span>   url_endpoint <span class="op">=</span> <span class="st">"https://tile.someservice.org"</span><span class="op">)</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in rbind(deparse.level, ...):</span> numbers of columns of arguments do not match</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># control further aspects of a custom map service and type:</span></span></span>
 <span class="r-in"><span><span class="fu">add_maptypes</span><span class="op">(</span></span></span>
@@ -653,7 +657,6 @@
 <span class="r-in"><span>   auth_error_code <span class="op">=</span> <span class="fl">401</span>, </span></span>
 <span class="r-in"><span>   url_website <span class="op">=</span> <span class="st">"https://someservice.org"</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in rbind(deparse.level, ...):</span> numbers of columns of arguments do not match</span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
     </div>

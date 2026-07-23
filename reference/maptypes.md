@@ -15,6 +15,7 @@ add_maptypes(
   url_file_format = ".png",
   url_map_token = as.character(NA),
   auth_error_code = 401,
+  http_version = 0,
   url_website = as.character(NA)
 )
 
@@ -64,25 +65,25 @@ Open Street Map contributors (<https://www.openstreetmap.org/copyright>)
 - as_df:
 
   logical, whether to return a data.frame instead of a list (defaults to
-  `FALSE`)
+  `FALSE`).
 
 - url_cols:
 
   logical, whether to include the endpoint URL and auxiliary URL columns
-  (defults to `FALSE`). Ignored, if `as_df = FALSE`
+  (defults to `FALSE`). Ignored, if `as_df = FALSE`.
 
 - map_type:
 
-  character, name of map type to add
+  character, name of map type to add.
 
 - url_endpoint:
 
-  character, endpoint URL for map service and type to add
+  character, endpoint URL for map service and type to add.
 
 - url_xy:
 
   character, either "xy" or "yx" defining the order the map service to
-  add is expecting tile subscripts in (defaults to "xy")
+  add is expecting tile subscripts in (defaults to "xy").
 
 - url_file_format:
 
@@ -99,7 +100,12 @@ Open Street Map contributors (<https://www.openstreetmap.org/copyright>)
 - auth_error_code:
 
   numeric, http error code the endpoint to add uses if authentification
-  failed (defaults to 401)
+  failed (defaults to 401).
+
+- http_version:
+
+  numeric, optional, HTTP version used by the map service (defaults to 0
+  for auto setting).
 
 - url_website:
 
@@ -465,174 +471,173 @@ get_maptypes(as_df = TRUE, url_cols = TRUE)
 #> 78                                                                                https://api.maptiler.com/maps/toner-v2/
 #> 79                                                                                 https://api.maptiler.com/maps/topo-v2/
 #> 80                                                                               https://api.maptiler.com/maps/winter-v2/
-#>    url_xy url_file_format  url_map_token auth_error_code
-#> 1      xy            .png           <NA>             401
-#> 2      xy            .png           <NA>             401
-#> 3      xy            .png           <NA>             401
-#> 4      xy            .png      ?api_key=             401
-#> 5      xy            .png      ?api_key=             401
-#> 6      xy            .png      ?api_key=             401
-#> 7      xy            .png      ?api_key=             401
-#> 8      xy            .jpg      ?api_key=             401
-#> 9      xy            .png      ?api_key=             401
-#> 10     xy            .png      ?api_key=             401
-#> 11     xy            .png      ?api_key=             401
-#> 12     xy            .png      ?api_key=             401
-#> 13     xy            .png       ?apikey=             403
-#> 14     xy            .png       ?apikey=             403
-#> 15     xy            .png       ?apikey=             403
-#> 16     xy            .png       ?apikey=             403
-#> 17     xy            .png       ?apikey=             403
-#> 18     xy            .png       ?apikey=             403
-#> 19     xy            .png       ?apikey=             403
-#> 20     xy            .png       ?apikey=             403
-#> 21     xy            .png       ?apikey=             403
-#> 22     xy            .png       ?apikey=             403
-#> 23     xy            .png           <NA>             401
-#> 24     xy            .png           <NA>             401
-#> 25     xy            .png           <NA>             401
-#> 26     xy            .png           <NA>             401
-#> 27     xy            .png           <NA>             401
-#> 28     xy            .png           <NA>             401
-#> 29     xy            .png           <NA>             401
-#> 30     xy            .png           <NA>             401
-#> 31     xy            .png           <NA>             401
-#> 32     xy            .png           <NA>             401
-#> 33     xy                 ?access_token=             401
-#> 34     xy                 ?access_token=             401
-#> 35     xy                 ?access_token=             401
-#> 36     xy                 ?access_token=             401
-#> 37     xy                 ?access_token=             401
-#> 38     xy                 ?access_token=             401
-#> 39     xy            .png ?access_token=             401
-#> 40     yx            .png           <NA>             401
-#> 41     yx            .png           <NA>             401
-#> 42     yx            .png           <NA>             401
-#> 43     yx            .png           <NA>             401
-#> 44     yx            .png           <NA>             401
-#> 45     yx            .png           <NA>             401
-#> 46     yx            .png           <NA>             401
-#> 47     yx            .png           <NA>             401
-#> 48     yx            .png           <NA>             401
-#> 49     yx            .png           <NA>             401
-#> 50     yx            .png           <NA>             401
-#> 51     yx            .png           <NA>             401
-#> 52     yx            .png           <NA>             401
-#> 53     yx            .png           <NA>             401
-#> 54     yx            .png           <NA>             401
-#> 55     yx            .png           <NA>             401
-#> 56     yx            .png           <NA>             401
-#> 57     yx            .png           <NA>             401
-#> 58     yx            .png           <NA>             401
-#> 59     yx            .png           <NA>             401
-#> 60     yx            .png           <NA>             401
-#> 61     yx            .png           <NA>             401
-#> 62     yx            .png           <NA>             401
-#> 63     yx            .png           <NA>             401
-#> 64     yx            .png           <NA>             401
-#> 65     yx            .png           <NA>             401
-#> 66     xy            .png          ?key=             403
-#> 67     xy            .png          ?key=             403
-#> 68     xy            .png          ?key=             403
-#> 69     xy            .png          ?key=             403
-#> 70     xy            .png          ?key=             403
-#> 71     xy            .png          ?key=             403
-#> 72     xy            .png          ?key=             403
-#> 73     xy            .png          ?key=             403
-#> 74     xy            .png          ?key=             403
-#> 75     xy            .png          ?key=             403
-#> 76     xy            .jpg          ?key=             403
-#> 77     xy            .png          ?key=             403
-#> 78     xy            .png          ?key=             403
-#> 79     xy            .png          ?key=             403
-#> 80     xy            .png          ?key=             403
-#>                       url_website http_version
-#> 1  https://www.openstreetmap.org/            0
-#> 2  https://www.openstreetmap.org/            0
-#> 3  https://www.openstreetmap.org/            2
-#> 4          https://stadiamaps.com            0
-#> 5          https://stadiamaps.com            0
-#> 6          https://stadiamaps.com            0
-#> 7          https://stadiamaps.com            0
-#> 8          https://stadiamaps.com            0
-#> 9          https://stadiamaps.com            0
-#> 10         https://stadiamaps.com            0
-#> 11         https://stadiamaps.com            0
-#> 12         https://stadiamaps.com            0
-#> 13      https://thunderforest.com            0
-#> 14      https://thunderforest.com            0
-#> 15      https://thunderforest.com            0
-#> 16      https://thunderforest.com            0
-#> 17      https://thunderforest.com            0
-#> 18      https://thunderforest.com            0
-#> 19      https://thunderforest.com            0
-#> 20      https://thunderforest.com            0
-#> 21      https://thunderforest.com            0
-#> 22      https://thunderforest.com            0
-#> 23                           <NA>            0
-#> 24                           <NA>            0
-#> 25                           <NA>            0
-#> 26                           <NA>            0
-#> 27                           <NA>            0
-#> 28                           <NA>            0
-#> 29                           <NA>            0
-#> 30                           <NA>            0
-#> 31                           <NA>            0
-#> 32                           <NA>            0
-#> 33        https://www.mapbox.com/            0
-#> 34        https://www.mapbox.com/            0
-#> 35        https://www.mapbox.com/            0
-#> 36        https://www.mapbox.com/            0
-#> 37        https://www.mapbox.com/            0
-#> 38        https://www.mapbox.com/            0
-#> 39        https://www.mapbox.com/            0
-#> 40                           <NA>            0
-#> 41                           <NA>            0
-#> 42                           <NA>            0
-#> 43                           <NA>            0
-#> 44                           <NA>            0
-#> 45                           <NA>            0
-#> 46                           <NA>            0
-#> 47                           <NA>            0
-#> 48                           <NA>            0
-#> 49                           <NA>            0
-#> 50                           <NA>            0
-#> 51                           <NA>            0
-#> 52                           <NA>            0
-#> 53                           <NA>            0
-#> 54                           <NA>            0
-#> 55                           <NA>            0
-#> 56                           <NA>            0
-#> 57                           <NA>            0
-#> 58                           <NA>            0
-#> 59                           <NA>            0
-#> 60                           <NA>            0
-#> 61                           <NA>            0
-#> 62                           <NA>            0
-#> 63                           <NA>            0
-#> 64                           <NA>            0
-#> 65                           <NA>            0
-#> 66           https://maptiler.com            0
-#> 67           https://maptiler.com            0
-#> 68           https://maptiler.com            0
-#> 69           https://maptiler.com            0
-#> 70           https://maptiler.com            0
-#> 71           https://maptiler.com            0
-#> 72           https://maptiler.com            0
-#> 73           https://maptiler.com            0
-#> 74           https://maptiler.com            0
-#> 75           https://maptiler.com            0
-#> 76           https://maptiler.com            0
-#> 77           https://maptiler.com            0
-#> 78           https://maptiler.com            0
-#> 79           https://maptiler.com            0
-#> 80           https://maptiler.com            0
+#>    url_xy url_file_format  url_map_token auth_error_code http_version
+#> 1      xy            .png           <NA>             401            0
+#> 2      xy            .png           <NA>             401            0
+#> 3      xy            .png           <NA>             401            2
+#> 4      xy            .png      ?api_key=             401            0
+#> 5      xy            .png      ?api_key=             401            0
+#> 6      xy            .png      ?api_key=             401            0
+#> 7      xy            .png      ?api_key=             401            0
+#> 8      xy            .jpg      ?api_key=             401            0
+#> 9      xy            .png      ?api_key=             401            0
+#> 10     xy            .png      ?api_key=             401            0
+#> 11     xy            .png      ?api_key=             401            0
+#> 12     xy            .png      ?api_key=             401            0
+#> 13     xy            .png       ?apikey=             403            0
+#> 14     xy            .png       ?apikey=             403            0
+#> 15     xy            .png       ?apikey=             403            0
+#> 16     xy            .png       ?apikey=             403            0
+#> 17     xy            .png       ?apikey=             403            0
+#> 18     xy            .png       ?apikey=             403            0
+#> 19     xy            .png       ?apikey=             403            0
+#> 20     xy            .png       ?apikey=             403            0
+#> 21     xy            .png       ?apikey=             403            0
+#> 22     xy            .png       ?apikey=             403            0
+#> 23     xy            .png           <NA>             401            0
+#> 24     xy            .png           <NA>             401            0
+#> 25     xy            .png           <NA>             401            0
+#> 26     xy            .png           <NA>             401            0
+#> 27     xy            .png           <NA>             401            0
+#> 28     xy            .png           <NA>             401            0
+#> 29     xy            .png           <NA>             401            0
+#> 30     xy            .png           <NA>             401            0
+#> 31     xy            .png           <NA>             401            0
+#> 32     xy            .png           <NA>             401            0
+#> 33     xy                 ?access_token=             401            0
+#> 34     xy                 ?access_token=             401            0
+#> 35     xy                 ?access_token=             401            0
+#> 36     xy                 ?access_token=             401            0
+#> 37     xy                 ?access_token=             401            0
+#> 38     xy                 ?access_token=             401            0
+#> 39     xy            .png ?access_token=             401            0
+#> 40     yx            .png           <NA>             401            0
+#> 41     yx            .png           <NA>             401            0
+#> 42     yx            .png           <NA>             401            0
+#> 43     yx            .png           <NA>             401            0
+#> 44     yx            .png           <NA>             401            0
+#> 45     yx            .png           <NA>             401            0
+#> 46     yx            .png           <NA>             401            0
+#> 47     yx            .png           <NA>             401            0
+#> 48     yx            .png           <NA>             401            0
+#> 49     yx            .png           <NA>             401            0
+#> 50     yx            .png           <NA>             401            0
+#> 51     yx            .png           <NA>             401            0
+#> 52     yx            .png           <NA>             401            0
+#> 53     yx            .png           <NA>             401            0
+#> 54     yx            .png           <NA>             401            0
+#> 55     yx            .png           <NA>             401            0
+#> 56     yx            .png           <NA>             401            0
+#> 57     yx            .png           <NA>             401            0
+#> 58     yx            .png           <NA>             401            0
+#> 59     yx            .png           <NA>             401            0
+#> 60     yx            .png           <NA>             401            0
+#> 61     yx            .png           <NA>             401            0
+#> 62     yx            .png           <NA>             401            0
+#> 63     yx            .png           <NA>             401            0
+#> 64     yx            .png           <NA>             401            0
+#> 65     yx            .png           <NA>             401            0
+#> 66     xy            .png          ?key=             403            0
+#> 67     xy            .png          ?key=             403            0
+#> 68     xy            .png          ?key=             403            0
+#> 69     xy            .png          ?key=             403            0
+#> 70     xy            .png          ?key=             403            0
+#> 71     xy            .png          ?key=             403            0
+#> 72     xy            .png          ?key=             403            0
+#> 73     xy            .png          ?key=             403            0
+#> 74     xy            .png          ?key=             403            0
+#> 75     xy            .png          ?key=             403            0
+#> 76     xy            .jpg          ?key=             403            0
+#> 77     xy            .png          ?key=             403            0
+#> 78     xy            .png          ?key=             403            0
+#> 79     xy            .png          ?key=             403            0
+#> 80     xy            .png          ?key=             403            0
+#>                       url_website
+#> 1  https://www.openstreetmap.org/
+#> 2  https://www.openstreetmap.org/
+#> 3  https://www.openstreetmap.org/
+#> 4          https://stadiamaps.com
+#> 5          https://stadiamaps.com
+#> 6          https://stadiamaps.com
+#> 7          https://stadiamaps.com
+#> 8          https://stadiamaps.com
+#> 9          https://stadiamaps.com
+#> 10         https://stadiamaps.com
+#> 11         https://stadiamaps.com
+#> 12         https://stadiamaps.com
+#> 13      https://thunderforest.com
+#> 14      https://thunderforest.com
+#> 15      https://thunderforest.com
+#> 16      https://thunderforest.com
+#> 17      https://thunderforest.com
+#> 18      https://thunderforest.com
+#> 19      https://thunderforest.com
+#> 20      https://thunderforest.com
+#> 21      https://thunderforest.com
+#> 22      https://thunderforest.com
+#> 23                           <NA>
+#> 24                           <NA>
+#> 25                           <NA>
+#> 26                           <NA>
+#> 27                           <NA>
+#> 28                           <NA>
+#> 29                           <NA>
+#> 30                           <NA>
+#> 31                           <NA>
+#> 32                           <NA>
+#> 33        https://www.mapbox.com/
+#> 34        https://www.mapbox.com/
+#> 35        https://www.mapbox.com/
+#> 36        https://www.mapbox.com/
+#> 37        https://www.mapbox.com/
+#> 38        https://www.mapbox.com/
+#> 39        https://www.mapbox.com/
+#> 40                           <NA>
+#> 41                           <NA>
+#> 42                           <NA>
+#> 43                           <NA>
+#> 44                           <NA>
+#> 45                           <NA>
+#> 46                           <NA>
+#> 47                           <NA>
+#> 48                           <NA>
+#> 49                           <NA>
+#> 50                           <NA>
+#> 51                           <NA>
+#> 52                           <NA>
+#> 53                           <NA>
+#> 54                           <NA>
+#> 55                           <NA>
+#> 56                           <NA>
+#> 57                           <NA>
+#> 58                           <NA>
+#> 59                           <NA>
+#> 60                           <NA>
+#> 61                           <NA>
+#> 62                           <NA>
+#> 63                           <NA>
+#> 64                           <NA>
+#> 65                           <NA>
+#> 66           https://maptiler.com
+#> 67           https://maptiler.com
+#> 68           https://maptiler.com
+#> 69           https://maptiler.com
+#> 70           https://maptiler.com
+#> 71           https://maptiler.com
+#> 72           https://maptiler.com
+#> 73           https://maptiler.com
+#> 74           https://maptiler.com
+#> 75           https://maptiler.com
+#> 76           https://maptiler.com
+#> 77           https://maptiler.com
+#> 78           https://maptiler.com
+#> 79           https://maptiler.com
+#> 80           https://maptiler.com
 
 # add a custom map service and type yourself:
 add_maptypes(
    map_service = "someservice", map_type = "terrain", 
    url_endpoint = "https://tile.someservice.org")
-#> Error in rbind(deparse.level, ...): numbers of columns of arguments do not match
 
 # control further aspects of a custom map service and type:
 add_maptypes(
@@ -644,5 +649,4 @@ add_maptypes(
    auth_error_code = 401, 
    url_website = "https://someservice.org"
 )
-#> Error in rbind(deparse.level, ...): numbers of columns of arguments do not match
 ```

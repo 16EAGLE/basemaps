@@ -88,7 +88,7 @@ get_defaults()
 #> [1] NA
 #> 
 #> $map_dir
-#> [1] "/tmp/Rtmp2HFhKG/basemaps/"
+#> [1] "/tmp/RtmpNKjKcq/basemaps/"
 #> 
 #> $ext
 #> Simple feature collection with 1 feature and 2 fields
