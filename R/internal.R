@@ -414,8 +414,8 @@ out <- function(input, type = 1, ll = NULL, msg = FALSE, sign = "", verbose = ge
 #' @keywords internal
 #' @noRd
 .defaults <- function(){
-  list(map_service = "carto",
-       map_type = "voyager",
+  list(map_service = "osm",
+       map_type = "streets",
        map_res = 1,
        map_token = NA)
 }
@@ -427,7 +427,9 @@ out <- function(input, type = 1, ll = NULL, msg = FALSE, sign = "", verbose = ge
   x <-  paste0(apply(maptypes, MARGIN = 1, function(y){
     paste0(
       "| `", y[1], "` | `", y[2], "` | ", 
-      if(grepl("mapbox", y[1],)){
+      if (grepl("carto", y[1],)){
+        "yes, register: https://carto.com/basemaps/apikey/"
+      } else if(grepl("mapbox", y[1],)){
         "yes, register: https://mapbox.com"
       } else if(grepl("osm_thunderforest", y[1],)){
         "yes, register: https://www.thunderforest.com/"
@@ -501,16 +503,16 @@ out <- function(input, type = 1, ll = NULL, msg = FALSE, sign = "", verbose = ge
     c("osm_thunderforest", "mobile_atlas", "https://tile.thunderforest.com/mobile-atlas/", "xy", ".png", "?apikey=", "403", "https://thunderforest.com"),
     c("osm_thunderforest", "neighbourhood", "https://tile.thunderforest.com/neighbourhood/", "xy", ".png", "?apikey=", "403", "https://thunderforest.com"),
     c("osm_thunderforest", "atlas", "https://tile.thunderforest.com/atlas/", "xy", ".png", "?apikey=", "403", "https://thunderforest.com"),
-    c("carto", "light", "https://basemaps.cartocdn.com/light_all/", "xy", ".png", NA, "401", NA),
-    c("carto", "light_no_labels", "https://basemaps.cartocdn.com/light_nolabels/", "xy", ".png", NA, "401", NA),
-    c("carto", "light_only_labels", "https://basemaps.cartocdn.com/light_only_labels/", "xy", ".png", NA, "401", NA),
-    c("carto", "dark", "https://basemaps.cartocdn.com/dark_all/", "xy", ".png", NA, "401", NA),
-    c("carto", "dark_no_labels", "https://basemaps.cartocdn.com/dark_nolabels/", "xy", ".png", NA, "401", NA),
-    c("carto", "dark_only_labels", "https://basemaps.cartocdn.com/dark_only_labels/", "xy", ".png", NA, "401", NA),
-    c("carto", "voyager", "https://basemaps.cartocdn.com/rastertiles/voyager/", "xy", ".png", NA, "401", NA),
-    c("carto", "voyager_no_labels", "https://basemaps.cartocdn.com/rastertiles/voyager_nolabels/", "xy", ".png", NA, "401", NA),
-    c("carto", "voyager_only_labels", "https://basemaps.cartocdn.com/rastertiles/voyager_only_labels/", "xy", ".png", NA, "401", NA),
-    c("carto", "voyager_labels_under", "https://basemaps.cartocdn.com/rastertiles/voyager_labels_under/", "xy", ".png", NA, "401", NA),
+    c("carto", "light", "https://basemaps.cartocdn.com/light_all/", "xy", ".png", "?key=", "401", "https://carto.com/basemaps/apikey/"),
+    c("carto", "light_no_labels", "https://basemaps.cartocdn.com/light_nolabels/", "xy", ".png", "?key=", "401", "https://carto.com/basemaps/apikey/"),
+    c("carto", "light_only_labels", "https://basemaps.cartocdn.com/light_only_labels/", "xy", ".png", "?key=", "401", "https://carto.com/basemaps/apikey/"),
+    c("carto", "dark", "https://basemaps.cartocdn.com/dark_all/", "xy", ".png", "?key=", "401", "https://carto.com/basemaps/apikey/"),
+    c("carto", "dark_no_labels", "https://basemaps.cartocdn.com/dark_nolabels/", "xy", ".png", "?key=", "401", "https://carto.com/basemaps/apikey/"),
+    c("carto", "dark_only_labels", "https://basemaps.cartocdn.com/dark_only_labels/", "xy", ".png", "?key=", "401", "https://carto.com/basemaps/apikey/"),
+    c("carto", "voyager", "https://basemaps.cartocdn.com/rastertiles/voyager/", "xy", ".png", "?key=", "401", "https://carto.com/basemaps/apikey/"),
+    c("carto", "voyager_no_labels", "https://basemaps.cartocdn.com/rastertiles/voyager_nolabels/", "xy", ".png", "?key=", "401", "https://carto.com/basemaps/apikey/"),
+    c("carto", "voyager_only_labels", "https://basemaps.cartocdn.com/rastertiles/voyager_only_labels/", "xy", ".png", "?key=", "401", "https://carto.com/basemaps/apikey/"),
+    c("carto", "voyager_labels_under", "https://basemaps.cartocdn.com/rastertiles/voyager_labels_under/", "xy", ".png", "?key=", "401", "https://carto.com/basemaps/apikey/"),
     c("mapbox", "streets", "https://api.mapbox.com/styles/v1/mapbox/streets-v11/tiles/", "xy", "", "?access_token=", "401", "https://www.mapbox.com/"),
     c("mapbox", "outdoors", "https://api.mapbox.com/styles/v1/mapbox/outdoors-v11/tiles/", "xy", "", "?access_token=", "401", "https://www.mapbox.com/"),
     c("mapbox", "light", "https://api.mapbox.com/styles/v1/mapbox/light-v10/tiles/", "xy", "", "?access_token=", "401", "https://www.mapbox.com/"),

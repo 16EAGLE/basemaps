@@ -36,6 +36,7 @@ test_that("basemap()", {
   expect_error(basemap(ext, map_service = "osm_stamen", map_type = "toner", verbose = F))
   expect_error(basemap(ext, map_service = "osm_stadia", map_type = "alidade_smooth", verbose = F))
   expect_error(basemap(ext, map_service = "maptiler", map_type = "basic", verbose = F))
+  expect_error(basemap(ext, map_service = "carto", map_type = "light", verbose = F))
   
   # test false map_token error mapbox
   expect_error(basemap(ext, map_service = "mapbox", map_type = "streets", map_token = "this_is_nonsense", verbose = F))
@@ -46,7 +47,7 @@ test_that("basemap()", {
   # test multiple extents (dateline crossing)
   expect_is(basemap_raster(list(ext), map_dir = map_dir, verbose = F), "RasterBrick")
   expect_warning(expect_is(basemap_raster(
-    ext = ext_sc, map_service = "carto", map_type = "light", map_dir = map_dir,
+    ext = ext_sc, map_service = "osm", map_type = "streets", map_dir = map_dir,
     verbose = F, custom_crs = custom_crs), "RasterBrick"
   ))
   
@@ -134,6 +135,7 @@ if(isTRUE(test$maps)){
   if(isFALSE(run_stamen)) test_services <- test_services[test_services != "osm_stamen"]
   if(isFALSE(run_stadia)) test_services <- test_services[test_services != "osm_stadia"]
   if(isFALSE(run_maptiler)) test_services <- test_services[test_services != "maptiler"]
+  if(isFALSE(run_carto)) test_services <- test_services[test_services != "carto"]
   if(isFALSE(run_esri)) test_services <- test_services[test_services != "esri"]
   
   # s <- service <- test_services[1]
@@ -151,6 +153,8 @@ if(isTRUE(test$maps)){
         osmstadia_token
       } else if(s == "maptiler"){
         maptiler_token
+      } else if(s == "carto"){
+        carto_token
       } else {
         NULL
       }

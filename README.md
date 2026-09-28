@@ -254,16 +254,16 @@ This table lists all currently implemented map services and map types and indica
 | `osm_thunderforest` | `mobile_atlas` | yes, register: https://www.thunderforest.com/ |
 | `osm_thunderforest` | `neighbourhood` | yes, register: https://www.thunderforest.com/ |
 | `osm_thunderforest` | `atlas` | yes, register: https://www.thunderforest.com/ |
-| `carto` | `light` | no |
-| `carto` | `light_no_labels` | no |
-| `carto` | `light_only_labels` | no |
-| `carto` | `dark` | no |
-| `carto` | `dark_no_labels` | no |
-| `carto` | `dark_only_labels` | no |
-| `carto` | `voyager` | no |
-| `carto` | `voyager_no_labels` | no |
-| `carto` | `voyager_only_labels` | no |
-| `carto` | `voyager_labels_under` | no |
+| `carto` | `light` | yes, register: https://carto.com/basemaps/apikey/ |
+| `carto` | `light_no_labels` | yes, register: https://carto.com/basemaps/apikey/ |
+| `carto` | `light_only_labels` | yes, register: https://carto.com/basemaps/apikey/ |
+| `carto` | `dark` | yes, register: https://carto.com/basemaps/apikey/ |
+| `carto` | `dark_no_labels` | yes, register: https://carto.com/basemaps/apikey/ |
+| `carto` | `dark_only_labels` | yes, register: https://carto.com/basemaps/apikey/ |
+| `carto` | `voyager` | yes, register: https://carto.com/basemaps/apikey/ |
+| `carto` | `voyager_no_labels` | yes, register: https://carto.com/basemaps/apikey/ |
+| `carto` | `voyager_only_labels` | yes, register: https://carto.com/basemaps/apikey/ |
+| `carto` | `voyager_labels_under` | yes, register: https://carto.com/basemaps/apikey/ |
 | `mapbox` | `streets` | yes, register: https://mapbox.com |
 | `mapbox` | `outdoors` | yes, register: https://mapbox.com |
 | `mapbox` | `light` | yes, register: https://mapbox.com |

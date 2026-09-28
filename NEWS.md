@@ -1,5 +1,21 @@
 ***
 
+## basemaps (development version)
+
+**Bugs:**
+
+* `map_service = "carto"` now requires a `map_token`, since Carto requires an API key for its basemaps. Register at https://carto.com/basemaps/apikey/ to obtain a key (#38)
+
+**Changes:**
+
+* the default map service and map type is now `map_service = "osm"`, `map_type = "streets"` (previously `"carto"`, `"voyager"`).
+  This ensures that the default map service does not require a `map_token`.
+
+<br>
+
+
+***
+
 ## basemaps 0.1.1
 Minor improvements 
 

@@ -18,6 +18,9 @@ run_stadia <- osmstadia_token != ""
 maptiler_token = Sys.getenv("basemaps_maptiler_token")
 run_maptiler <- maptiler_token != ""
 
+carto_token = Sys.getenv("basemaps_carto_token")
+run_carto <- carto_token != ""
+
 run_esri = as.logical(Sys.getenv("basemaps_run_esri"))
 if(is.na(run_esri)) run_esri <- FALSE
 
